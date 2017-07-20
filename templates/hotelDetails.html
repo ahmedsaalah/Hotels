@@ -1,0 +1,2080 @@
+<!DOCTYPE html>
+<html ng-app="phptravelsApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="php travels is complete booking and reservation system provides complete solution for travel agency">
+    <meta name="keywords" content="php travels script, php hotels booking script, php reservation system">
+    <meta name="author" content="PHPTRAVELS">
+    <title>{{Hotel.name}} Hotel</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='uploads/global/favicon.png') }}">
+    <link href="{{ url_for('static', filename='themes/default/assets/css/bootstrap.css') }}" rel="stylesheet" media="screen">
+    <link href="{{ url_for('static', filename='themes/default/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/starability-all.min.css') }}" rel="stylesheet">
+
+    <!-- facebook -->
+    <meta property="og:title" content="Corso Boutique Hotel" />
+    <meta property="og:site_name" content="PHPTravels" />
+    <meta property="og:description" content="php travels is complete booking and reservation system provides complete solution for travel agency" />
+    <meta property="og:image" content="{{ url_for('static', filename='uploads/global/favicon.png') }}" />
+    <meta property="og:url" content="http://localhost/faisal//" />
+    <meta property="og:publisher" content="https://www.facebook.com/PHPTravels" />
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org/",
+            "@type": "Organization",
+            "name": "PHPTravels",
+            "url": "http://localhost/faisal//",
+            "logo": "http://localhost/faisal/uploads/global/favicon.png",
+            "sameAs": "https://www.facebook.com/PHPTravels",
+            "sameAs": "https://twitter.com/PHPTravels",
+            "sameAs": "https://www.pinterest.com/PHPTravels/",
+            "sameAs": "https://plus.google.com/u/0/PHPTravels/posts",
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+123-456-789",
+                "contactType": "Customer Service"
+            }
+        } {
+            "@context": "http://schema.org",
+            "@type": "WebSite",
+            "name": "PHPTravels",
+            "url": "http://localhost/faisal/"
+        }
+    </script>
+    <!-- Child Theme -->
+    <style>
+        @import "{{ url_for('static', filename='themes/default/assets/css/childstyle.css') }}";
+    </style>
+    <!-- Google Maps -->
+    <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyA0cI0f-PExxoanF3Jf9bT0Sb41Sym4ywk&libraries=places"></script>
+    <script src="http://localhost/faisal/themes/default/assets/js/infobox.js"></script>
+    <!-- jQuery -->
+    <script src="http://localhost/faisal/themes/default/assets/js/jquery-1.11.2.min.js"></script>
+    <!-- RTL CSS -->
+    <!-- Mobile Redirect -->
+    <!--[if lt IE 7] > <link rel="stylesheet" type="text/css" href="http://localhost/faisal/themes/default/assets/css/font-awesome-ie7.css" media="screen" /> <![endif]-->
+    <!-- Autocomplete CSS files-->
+    <link href="{{ url_for('static', filename='themes/default/assets/js/autocomplete/easy-autocomplete.min.css') }}" rel="stylesheet" type="text/css">
+    <!-- Autocomplete CSS files-->
+    <!-- Autocomplete JS files-->
+    <script src="{{ url_for('static', filename='themes/default/assets/js/autocomplete/jquery.easy-autocomplete.min.js') }}" type="text/javascript"></script>
+
+    <!-- Autocomplete JS files-->
+
+</head>
+
+<body>
+    <div class="clearfix"></div>
+    <div class="navbar navbar-static-top navbar-default ">
+        <div class="container">
+            <div class="navbar">
+                <!-- Navigation-->
+                <div class="navbar-header go-right">
+                    <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
+                    <a href="http://localhost/faisal/" class="navbar-brand"><img src="{{ url_for('static', filename='uploads/global/logo.png') }}" alt="PHPTravels" class="logo" /></a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="<!--hidden-sm--> nav navbar-nav navbar-right currency_btn <!--go-left-->">
+                        <form class="navbar-form navbar-left width_change">
+                            <div class="form-group">
+                                <li class="dropdown  go-left pull-left">
+                                    <form class="dropdown pull-left header-currency go-left">
+                                        <div class="styled-select">
+                                            <select onchange="change_currency(this.value)" class="selectx input-sm" name="currency" id="currency">
+                    <option value="1" selected>USD</option>
+                    <option value="3" >GBP</option>
+                    <option value="9" >SAR</option>
+                    <option value="11" >EUR</option>
+                    <option value="12" >PKR</option>
+                    <option value="13" >KWD</option>
+                    <option value="17" >JPY</option>
+                    <option value="18" >INR</option>
+                    <option value="19" >CNY</option>
+                    <option value="20" >TRY</option>
+                    </select>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </form>
+                                </li>
+                            </div>
+                        </form>
+                        <li class="pull-left width_change">
+                            <a href="javascript:void(0);" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true"><img src="http://localhost/faisal/uploads/images/language/en.png" width="21" height="14" alt="English"> English </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="http://localhost/faisal/hotel/hotel/ar/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="Arabic" id="ar" class="changelang"><img src="http://localhost/faisal/uploads/images/language/ar.png" width="21" height="14" alt=""> Arabic</a>
+                                </li>
+                                <li>
+                                    <a href="http://localhost/faisal/hotel/hotel/en/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="English" id="en" class="changelang"><img src="http://localhost/faisal/uploads/images/language/en.png" width="21" height="14" alt=""> English</a>
+                                </li>
+                                <li>
+                                    <a href="http://localhost/faisal/hotel/hotel/es/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="Spanish" id="es" class="changelang"><img src="http://localhost/faisal/uploads/images/language/es.png" width="21" height="14" alt=""> Spanish</a>
+                                </li>
+                                <li>
+                                    <a href="http://localhost/faisal/hotel/hotel/fr/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="French" id="fr" class="changelang"><img src="http://localhost/faisal/uploads/images/language/fr.png" width="21" height="14" alt=""> French</a>
+                                </li>
+                                <li>
+                                    <a href="http://localhost/faisal/hotel/hotel/it/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="Italian" id="it" class="changelang"><img src="http://localhost/faisal/uploads/images/language/it.png" width="21" height="14" alt=""> Italian</a>
+                                </li>
+                                <li>
+                                    <a href="http://localhost/faisal/hotel/hotel/iw/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="Hebrew" id="iw" class="changelang"><img src="http://localhost/faisal/uploads/images/language/iw.png" width="21" height="14" alt=""> Hebrew</a>
+                                </li>
+                                <li>
+                                    <a href="http://localhost/faisal/hotel/hotel/pt/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="Portuguese" id="pt" class="changelang"><img src="http://localhost/faisal/uploads/images/language/pt.png" width="21" height="14" alt=""> Portuguese</a>
+                                </li>
+                                <li>
+                                    <a href="http://localhost/faisal/hotel/hotel/ru/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="Russian" id="ru" class="changelang"><img src="http://localhost/faisal/uploads/images/language/ru.png" width="21" height="14" alt=""> Russian</a>
+                                </li>
+                                <li>
+                                    <a href="http://localhost/faisal/hotel/hotel/tl/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="Filipino" id="tl" class="changelang"><img src="http://localhost/faisal/uploads/images/language/tl.png" width="21" height="14" alt=""> Filipino</a>
+                                </li>
+                                <li>
+                                    <a href="http://localhost/faisal/hotel/hotel/tr/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="Turkish" id="tr" class="changelang"><img src="http://localhost/faisal/uploads/images/language/tr.png" width="21" height="14" alt=""> Turkish</a>
+                                </li>
+                                <li>
+                                    <a href="http://localhost/faisal/hotel/hotel/uk/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="Ukrainian" id="uk" class="changelang"><img src="http://localhost/faisal/uploads/images/language/uk.png" width="21" height="14" alt=""> Ukrainian</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <div class="header-brdr pull-left hidden-xs hidden-md go-left"></div>
+                        <li class="<!--pull-right--> width_change">
+                            <a href="javascript:void(0);" data-toggle="dropdown" class="dropdown-toggle"><i class="icon_set_2_icon-105"></i> My Account <b class="lightcaret mt-2"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="http://localhost/faisal/login">  Login</a></li>
+                                <li><a href="http://localhost/faisal/register">  Sign Up</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-default navbar-orange hidden-xs">
+        <div class="container">
+            <div class="row">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-left go-right">
+                        <li class="dropdown  go-right">
+                            <a class="dropdown-toggle" href="http://localhost/faisal/"> Home </a>
+                        </li>
+                        <li class="go-right  ">
+                            <a href="http://localhost/faisal/hotel/" class=" " target="_self">
+                                <!--<i class=''></i>-->Hotels </a>
+                        </li>
+                        <li class="go-right  ">
+                            <a href="http://localhost/faisal/flight" class=" " target="">
+                                <!--<i class=''></i>-->Flights </a>
+                        </li>
+                        <li class="go-right  ">
+                            <a href="http://localhost/faisal/tours" class=" " target="_self">
+                                <!--<i class=''></i>-->Tours </a>
+                        </li>
+                        <li class="go-right  ">
+                            <a href="http://localhost/faisal/car" class=" " target="_self">
+                                <!--<i class='fa fa-cab'></i>-->Cars </a>
+                        </li>
+                        <li class="go-right  ">
+                            <a href="http://localhost/faisal/themes/default/../../offers" class=" " target="_self">
+                                <!--<i class=''></i>-->Offers </a>
+                        </li>
+                        <li class="go-right  ">
+                            <a href="http://localhost/faisal/blog" class=" " target="_self">
+                                <!--<i class='fa fa-building'></i>-->Blog </a>
+                        </li>
+                        <li class="go-right  ">
+                            <a href="http://localhost/faisal/contact-us" class=" " target="">
+                                <!--<i class='glyphicon glyphicon-phone-alt'></i>-->Contact Us </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <link href="{{ url_for('static', filename='themes/default/assets/include/slider/slider.min.css') }}" rel="stylesheet" />
+    <script src="{{ url_for('static', filename='themes/default/assets/js/details.js') }}"></script>
+    <script src="{{ url_for('static', filename='themes/default/assets/include/slider/slider.js') }}"></script>
+    <style>
+        .xxl {
+            width: 100% !important;
+        }
+        
+        .xl {
+            width: 100%
+        }
+        
+        .l {
+            width: 50%
+        }
+    </style>
+    <!-- map -->
+    <div class="collapse" id="collapseMap">
+        <div id="map" class="map"></div>
+        <br>
+        <script>
+            $('#collapseMap').on('shown.bs.collapse', function(e) {
+                (function(A) {
+                    if (!Array.prototype.forEach)
+                        A.forEach = A.forEach || function(action, that) {
+                            for (var i = 0, l = this.length; i < l; i++)
+                                if (i in this) action.call(that, this[i], i, this);
+                        }
+                })(Array.prototype);
+                var mapObject, markers = [],
+                    markersData = {
+                        'marker': [{
+                            name: "{{ Hotel.name}}",
+                            location_latitude: "{{  Hotel.lat }}",
+                            location_longitude: "{{ Hotel.longt}} ",
+                            map_image_url: '',
+                            name_point: "{{Hotel.name}}",
+                            description_point: 'Property Location A stay at {{Hotel.name}} places you in the heart of {{city}} ',
+                            url_point: ''
+                        }, {
+                            name: 'hotel name',
+                            location_latitude: "",
+                            location_longitude: "",
+                            map_image_url: "https://images.travelnow.com/hotels/12000000/11930000/11924600/11924579/11924579_14_b.jpg",
+                            name_point: "Corso Boutique Hotel",
+                            description_point: '',
+                            url_point: "http://localhost/faisal/hotel/hotel/540683/0ABAA8BA-F64D-9591-5D42-7021CCA965F3"
+                        }, {
+                            name: 'hotel name',
+                            location_latitude: "",
+                            location_longitude: "",
+                            map_image_url: "https://images.travelnow.com/hotels/2000000/1810000/1805300/1805264/1805264_44_b.jpg",
+                            name_point: "Boutique Hotel Trevi",
+                            description_point: '',
+                            url_point: "http://localhost/faisal/hotel/hotel/262146/0ABAA8BA-F64D-9591-5D42-7021CCA965F3"
+                        }, {
+                            name: 'hotel name',
+                            location_latitude: "",
+                            location_longitude: "",
+                            map_image_url: "https://images.travelnow.com/hotels/3000000/2960000/2959900/2959893/2959893_113_b.jpg",
+                            name_point: "Pantheon Royal Suite",
+                            description_point: '',
+                            url_point: "http://localhost/faisal/hotel/hotel/327692/0ABAA8BA-F64D-9591-5D42-7021CCA965F3"
+                        }, {
+                            name: 'hotel name',
+                            location_latitude: "",
+                            location_longitude: "",
+                            map_image_url: "https://images.travelnow.com/hotels/12000000/11550000/11543900/11543802/11543802_1_b.jpg",
+                            name_point: "Miriam Guesthouse",
+                            description_point: '',
+                            url_point: "http://localhost/faisal/hotel/hotel/532483/0ABAA8BA-F64D-9591-5D42-7021CCA965F3"
+                        }, ]
+                    };
+                var mapOptions = {
+                    zoom: 14,
+                    center: new google.maps.LatLng("{{  Hotel.lat }}", "{{  Hotel.longt }}"),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    mapTypeControl: !1,
+                    mapTypeControlOptions: {
+                        style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+                        position: google.maps.ControlPosition.LEFT_CENTER
+                    },
+                    panControl: !1,
+                    panControlOptions: {
+                        position: google.maps.ControlPosition.TOP_RIGHT
+                    },
+                    zoomControl: !0,
+                    zoomControlOptions: {
+                        style: google.maps.ZoomControlStyle.LARGE,
+                        position: google.maps.ControlPosition.TOP_RIGHT
+                    },
+                    scrollwheel: !1,
+                    scaleControl: !1,
+                    scaleControlOptions: {
+                        position: google.maps.ControlPosition.TOP_LEFT
+                    },
+                    streetViewControl: !0,
+                    streetViewControlOptions: {
+                        position: google.maps.ControlPosition.LEFT_TOP
+                    },
+                    styles: []
+                };
+                var marker;
+                mapObject = new google.maps.Map(document.getElementById('map'), mapOptions);
+                for (var key in markersData)
+                    markersData[key].forEach(function(item) {
+                        marker = new google.maps.Marker({
+                            position: new google.maps.LatLng(item.location_latitude, item.location_longitude),
+                            map: mapObject,
+                            icon: 'http://localhost/faisal/uploads/global/default/' + key + '.png',
+                        });
+                        if ('undefined' === typeof markers[key])
+                            markers[key] = [];
+                        markers[key].push(marker);
+                        google.maps.event.addListener(marker, 'click', (function() {
+                            closeInfoBox();
+                            getInfoBox(item).open(mapObject, this);
+                            mapObject.setCenter(new google.maps.LatLng(item.location_latitude, item.location_longitude))
+                        }))
+                    });
+
+                function hideAllMarkers() {
+                    for (var key in markers)
+                        markers[key].forEach(function(marker) {
+                            marker.setMap(null)
+                        })
+                };
+
+                function closeInfoBox() {
+                    $('div.infoBox').remove()
+                };
+
+                function getInfoBox(item) {
+                    return new InfoBox({
+                        content: '<div class="marker_info" id="marker_info">' + '<img style="width:280px;height:140px" src="' + item.map_image_url + '" alt="Corso Boutique Hotel"/>' + '<h3>' + item.name_point + '</h3>' + '<span>' + item.description_point + '</span>' + '<a href="' + item.url_point + '" class="btn btn-primary">Details</a>' + '</div>',
+                        disableAutoPan: !0,
+                        maxWidth: 0,
+                        pixelOffset: new google.maps.Size(40, -190),
+                        closeBoxMargin: '0px -20px 2px 2px',
+                        closeBoxURL: "http://localhost/faisal/themes/default/assets/img/close.png",
+                        isHidden: !1,
+                        pane: 'floatPane',
+                        enableEventPropagation: !0
+                    })
+                }
+            });
+        </script>
+    </div>
+    <!-- map -->
+    <div id="OVERVIEW" class="container">
+        <div class="">
+            <!-- aside -->
+            <div class="col-md-4 go-left searchbox-padding">
+                <div class="panel panel-default">
+                    <div class="panel-heading panel-green">Details</div>
+                    <div class="panel-body">
+                        <div class="scroll-400">
+                            <p class="main-title go-right">Description</p>
+                            <div class="clearfix"></div>
+                            <i class="tiltle-line  go-right"></i>
+                            <div class="clearfix"></div>
+                            {{Hotel.descriptions}}
+                            <div class="clearfix"></div>
+                            <hr>
+
+                            <div class="panel panel-default">
+                                <!-- Start checkInInstructions -->
+
+                                <!-- End checkInInstructions -->
+                                <!-- Start SpecialcheckInInstructions -->
+
+                                <!-- End  SpecialcheckInInstructions -->
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading go-text-right panel-blue">Hotel Amenities</div>
+                        <div class="panel-body">
+                            <div class="scroll-400">
+                                <div class="go-text-right">
+
+                                    {% for theme in Hotel.themes %}
+
+
+
+                                    <div style="margin-top:6px;margin-left:0px" class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <span class="text-left go-text-right size14">
+                                                        <ul class="list_ok col-md-12 RTL" style="margin: 0 0 5px 0;">
+                                <li class="go-right"> <img class="go-right" style="max-height:30px;max-witdh:40px" src=""> {{theme }}</li>
+                            </ul>
+                                                                                </span>
+                                        </div>
+                                    </div>
+
+
+                                    {% endfor %}
+
+                                    <div style="margin-top:6px;margin-left:0px" class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <span class="text-left go-text-right size14">
+                                                        <ul class="list_ok col-md-12 RTL" style="margin: 0 0 5px 0;">
+                                <li class="go-right"> <img class="go-right" style="max-height:30px;max-witdh:40px" src=""> Bathrobes</li>
+                            </ul>
+                                                                                </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:6px;margin-left:0px" class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <span class="text-left go-text-right size14">
+                                                        <ul class="list_ok col-md-12 RTL" style="margin: 0 0 5px 0;">
+                                <li class="go-right"> <img class="go-right" style="max-height:30px;max-witdh:40px" src=""> Bidet</li>
+                            </ul>
+                                                                                </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:6px;margin-left:0px" class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <span class="text-left go-text-right size14">
+                                                        <ul class="list_ok col-md-12 RTL" style="margin: 0 0 5px 0;">
+                                <li class="go-right"> <img class="go-right" style="max-height:30px;max-witdh:40px" src=""> Blackout Drapes/curtains</li>
+                            </ul>
+                                                                                </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:6px;margin-left:0px" class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <span class="text-left go-text-right size14">
+                                                        <ul class="list_ok col-md-12 RTL" style="margin: 0 0 5px 0;">
+                                <li class="go-right"> <img class="go-right" style="max-height:30px;max-witdh:40px" src=""> Connecting/adjoining Rooms&#8230;</li>
+                            </ul>
+                                                                                </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:6px;margin-left:0px" class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <span class="text-left go-text-right size14">
+                                                        <ul class="list_ok col-md-12 RTL" style="margin: 0 0 5px 0;">
+                                <li class="go-right"> <img class="go-right" style="max-height:30px;max-witdh:40px" src=""> Daily Housekeeping</li>
+                            </ul>
+                                                                                </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:6px;margin-left:0px" class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <span class="text-left go-text-right size14">
+                                                        <ul class="list_ok col-md-12 RTL" style="margin: 0 0 5px 0;">
+                                <li class="go-right"> <img class="go-right" style="max-height:30px;max-witdh:40px" src=""> Desk</li>
+                            </ul>
+                                                                                </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:6px;margin-left:0px" class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <span class="text-left go-text-right size14">
+                                                        <ul class="list_ok col-md-12 RTL" style="margin: 0 0 5px 0;">
+                                <li class="go-right"> <img class="go-right" style="max-height:30px;max-witdh:40px" src=""> Espresso Maker</li>
+                            </ul>
+                                                                                </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:6px;margin-left:0px" class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <span class="text-left go-text-right size14">
+                                                        <ul class="list_ok col-md-12 RTL" style="margin: 0 0 5px 0;">
+                                <li class="go-right"> <img class="go-right" style="max-height:30px;max-witdh:40px" src=""> Flat-panel TV</li>
+                            </ul>
+                                                                                </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:6px;margin-left:0px" class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <span class="text-left go-text-right size14">
+                                                        <ul class="list_ok col-md-12 RTL" style="margin: 0 0 5px 0;">
+                                <li class="go-right"> <img class="go-right" style="max-height:30px;max-witdh:40px" src=""> Free WiFi</li>
+                            </ul>
+                                                                                </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:6px;margin-left:0px" class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <span class="text-left go-text-right size14">
+                                                        <ul class="list_ok col-md-12 RTL" style="margin: 0 0 5px 0;">
+                                <li class="go-right"> <img class="go-right" style="max-height:30px;max-witdh:40px" src=""> Free Toiletries</li>
+                            </ul>
+                                                                                </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:6px;margin-left:0px" class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <span class="text-left go-text-right size14">
+                                                        <ul class="list_ok col-md-12 RTL" style="margin: 0 0 5px 0;">
+                                <li class="go-right"> <img class="go-right" style="max-height:30px;max-witdh:40px" src=""> Hair Dryer</li>
+                            </ul>
+                                                                                </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:6px;margin-left:0px" class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <span class="text-left go-text-right size14">
+                                                        <ul class="list_ok col-md-12 RTL" style="margin: 0 0 5px 0;">
+                                <li class="go-right"> <img class="go-right" style="max-height:30px;max-witdh:40px" src=""> Hypo-allergenic Bedding&#8230;</li>
+                            </ul>
+                                                                                </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:6px;margin-left:0px" class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <span class="text-left go-text-right size14">
+                                                        <ul class="list_ok col-md-12 RTL" style="margin: 0 0 5px 0;">
+                                <li class="go-right"> <img class="go-right" style="max-height:30px;max-witdh:40px" src=""> In-room Climate Control&#8230;</li>
+                            </ul>
+                                                                                </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:6px;margin-left:0px" class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <span class="text-left go-text-right size14">
+                                                        <ul class="list_ok col-md-12 RTL" style="margin: 0 0 5px 0;">
+                                <li class="go-right"> <img class="go-right" style="max-height:30px;max-witdh:40px" src=""> In-room Climate Control&#8230;</li>
+                            </ul>
+                                                                                </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:6px;margin-left:0px" class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <span class="text-left go-text-right size14">
+                                                        <ul class="list_ok col-md-12 RTL" style="margin: 0 0 5px 0;">
+                                <li class="go-right"> <img class="go-right" style="max-height:30px;max-witdh:40px" src=""> In-room Safe</li>
+                            </ul>
+                                                                                </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:6px;margin-left:0px" class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <span class="text-left go-text-right size14">
+                                                        <ul class="list_ok col-md-12 RTL" style="margin: 0 0 5px 0;">
+                                <li class="go-right"> <img class="go-right" style="max-height:30px;max-witdh:40px" src=""> Iron/ironing Board (on&#8230;</li>
+                            </ul>
+                                                                                </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:6px;margin-left:0px" class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <span class="text-left go-text-right size14">
+                                                        <ul class="list_ok col-md-12 RTL" style="margin: 0 0 5px 0;">
+                                <li class="go-right"> <img class="go-right" style="max-height:30px;max-witdh:40px" src=""> Minibar</li>
+                            </ul>
+                                                                                </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:6px;margin-left:0px" class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <span class="text-left go-text-right size14">
+                                                        <ul class="list_ok col-md-12 RTL" style="margin: 0 0 5px 0;">
+                                <li class="go-right"> <img class="go-right" style="max-height:30px;max-witdh:40px" src=""> Non-Smoking</li>
+                            </ul>
+                                                                                </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:6px;margin-left:0px" class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <span class="text-left go-text-right size14">
+                                                        <ul class="list_ok col-md-12 RTL" style="margin: 0 0 5px 0;">
+                                <li class="go-right"> <img class="go-right" style="max-height:30px;max-witdh:40px" src=""> Pay Movies</li>
+                            </ul>
+                                                                                </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:6px;margin-left:0px" class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <span class="text-left go-text-right size14">
+                                                        <ul class="list_ok col-md-12 RTL" style="margin: 0 0 5px 0;">
+                                <li class="go-right"> <img class="go-right" style="max-height:30px;max-witdh:40px" src=""> Premium TV Channels</li>
+                            </ul>
+                                                                                </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:6px;margin-left:0px" class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <span class="text-left go-text-right size14">
+                                                        <ul class="list_ok col-md-12 RTL" style="margin: 0 0 5px 0;">
+                                <li class="go-right"> <img class="go-right" style="max-height:30px;max-witdh:40px" src=""> Premium Bedding</li>
+                            </ul>
+                                                                                </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:6px;margin-left:0px" class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <span class="text-left go-text-right size14">
+                                                        <ul class="list_ok col-md-12 RTL" style="margin: 0 0 5px 0;">
+                                <li class="go-right"> <img class="go-right" style="max-height:30px;max-witdh:40px" src=""> Rainfall Showerhead</li>
+                            </ul>
+                                                                                </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:6px;margin-left:0px" class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <span class="text-left go-text-right size14">
+                                                        <ul class="list_ok col-md-12 RTL" style="margin: 0 0 5px 0;">
+                                <li class="go-right"> <img class="go-right" style="max-height:30px;max-witdh:40px" src=""> Refrigerator (on Request)</li>
+                            </ul>
+                                                                                </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:6px;margin-left:0px" class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <span class="text-left go-text-right size14">
+                                                        <ul class="list_ok col-md-12 RTL" style="margin: 0 0 5px 0;">
+                                <li class="go-right"> <img class="go-right" style="max-height:30px;max-witdh:40px" src=""> Room Service (limited&#8230;</li>
+                            </ul>
+                                                                                </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:6px;margin-left:0px" class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <span class="text-left go-text-right size14">
+                                                        <ul class="list_ok col-md-12 RTL" style="margin: 0 0 5px 0;">
+                                <li class="go-right"> <img class="go-right" style="max-height:30px;max-witdh:40px" src=""> Satellite TV Service</li>
+                            </ul>
+                                                                                </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:6px;margin-left:0px" class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <span class="text-left go-text-right size14">
+                                                        <ul class="list_ok col-md-12 RTL" style="margin: 0 0 5px 0;">
+                                <li class="go-right"> <img class="go-right" style="max-height:30px;max-witdh:40px" src=""> Slippers</li>
+                            </ul>
+                                                                                </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:6px;margin-left:0px" class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <span class="text-left go-text-right size14">
+                                                        <ul class="list_ok col-md-12 RTL" style="margin: 0 0 5px 0;">
+                                <li class="go-right"> <img class="go-right" style="max-height:30px;max-witdh:40px" src=""> Soundproofed Rooms</li>
+                            </ul>
+                                                                                </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <!-- Start Review Total -->
+                    <!-- End Review Total -->
+                    <!-- Start Hotel Reviews bars -->
+                    <!-- End Hotel Reviews bars -->
+                    <input type="hidden" id="loggedin" value="" />
+                    <input type="hidden" id="itemid" value="" />
+                    <input type="hidden" id="module" value="ean" />
+                    <input type="hidden" id="addtxt" value="Add to wishlist" />
+                    <input type="hidden" id="removetxt" value="Remove from wishlist" />
+                    <!-- Start Add/Remove Wish list Review Section -->
+                    <!-- End Add/Remove Wish list Review Section -->
+                    <div class="row">
+                        <div class="clearfix"></div>
+                        <div class="col-md-12 form-group">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-xs-12 col-md-8 go-right">
+                <div class="panel panel-default">
+                    <div style="margin-top:10px">
+                        <div class="col-md-9 go-right">
+                            <div style="margin-top: 6px">
+                                <strong class="go-right" style="font-size: 16px">{{Hotel.name}}  </strong>
+                                <small class="go-right"><li class="starability-result" data-rating="{{Hotel.stars}}" aria-describedby="result1">
+                                    {{Hotel.stars}} stars
+                                </li>
+                                </small>
+
+                                <span class="pull-right go-left">Avg/Night </span>
+                                <div class="clearfix"></div>
+                                <span class="go-right RTL">
+                            <i style="margin-left:-5px" class="icon-location-6"></i>
+                            {{city}}                            <strong class="go-left"><span style="font-size:18px" class=" pull right go-text-right">Price USD {{price}} </span></strong>
+                                <div class="visible-xs visible-sm">
+                                    <div class="form-group"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <a class="btn btn-action pull-right btn-block" data-toggle="collapse" href="#collapseMap" aria-expanded="false" aria-controls="collapseMap">View on Map</a>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div style="margin-top:10px">
+                        <style>
+                            .fotorama__wrap .fotorama__wrap--css3 .fotorama__wrap--slide .fotorama__wrap--toggle-arrows .fotorama__wrap--no-controls {
+                                width: 100%;
+                            }
+                            
+                            .fotorama__loaded--img img {
+                                width: 100%;
+                            }
+                        </style>
+                        <!-- slider -->
+                        <div style="width:100%" class="fotorama bg-dark" data-allowfullscreen="true" data-nav="thumbs">
+                            {% for photo in Hotel.photos %}
+                            <img style="width:100%" src="{{photo}}" /> {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <!-- Start Tour Form aside -->
+                <!-- End Tour Form aside -->
+                <!-- rooms -->
+                <section id="ROOMS">
+                    <div class="panel panel-defaul">
+                        <div class="panel-heading panel-inverse"><span class="go-right">Select Room</span>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="panel-body">
+                            <form action="" method="GET" role="search">
+                                <div class="col-md-3 col-sm-2 go-right">
+                                    <div class="form-group">
+                                        <label class="size12 RTL go-right"><i class="icon-calendar-7"></i> Check in</label>
+                                        <input type="text" placeholder="Check in" name="checkin" class="form-control dpean1" value="07/16/2017" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-2 go-right">
+                                    <div class="form-group">
+                                        <label class="size12 RTL go-right"><i class="icon-calendar-7"></i> Check out</label>
+                                        <input type="text" placeholder="Check out" name="checkout" class="form-control dpean2" value="07/17/2017" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sm-1 go-right">
+                                    <div class="form-group">
+                                        <label class="size12 RTL go-right"><i class="icon-user-7"></i> Adults</label>
+                                        <select class="mySelectBoxClass form-control" name="adults" id="adults">
+                            <option value="1"  >1</option>
+                            <option value="2" selected >2</option>
+                          </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sm-1 go-right">
+                                    <div class="form-group">
+                                        <label class="size12 RTL go-right"><i class="icon-user-7"></i> Child</label>
+                                        <select class="mySelectBoxClass form-control childcountDetailsPage" name="child" id="child">
+              <option selected value="0">0</option>
+                            <option value="1" > 1 </option>
+                            <option value="2" > 2 </option>
+                            <option value="3" > 3 </option>
+                            <option value="4" > 4 </option>
+                            <option value="5" > 5 </option>
+                            <option value="6" > 6 </option>
+                          </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 go-right">
+                                    <label>&nbsp;</label>
+                                    <button class="btn btn-block btn-success textupper">Modify</button>
+                                </div>
+                            </form>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="alert alert-success">
+                        <h4>Room rate Disclaimer:</h4>
+                        <span class="size14">
+      The room rates listed are for double occupancy per room unless otherwise stated and exclude tax recovery charges and service fees.      </span>
+                    </div>
+                    {%for room in Hotel.rooms %}
+                    <form style="margin-bottom: 3px; background-color: #fff; border: 0px solid transparent; border-radius: 0px;" class="panel" action="" method="GET">
+                        <div class="rooms-update" style="margin-top:0px;margin-bottom:0px">
+                            <div class="col-lg-3 col-md-4 col-sm-4 offset-0 go-right">
+                                <div class="zoom-gallery210175250">
+                                    <a href="{{Hotel.photos[0]}}" data-source="{{Hotel.photos[0]}}" title="{{room.room_description}}">
+                                        <img class="img-responsive" src="{{Hotel.photos[0]}}">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-md-8 offset-0">
+                                <div class="labelright go-left" style="min-width:180px;margin-left:5px">
+                                    <h5 class="text-center">
+                                        <span class="green size20">
+            
+            <b>
+
+            <small>USD </small> {{room.nightly_prices[0]}}            </b><span>Per Night</span></span>
+                                    </h5>
+
+
+                                    <div class="clearfix"></div>
+                                    <div class="book">
+                                        <span style="margin-bottom: 2px; padding: 4px; border-radius: 4px" data-toggle="modal" data-target="#book210175250" class="btn btn-action btn-block">Book Now</span>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <small><strong> Price per 1 night(s) including Tax & Fees</strong> </small>
+                                    <small><strong>
+                   <br> Tax & Service Fee: 32.60      </strong></small>
+                                </div>
+                                <div style="line-height: 13px" class="labelleft2 rtl_title_home go-text-right RTL">
+                                    <h4 class="mtb0 RTL go-text-right"><b>{{room.room_description}}  </b></h4>
+                                    <h5 style="color:#8A8A8A"> {{room.room_category}}</h5>
+                                    <h5 style="color:#8A8A8A"> {{room.room_type}}</h5>
+                                    <hr style="margin-top: 0px; margin-bottom: 5px;">
+                                    <div class="col-md-6 visible-lg visible-md go-right" id="accordion" style="margin-top: 0px;">
+                                        <div class="row">
+                                            <button data-toggle="collapse" data-parent="#accordion" class="hidden-xs btn btn-danger" href="#nonrefund210175250">Non-refundable</button>
+                                            <button data-toggle="collapse" data-parent="#accordion" class="hidden-xs btn btn-info" href="#details210175250">More Details</button>
+                                        </div>
+                                    </div>
+                                    <p class="grey RTL"></p>
+                                    <br/>
+                                    <ul class="hotelpreferences go-right hidden-xs">
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </form>
+                    <div class="clearfix"></div>
+                    <!-- refund policy -->
+                    <div id="nonrefund210175250" class="alert alert-danger panel-collapse collapse">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="clearfix"></div>
+                                <p>This rate is non-refundable and cannot be changed or cancelled - if you do choose to change or cancel this booking you will not be refunded any of the payment.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- refund policy -->
+                    <div id="details210175250" class="alert alert-warning panel-collapse collapse">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="magnific-gallery row">
+                                    <div class="col-md-3">
+                                        <div class="zoom-gallery210175250">
+                                            <a href="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/463ce5c2_z.jpg" data-source="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/463ce5c2_z.jpg" title="Deluxe Suite, 1 King Bed, Jetted Tub">
+                                                <img class="img-responsive" style="max-height:144px" src="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/463ce5c2_z.jpg">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <script type="text/javascript">
+                                        $('.zoom-gallery').magnificPopup({
+                                            delegate: 'a',
+                                            type: 'image',
+                                            closeOnContentClick: false,
+                                            closeBtnInside: false,
+                                            mainClass: 'mfp-with-zoom mfp-img-mobile',
+                                            image: {
+                                                verticalFit: true,
+                                                titleSrc: function(item) {
+                                                    return item.el.attr('title') + ' ';
+                                                }
+                                            },
+                                            gallery: {
+                                                enabled: true
+                                            },
+                                            zoom: {
+                                                enabled: true,
+                                                duration: 300, // don't foget to change the duration also in CSS
+                                                opener: function(element) {
+                                                    return element.find('img');
+                                                }
+                                            }
+
+                                        });
+                                    </script>
+                                    <div class="col-md-3">
+                                        <div class="zoom-gallery210175250">
+                                            <a href="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/8430aea7_z.jpg" data-source="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/8430aea7_z.jpg" title="Deluxe Suite, 1 King Bed, Jetted Tub">
+                                                <img class="img-responsive" style="max-height:144px" src="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/8430aea7_z.jpg">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <script type="text/javascript">
+                                        $('.zoom-gallery').magnificPopup({
+                                            delegate: 'a',
+                                            type: 'image',
+                                            closeOnContentClick: false,
+                                            closeBtnInside: false,
+                                            mainClass: 'mfp-with-zoom mfp-img-mobile',
+                                            image: {
+                                                verticalFit: true,
+                                                titleSrc: function(item) {
+                                                    return item.el.attr('title') + ' ';
+                                                }
+                                            },
+                                            gallery: {
+                                                enabled: true
+                                            },
+                                            zoom: {
+                                                enabled: true,
+                                                duration: 300, // don't foget to change the duration also in CSS
+                                                opener: function(element) {
+                                                    return element.find('img');
+                                                }
+                                            }
+
+                                        });
+                                    </script>
+                                    <div class="col-md-3">
+                                        <div class="zoom-gallery210175250">
+                                            <a href="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/ecc3094c_z.jpg" data-source="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/ecc3094c_z.jpg" title="Deluxe Suite, 1 King Bed, Jetted Tub">
+                                                <img class="img-responsive" style="max-height:144px" src="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/ecc3094c_z.jpg">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <script type="text/javascript">
+                                        $('.zoom-gallery').magnificPopup({
+                                            delegate: 'a',
+                                            type: 'image',
+                                            closeOnContentClick: false,
+                                            closeBtnInside: false,
+                                            mainClass: 'mfp-with-zoom mfp-img-mobile',
+                                            image: {
+                                                verticalFit: true,
+                                                titleSrc: function(item) {
+                                                    return item.el.attr('title') + ' ';
+                                                }
+                                            },
+                                            gallery: {
+                                                enabled: true
+                                            },
+                                            zoom: {
+                                                enabled: true,
+                                                duration: 300, // don't foget to change the duration also in CSS
+                                                opener: function(element) {
+                                                    return element.find('img');
+                                                }
+                                            }
+
+                                        });
+                                    </script>
+                                    <div class="col-md-3">
+                                        <div class="zoom-gallery210175250">
+                                            <a href="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/a12c7488_z.jpg" data-source="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/a12c7488_z.jpg" title="Deluxe Suite, 1 King Bed, Jetted Tub">
+                                                <img class="img-responsive" style="max-height:144px" src="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/a12c7488_z.jpg">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <script type="text/javascript">
+                                        $('.zoom-gallery').magnificPopup({
+                                            delegate: 'a',
+                                            type: 'image',
+                                            closeOnContentClick: false,
+                                            closeBtnInside: false,
+                                            mainClass: 'mfp-with-zoom mfp-img-mobile',
+                                            image: {
+                                                verticalFit: true,
+                                                titleSrc: function(item) {
+                                                    return item.el.attr('title') + ' ';
+                                                }
+                                            },
+                                            gallery: {
+                                                enabled: true
+                                            },
+                                            zoom: {
+                                                enabled: true,
+                                                duration: 300, // don't foget to change the duration also in CSS
+                                                opener: function(element) {
+                                                    return element.find('img');
+                                                }
+                                            }
+
+                                        });
+                                    </script>
+                                </div>
+                                <p>
+                                    <!--<strong>Description : </strong>-->
+                                </p>
+                                <p><strong>1 King Bed</strong><br />269-sq-foot (25-sq-meter) room with courtyard views<br /><br /><b>Internet</b> - Free WiFi <br /> <b>Entertainment</b> - Flat-screen TV with premium channels and pay movies<br /><b>Food & Drink</b>                                    - Espresso maker, minibar, room service, and refrigerator (on request)<br /><b>Sleep</b> - Premium bedding and blackout drapes/curtains <br /><b>Bathroom</b> - Partially open bathroom, bathrobes, and a shower with a
+                                    rainfall showerhead
+                                    <br /><b>Practical</b> - Safe, desk, and iron/ironing board (on request)<br /><b>Comfort</b> - Daily housekeeping and climate-controlled heating and air conditioning<br /><b>Need to Know</b> - No cribs (infant beds)
+                                    available
+                                    <br />Non-Smoking<br />Connecting/adjoining rooms can be requested, subject to availability <br />&nbsp;</p>
+                                <p></p>
+                                <hr>
+                                <p><strong>Room Amenities : </strong></p>
+                                <div class="col-md-4">
+                                    <ul class="checklist">
+                                        <li>Air conditioning</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="checklist">
+                                        <li>Bathrobes</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="checklist">
+                                        <li>Bidet</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="checklist">
+                                        <li>Blackout drapes/curtains</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="checklist">
+                                        <li>Connecting/adjoining rooms available</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="checklist">
+                                        <li>Daily housekeeping</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="checklist">
+                                        <li>Desk</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="checklist">
+                                        <li>Espresso maker</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="checklist">
+                                        <li>Flat-panel TV</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="checklist">
+                                        <li>Free WiFi</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="checklist">
+                                        <li>Free toiletries</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="checklist">
+                                        <li>Hair dryer</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="checklist">
+                                        <li>Hypo-allergenic bedding available</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="checklist">
+                                        <li>In-room climate control (air conditioning)</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="checklist">
+                                        <li>In-room climate control (heating)</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="checklist">
+                                        <li>In-room safe</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="checklist">
+                                        <li>Iron/ironing board (on request)</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="checklist">
+                                        <li>Minibar</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="checklist">
+                                        <li>Non-Smoking</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="checklist">
+                                        <li>Pay movies</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="checklist">
+                                        <li>Premium TV channels</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="checklist">
+                                        <li>Premium bedding</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="checklist">
+                                        <li>Rainfall showerhead</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="checklist">
+                                        <li>Refrigerator (on request)</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="checklist">
+                                        <li>Room service (limited hours)</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="checklist">
+                                        <li>Satellite TV service</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="checklist">
+                                        <li>Slippers</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="checklist">
+                                        <li>Soundproofed rooms</li>
+                                    </ul>
+                                </div>
+                                <div class="clearfix"></div>
+                                <br>
+                                <p><b>Know Before You Go</b> <br />
+                                    <ul>
+                                        <li>All guests, including children, must be present at check-in and show their government-issued photo ID card or passport.</li>
+                                        <li>Cash transactions at this property cannot exceed EUR 2999.99, due to national regulations. For further details, please contact the property using information in the booking confirmation. </li>
+                                        <li>This property offers transfers from the airport (surcharges may apply). Guests must contact the property with arrival details before travel, using the contact information on the booking confirmation. </li>
+                                        <li>One child 4 years old or younger stays free when occupying the parent or guardian's room, using existing bedding. </li>
+                                        <li>Only registered guests are allowed in the guestrooms. </li>
+                                        <li>The property has connecting/adjoining rooms, which are subject to availability and can be requested by contacting the property using the number on the booking confirmation. </li>
+                                        <li>Guests can arrange to bring pets by contacting the property directly, using the contact information on the booking confirmation. </li>
+                                    </ul>
+                                </p>
+                                <p><b>Fees</b> <br />
+                                    <p>The following fees and deposits are charged by the property at time of service, check-in, or check-out. </p>
+                                    <ul>
+                                        <li>Fee for full breakfast: EUR 12 per person (approximately)</li>
+                                        <li>Airport shuttle fee: EUR 50 per room (one way)</li>
+                                    </ul>
+                                    <p>The above list may not be comprehensive. Fees and deposits may not include tax and are subject to change. </p>
+                                </p>
+                                <p><b>Mandatory Fees and Taxes</b> <br />
+                                    <p>You'll be asked to pay the following charges at the property:</p>
+                                    <ul>
+                                        <li>A tax is imposed by the city: EUR 3.50 per person, per night</li>
+                                    </ul>
+                                    <p>We have included all charges provided to us by the property. However, charges can vary, for example, based on length of stay or the room you book. </p>
+                                </p> <br>
+                                <hr> The front desk is open daily from 8 AM - 8 AM<br />To make arrangements for check-in please contact the property at least 72 hours before arrival using the information on the booking confirmation. 24-hour airport shuttle
+                                service is available on request. Contact the property in advance to make arrangements. </div>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        $(".zoom-gallery210175250").magnificPopup({
+                            delegate: 'a',
+                            type: 'image',
+                            closeOnContentClick: false,
+                            closeBtnInside: false,
+                            mainClass: 'mfp-with-zoom mfp-img-mobile',
+                            image: {
+                                verticalFit: true,
+                                titleSrc: function(item) {
+                                    return item.el.attr('title') + ' ';
+                                }
+                            },
+                            gallery: {
+                                enabled: true
+                            },
+                            zoom: {
+                                enabled: true,
+                                duration: 300, // don't foget to change the duration also in CSS
+                                opener: function(element) {
+                                    return element.find('img');
+                                }
+                            }
+
+                        });
+                    </script>
+                    <script>
+                        $('.collapse').on('show.bs.collapse', function() {
+                            $('.collapse.in').collapse('hide');
+                        });
+                    </script>
+                    <!-- Modal -->
+                    <div class="modal fade" id="book210175250" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">Booking Options</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>We prefer you to login so that you can view your previous booking history and it helps us to provide you better recommendations</p>
+                                    <img src="{{ url_for('static', filename='assets/img/users.png') }}" class="img-responsive" />
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <form id="bookloginform" action="http://localhost/faisal/hotel/reservation" method="GET">
+                                                <input type="hidden" name="adults" value="2" />
+                                                <input type="hidden" name="ages" id="childagesdetails" value="">
+                                                <input type="hidden" name="checkin" value="07/16/2017" />
+                                                <input type="hidden" name="checkout" value="07/17/2017" />
+                                                <input type="hidden" name="roomtype" value="201994384" />
+                                                <input type="hidden" name="ratekey" value="1c0b82bb-0a71-42a3-96bd-f975e6ac0c82-5001" />
+                                                <input type="hidden" name="ratecode" value="210175250" />
+                                                <input type="hidden" name="hotel" value="540683" />
+                                                <input type="hidden" name="sessionid" value="0ABAAC51-7163-9915-D472-02DD52901ED" />
+                                                <button type="submit" class="btn btn-primary btn-block btn-lg">Login</button>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <form action="http://localhost/faisal/hotel/reservation" method="GET">
+                                                <input type="hidden" name="adults" value="2" />
+                                                <input type="hidden" name="ages" id="childagesdetails" value="">
+                                                <input type="hidden" name="checkin" value="07/16/2017" />
+                                                <input type="hidden" name="checkout" value="07/17/2017" />
+                                                <input type="hidden" name="roomtype" value="201994384" />
+                                                <input type="hidden" name="ratekey" value="1c0b82bb-0a71-42a3-96bd-f975e6ac0c82-5001" />
+                                                <input type="hidden" name="ratecode" value="210175250" />
+                                                <input type="hidden" name="hotel" value="540683" />
+                                                <input type="hidden" name="sessionid" value="0ABAAC51-7163-9915-D472-02DD52901ED" />
+                                                <input type="hidden" name="user" value="guest" />
+                                                <button type="submit" class="btn btn-success btn-block btn-lg">Book as a Guest</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <form action="http://localhost/faisal/hotel/reservation" method="GET">
+                                        <input type="hidden" name="adults" value="2" />
+                                        <!-- <input type="hidden" name="child" value="" /> -->
+                                        <input type="hidden" name="checkin" value="07/16/2017" />
+                                        <input type="hidden" name="checkout" value="07/17/2017" />
+                                        <input type="hidden" name="roomtype" value="201994384" />
+                                        <input type="hidden" name="ratekey" value="1c0b82bb-0a71-42a3-96bd-f975e6ac0c82-5001" />
+                                        <input type="hidden" name="ratecode" value="210175250" />
+                                        <input type="hidden" name="hotel" value="540683" />
+                                        <input type="hidden" name="sessionid" value="0ABAAC51-7163-9915-D472-02DD52901ED" />
+                                        <input type="hidden" name="user" value="register" />
+                                        <button type="submit" class="btn btn-default">Register</button>
+                                    </form>
+                                    <!--            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {%endfor %}
+                    <!--            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>-->
+
+                    <script>
+                        jQuery(document).ready(function($) {
+                            $('.showcalendar').on('change', function() {
+                                var roomid = $(this).prop('id');
+                                var monthdata = $(this).val();
+                                $("#roomcalendar" + roomid).html("<br><br><div id='rotatingDiv'></div>");
+                                $.post("http://localhost/faisal/hotels/roomcalendar", {
+                                    roomid: roomid,
+                                    monthyear: monthdata
+                                }, function(theResponse) {
+                                    console.log(theResponse);
+                                    $("#roomcalendar" + roomid).html(theResponse);
+                                });
+                            });
+                        });
+                    </script>
+                    <script>
+                        $('.collapse').on('show.bs.collapse', function() {
+                            $('.collapse.in').collapse('hide');
+                        });
+                    </script>
+                    <script type="text/javascript">
+                        function booknow() {
+                            $("#bookloginform").submit();
+                        }
+                    </script>
+                </section>
+
+                <script type="text/javascript">
+                    $(function() {
+                        $(".childcountDetailsPage").on("change", function() {
+                            var count = $(this).val();
+                            var ages = [];
+                            if (count > 0) {
+
+                                // for(i = 1; i <= count; i++){
+                                //   ages.push('0');
+                                // }
+
+                                $("#childagesdetails").val(ages);
+
+
+                                $(".ageselect").empty();
+
+                                addChildsAgeFieldDetails(count);
+
+                                $("#agesModal").modal('show');
+                            } else {
+                                $("#childagesdetails").val("");
+                            }
+
+                        })
+
+
+
+                    })
+
+
+                    function addChildsAgeFieldDetails(children) {
+
+                        var childagestxt = '';
+                        for (child = 1; child <= children; child++) {
+
+                            var StringChildAge = '';
+                            StringChildAge = '\
+                        <label for="form-input-popover" class="col-sm-4 control-label">' + child + ' Age</label><div class="col-sm-8">\n\
+                        <select class="room-child-ageDetails form-control" onchange="updateChildAgesDetails();">\n\
+                            <option value="0"> Under 1 </option>\n\
+                            <option value="1">1</option>\n\
+                            <option value="2">2</option>\n\
+                            <option value="3">3</option>\n\
+                            <option value="4">4</option>\n\
+                            <option value="5">5</option>\n\
+                            <option value="6">6</option>\n\
+                            <option value="7">7</option>\n\
+                            <option value="8">8</option>\n\
+                            <option value="9">9</option>\n\
+                            <option value="10">10</option>\n\
+                            <option value="11">11</option>\n\
+                            <option value="12">12</option>\n\
+                            <option value="13">13</option>\n\
+                            <option value="14">14</option>\n\
+                            <option value="15">15</option>\n\
+                            <option value="16">16</option>\n\
+                            <option value="17">17</option>\n\
+            </select></div>';
+
+                            $(".ageselect").append(StringChildAge);
+                        }
+
+
+
+                    }
+
+                    function updateChildAgesDetails() {
+
+                        var selectedAges = [];
+                        $('.room-child-ageDetails option:selected').each(function() {
+                            if ($(this).val() > 0) {
+                                selectedAges.push($(this).val());
+                            }
+                        });
+
+                        $("#childagesdetails").val(selectedAges);
+                    }
+                </script>
+
+                <!-- Modal -->
+                <div class="modal fade" id="agesModal" tabindex="1" role="dialog" aria-hidden="true" style="margin-top:50px;color: #000;">
+                    <div class="modal-dialog modal-sm" style="z-index: 9999;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Child</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group form-horizontal ageselect">
+
+
+
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- rooms -->
+                <div class="clearfix"></div>
+                <div class="clearfix"></div>
+            </div>
+            <!-- slider -->
+            <script>
+                $(function() {
+
+                        $(".changeInfo").on("change", function() {
+                            var tourid = "";
+                            var adults = $("#selectedAdults").val();
+                            var child = $("#selectedChild").val();
+                            var infants = $("#selectedInfants").val();
+                            $.post("http://localhost/faisal/tours/tourajaxcalls/changeInfo", {
+                                tourid: tourid,
+                                adults: adults,
+                                child: child,
+                                infants: infants
+                            }, function(resp) {
+                                var result = $.parseJSON(resp);
+                                $(".adultPrice").html(result.currSymbol + result.adultPrice);
+                                $(".childPrice").html(result.currSymbol + result.childPrice);
+                                $(".infantPrice").html(result.currSymbol + result.infantPrice);
+                                $(".totalCost").html(result.currCode + " " + result.currSymbol + result.totalCost);
+                                $(".totaldeposit").html(result.currCode + " " + result.currSymbol + result.totalDeposit);
+                                console.log(result);
+                            })
+                        }); //end of change info
+                    }) // end of document ready
+            </script>
+            <!-- aside -->
+        </div>
+    </div>
+    <div class="container">
+        <div class="col-md-12">
+            <!-- Start Car From aside -->
+            <!-- End  Car From aside -->
+        </div>
+    </div>
+    <!------------------------  Related Listings   ------------------------------>
+    <div style="margin-bottom:25px">
+        <div class="container">
+            <br><br>
+            <div class="col-md-12 row5">
+                <div class="form-group">
+                    <h2 class="main-title go-right">Related Hotels</h2>
+                    <div class="clearfix"></div>
+                    <i class="tiltle-line go-right"></i>
+                </div>
+            </div>
+            <div class="col-md-3 row5">
+                <a href="http://localhost/faisal/hotel/hotel/540683/0ABAA8BA-F64D-9591-5D42-7021CCA965F3">
+                    <div class="featured">
+                        <div class="col-xs-12 go-right wow fadeIn">
+                            <div class="row">
+                                <div class="load">
+                                    <img class="img-responsive lazy" src="{{ url_for('static', filename='themes/default/assets/img/loading.svg') }}" data-lazy="https://images.travelnow.com/hotels/12000000/11930000/11924600/11924579/11924579_14_b.jpg" />
+                                    <img class="overlay" src="{{ url_for('static', filename='themes/default/assets/img/overlay.png') }}" style="z-index: 3">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="text-center featured-price">
+                            <div class="text-center">
+                                <small>USD</small> 238.35 </div>
+                        </div>
+                        <div class="col-xs-12 go-right wow fadeIn featured-title">
+                            <div class="p5">
+                                <div class="strong">Corso Boutique Hotel</div>
+                                <i class='star text-warning fa fa-star-o'></i><i class='star text-warning fa fa-star-o'></i><i class='star text-warning fa fa-star-o'></i><i class='star text-warning fa fa-star-o'></i><i class='star text-warning fa fa-star-o'></i>
+                                <div class=""><i class="icon-location-6 go-right"></i> Rome</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 row5">
+                <a href="http://localhost/faisal/hotel/hotel/262146/0ABAA8BA-F64D-9591-5D42-7021CCA965F3">
+                    <div class="featured">
+                        <div class="col-xs-12 go-right wow fadeIn">
+                            <div class="row">
+                                <div class="load">
+                                    <img class="img-responsive lazy" src="{{ url_for('static', filename='themes/default/assets/img/loading.svg') }}" data-lazy="https://images.travelnow.com/hotels/2000000/1810000/1805300/1805264/1805264_44_b.jpg" />
+                                    <img class="overlay" src="{{ url_for('static', filename='themes/default/assets/img/overlay.png') }}" style="z-index: 3">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="text-center featured-price">
+                            <div class="text-center">
+                                <small>USD</small> 187.3 </div>
+                        </div>
+                        <div class="col-xs-12 go-right wow fadeIn featured-title">
+                            <div class="p5">
+                                <div class="strong">Boutique Hotel Trevi</div>
+                                <!--<i class='star text-warning fa fa-star voted'></i><i class='star text-warning fa fa-star voted'></i><i class='star text-warning fa fa-star voted'></i><i class='star text-warning fa fa-star voted'></i><i class='star text-warning fa fa-star-o'></i>-->
+                                <div class=""><i class="icon-location-6 go-right"></i> Rome</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 row5">
+                <a href="http://localhost/faisal/hotel/hotel/327692/0ABAA8BA-F64D-9591-5D42-7021CCA965F3">
+                    <div class="featured">
+                        <div class="col-xs-12 go-right wow fadeIn">
+                            <div class="row">
+                                <div class="load">
+                                    <img class="img-responsive lazy" src="{{ url_for('static', filename='themes/default/assets/img/overlay.png') }}" data-lazy="https://images.travelnow.com/hotels/3000000/2960000/2959900/2959893/2959893_113_b.jpg" />
+                                    <img class="overlay" src="{{ url_for('static', filename='themes/default/assets/img/overlay.png') }}" style="z-index: 3">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="text-center featured-price">
+                            <div class="text-center">
+                                <small>USD</small> 188.41 </div>
+                        </div>
+                        <div class="col-xs-12 go-right wow fadeIn featured-title">
+                            <div class="p5">
+                                <div class="strong">Pantheon Royal Suite</div>
+                                <i class='star text-warning fa fa-star-o'></i><i class='star text-warning fa fa-star-o'></i><i class='star text-warning fa fa-star-o'></i><i class='star text-warning fa fa-star-o'></i><i class='star text-warning fa fa-star-o'></i>
+                                <div class=""><i class="icon-location-6 go-right"></i> Rome</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 row5">
+                <a href="http://localhost/faisal/hotel/hotel/532483/0ABAA8BA-F64D-9591-5D42-7021CCA965F3">
+                    <div class="featured">
+                        <div class="col-xs-12 go-right wow fadeIn">
+                            <div class="row">
+                                <div class="load">
+                                    <img class="img-responsive lazy" src="{{ url_for('static', filename='themes/default/assets/img/overlay.png') }}" data-lazy="https://images.travelnow.com/hotels/12000000/11550000/11543900/11543802/11543802_1_b.jpg" />
+                                    <img class="overlay" src="{{ url_for('static', filename='themes/default/assets/img/overlay.png') }}" style="z-index: 3">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="text-center featured-price">
+                            <div class="text-center">
+                                <small>USD</small> 64.32 </div>
+                        </div>
+                        <div class="col-xs-12 go-right wow fadeIn featured-title">
+                            <div class="p5">
+                                <div class="strong">Miriam Guesthouse</div>
+                                <i class='star text-warning fa fa-star-o'></i><i class='star text-warning fa fa-star-o'></i><i class='star text-warning fa fa-star-o'></i><i class='star text-warning fa fa-star-o'></i><i class='star text-warning fa fa-star-o'></i>
+                                <div class=""><i class="icon-location-6 go-right"></i> Rome</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- ending related -->
+        </div>
+    </div>
+    <!------------------------  Related Listings   ------------------------------>
+    <div class="container">
+        <div class="col-md-12">
+            <!-- Start Offers Contact Form -->
+            <!-- End Offers Contact Form -->
+        </div>
+    </div>
+    <script>
+        //------------------------------
+        // Write Reviews
+        //------------------------------
+        $(function() {
+            $('.reviewscore').change(function() {
+                var sum = 0;
+                var avg = 0;
+                var id = $(this).attr("id");
+                $('.reviewscore_' + id + ' :selected').each(function() {
+                    sum += Number($(this).val());
+                });
+                avg = sum / 5;
+                $("#avgall_" + id).html(avg);
+                $("#overall_" + id).val(avg);
+            });
+
+            //submit review
+            $(".addreview").on("click", function() {
+                var id = $(this).prop("id");
+                $.post("http://localhost/faisal/admin/ajaxcalls/postreview", $("#reviews-form-" + id).serialize(), function(resp) {
+                    var response = $.parseJSON(resp);
+                    // alert(response.msg);
+                    $("#review_result" + id).html("<div class='alert " + response.divclass + "'>" + response.msg + "</div>").fadeIn("slow");
+                    if (response.divclass == "alert-success") {
+                        setTimeout(function() {
+                            $("#ADDREVIEW").removeClass('in');
+                            $("#ADDREVIEW").slideUp();
+                        }, 5000);
+                    }
+                });
+                setTimeout(function() {
+                    $("#review_result" + id).fadeOut("slow");
+                }, 3000);
+            });
+        })
+
+        //------------------------------
+        // Add to Wishlist
+        //------------------------------
+        $(function() {
+            // Add/remove wishlist
+            $(".wish").on('click', function() {
+                var loggedin = $("#loggedin").val();
+                var removelisttxt = $("#removetxt").val();
+                var addlisttxt = $("#addtxt").val();
+                var title = $("#itemid").val();
+                var module = $("#module").val();
+                if (loggedin > 0) {
+                    if ($(this).hasClass('addwishlist')) {
+                        var confirm1 = confirm("Do you want to add it to wishlist ?");
+                        if (confirm1) {
+                            $(".wish").removeClass('addwishlist btn-primary');
+                            $(".wish").addClass('removewishlist btn-warning');
+                            $(".wishtext").html(removelisttxt);
+                            $.post("http://localhost/faisal/account/wishlist/add", {
+                                loggedin: loggedin,
+                                itemid: title,
+                                module: module
+                            }, function(theResponse) {});
+                        }
+                        return false;
+                    } else if ($(this).hasClass('removewishlist')) {
+                        var confirm2 = confirm("Are you sure you want to remove from wishlist ?");
+                        if (confirm2) {
+                            $(".wish").addClass('addwishlist btn-primary');
+                            $(".wish").removeClass('removewishlist btn-warning');
+                            $(".wishtext").html(addlisttxt);
+                            $.post("http://localhost/faisal/account/wishlist/remove", {
+                                loggedin: loggedin,
+                                itemid: title,
+                                module: module
+                            }, function(theResponse) {});
+                        }
+                        return false;
+                    }
+                } else {
+                    alert("Please Login to add to wishlist.");
+                }
+            });
+            // End Add/remove wishlist
+        })
+
+        //------------------------------
+        // Rooms
+        //------------------------------
+
+        $('.collapse').on('show.bs.collapse', function() {
+            $('.collapse.in').collapse('hide');
+        });
+    </script>
+    <div class="mob-bg">
+        <div class="container">
+            <div class="col-sm-8 col-md-8 mt35 go-right wow fadeIn">
+                <h3 class="go-text-right">Get the mobile app!</h3>
+                <p class="go-text-right">Our app has all your booking needs covered: Secure payment channels, easy 4-step booking process, and sleek user designs. What more could you ask for?</p>
+                <div class="row">
+                    <div class="col-sm-4 col-md-4 col-xs-6 go-right wow">
+                        <a href="https://itunes.apple.com/us/app/phptravels/id1018217005?mt=8" target="_blank"><img src="http://localhost/faisal/themes/default/assets/img/ios.png" class="img-responsive" alt="ios" /></a>
+                    </div>
+                    <div class="col-sm-4 col-md-4 col-xs-6 go-right wow">
+                        <a href="https://play.google.com/store/apps/details?id=com.phptravelsnative" target="_blank"><img src="http://localhost/faisal/themes/default/assets/img/android.png" class="img-responsive" alt="android" /></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-4 go-left wow fadeIn">
+                <img src="{{ url_for('static', filename='themes/default/assets/img/apps.png') }}" class="img-responsive pull-right go-left" alt="apps" />
+            </div>
+        </div>
+    </div>
+    <nav class="foot-nav newsletter hidden-xs hidden-sm navbar navbar-inverse navbar-static" style="margin-bottom:0px;">
+        <div class="container">
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav <!--go-right-->">
+                    <li><a class="newstext" href="javascript:void(0);">Newsletter</a></li>
+                </ul>
+                <div id="message-newsletter_2"></div>
+                <form role="search" onsubmit="return false;">
+                </form>
+                <div class="col-md-5 relative">
+                    <input type="email" class="form-control fccustom2 sub_email" id="exampleInputEmail1" placeholder="Enter your email" required>
+                    <button type="submit" class="btn btn-default btncustom sub_newsletter">&nbsp;</button>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a class="newstext" href="javascript:void(0);">
+                            <div class="subscriberesponse"></div>
+                        </a>
+                    </li>
+                </ul>
+                <div style="margin-top:8px;" class="navbar-form navbar-right <!--go-left-->">
+                    <a href="https://www.facebook.com/travelbusiness" target="_blank"><img src="{{ url_for('static', filename='uploads/images/social/slufm6otpasooc.png') }}" class="social-icons-footer" /></a>
+                    <a href="https://twitter.com/phptravels" target="_blank"><img src="{{ url_for('static', filename='uploads/images/social/9ztbr148kh4o8c8.png') }}" class="social-icons-footer" /></a>
+                    <a href="http:///www.youtube.com/phptravels" target="_blank"><img src="{{ url_for('static', filename='uploads/images/social/946746yt.png.png') }}" class="social-icons-footer" /></a>
+                    <a href="https://plus.google.com/+Phptravels/" target="_blank"><img src="{{ url_for('static', filename='uploads/images/social/2wz814aq9mgw04k.png') }}" class="social-icons-footer" /></a>
+                    <a href="http://phptravels.net/sitemap.xml" target="_blank"><img src="{{ url_for('static', filename='uploads/images/social/729370rs.png.png') }}" class="social-icons-footer" /></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <footer id="footer" class="">
+        <div class="container form-group">
+            <div class="col-md-3 grey go-right col-xs-12">
+                <div class="clearfix"></div>
+                <a href="http://localhost/faisal/"><img src="{{ url_for('static', filename='uploads/global/logo.png') }}" class="foot-brand center-block img-responsive" /></a>
+                <div class="col-md-12">
+                    <div class="row">
+                        <!-- <form action="http://localhost/faisal/supplier-register" type="GET">
+                        <button type="submit" class="btn btn-default btn-block"> Supplier Sign Up</button>
+                        </form>-->
+                    </div>
+                </div>
+            </div>
+            <div class="wow fadeIn col-sm-4 col-xs-12 col-md-3 go-right">
+                <h2 class="go-text-right"><strong>Corporate</strong></h2>
+                <ul class="footerlist go-right go-text-right">
+                    <li><a href="http://localhost/faisal/Our-Partners" target="" title="">Our Partners</a></li>
+                    <li><a href="http://localhost/faisal/Price-Guarantee" target="" title="">Price Guarantee</a></li>
+                    <li><a href="http://localhost/faisal/Become-Supplier" target="" title="">Become Supplier</a></li>
+                </ul>
+            </div>
+            <div class="wow fadeIn col-sm-4 col-xs-12 col-md-3 go-right">
+                <h2 class="go-text-right"><strong>Legal</strong></h2>
+                <ul class="footerlist go-right go-text-right">
+                    <li><a href="http://localhost/faisal/Terms-Conditions" target="" title="">Terms & Conditions</a></li>
+                    <li><a href="http://localhost/faisal/Privacy-Policy" target="" title="">Privacy Policy</a></li>
+                    <li><a href="http://localhost/faisal/FAQ-Help" target="" title="">FAQ & Help</a></li>
+                </ul>
+            </div>
+            <div class="wow fadeIn col-sm-4 col-xs-12 col-md-3 go-right">
+                <h2 class="go-text-right"><strong>Support</strong></h2>
+                <ul class="footerlist go-right go-text-right">
+                    <li><a href="http://localhost/faisal/contact-us" target="" title="">Contact Us</a></li>
+                    <li><a href="http://localhost/faisal/About-Us" target="" title="">About Us</a></li>
+                    <li><a href="http://localhost/faisal/FAQ-Help" target="" title="">FAQ & Help</a></li>
+                    <li><a href="http://localhost/faisal/Booking-Tips" target="" title="">Booking Tips</a></li>
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="container">
+            <div class="clearfix"></div>
+            <div class="footer-splitter">
+                <h3>Book with confidence</h3>
+            </div>
+            <div class="container panel-body">
+                <div class="col-md-7">
+                    <img src="{{ url_for('static', filename='themes/default/assets/img/footer-icons.png') }}" class="img-responsive" alt="" />
+                </div>
+                <div class="col-md-3 text-center">
+                    <div class="row">
+                        <br> Powered and Build by PHPTRAVELS
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <a href="http://phptravels.com" target="_blank"><img src="{{ url_for('static', filename='themes/default/assets/img/footer-php.png') }}" class="img-responsive" alt="PHPTRAVELS" /></a>
+                </div>
+            </div>
+            <div class="footer-splitter form-group">
+            </div>
+            <div class="clearfix"></div>
+            <div class="copyright">
+                <div class="text-center">
+                    <p class="text-center">&copy; All Rights Reserved by PHPTRAVELS</p>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <!-- tripadvisors block -->
+        <!-- tripadvisors block -->
+        <div class="text-center hidden-xs">
+            <div class="col-md-12">
+                <div class="row"><a class="btn btn-primary" target="_blank" href="http://localhost/faisal/supplier/">Extranet Login</a></div>
+            </div>
+        </div>
+    </footer>
+    <div class="footerbg hidden-xs">
+        <div class="container text-center">
+            <a href="javascript:void" class="gotop scroll wow fadeInUp btn btn-default"><i class="icon-up-open-big"></i></a>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='themes/default/assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='themes/default/assets/js/scripts.js') }}"></script>
+
+    <script>
+        var options = {
+            url: function(phrase) {
+                return "http://yasen.hotellook.com/autocomplete?lang=en-US&limit=10&term=" + phrase;
+            },
+            categories: [{
+                listLocation: "cities"
+            }],
+
+            list: {
+                match: {
+                    enabled: false
+                },
+                maxNumberOfElements: 10
+            },
+            getValue: "fullname",
+        };
+
+        $("#citiesInput").easyAutocomplete(options);
+    </script>
+
+    <script>
+        var fmt = "dd/mm/yyyy";
+        var baseURL = "http://localhost/faisal/";
+
+        $(function() {
+
+
+            /* Wish list global function */
+            $(".wishlistcheck").on("click", function() {
+                    var id = $(this).prop('id');
+                    var module = $(this).data('module');
+                    var userid = "";
+                    var action = "add";
+                    var thisdiv = $(this);
+                    if ($(this).hasClass('fav')) {
+                        action = "remove";
+                    }
+
+
+                    $.post(baseURL + 'account/wishlist/' + action, {
+                        module: module,
+                        itemid: id,
+                        loggedin: userid
+                    }, function(resp) {
+                        var response = $.parseJSON(resp);
+                        if (response.isloggedIn) {
+
+                            if (action == "remove") {
+                                $("." + module + "wishsign" + id).html("+");
+                                //$("."+module+"wishtext"+id).html("Add to Wishlist");
+                                $("." + module + "wishtext" + id).tooltip('hide').attr('data-original-title', "Add to wishlist").tooltip('fixTitle').tooltip('show');
+                                $("." + module + "wishsign" + id).removeClass("fav");
+                                thisdiv.removeClass('fav');
+
+                            } else {
+
+                                thisdiv.addClass('fav');
+                                $("." + module + "wishsign" + id).addClass("fav");
+                                $("." + module + "wishsign" + id).html("-");
+                                //$("."+module+"wishtext"+id).html("Remove From Wishlist");
+                                $("." + module + "wishtext" + id).tooltip('hide').attr('data-original-title', "Remove from wishlist").tooltip('fixTitle').tooltip('show');
+
+                            }
+
+                        } else {
+                            alert("Please Login to add to wishlist.");
+                        }
+
+                    });
+
+                })
+                /* End Wish list global function */
+
+
+            /* tours ajax categories loader */
+            $('#location').on('change', function() {
+                var location = $(this).val();
+                $.post(baseURL + 'tours/tourajaxcalls/onChangeLocation', {
+                    location: location
+                }, function(resp) {
+                    var response = $.parseJSON(resp);
+                    console.log(response);
+                    if (response.hasResult) {
+                        $("#tourtype").html(response.optionsList);
+                    } else {
+                        $("#tourtype").html(response.optionsList);
+                    }
+                    mySelectUpdate();
+                })
+            });
+
+            /* cars ajax types loader */
+
+            /* Datepicker */
+
+            /* disabling dates */
+            var nowTemp = new Date();
+            var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+            var checkin = $('.dpd1').datepicker({
+                format: fmt,
+                onRender: function(date) {
+                    return date.valueOf() < now.valueOf() ? 'disabled' : '';
+                }
+            }).on('changeDate', function(ev) {
+                // if (ev.date.valueOf() > checkout.date.valueOf()) {
+                var newDate = new Date(ev.date);
+                newDate.setDate(newDate.getDate() + 1);
+                checkout.setValue(newDate);
+                // }
+                checkin.hide();
+                $('.dpd2')[0].focus();
+            }).data('datepicker');
+            var checkout = $('.dpd2').datepicker({
+                format: fmt,
+                onRender: function(date) {
+                    return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
+                }
+            }).on('changeDate', function(ev) {
+                var newDate = new Date(ev.date);
+                checkout.hide();
+
+            }).data('datepicker');
+
+            /* disabling dates for rooms search */
+            var nowTemprooms = new Date();
+            var nowrooms = new Date(nowTemprooms.getFullYear(), nowTemprooms.getMonth(), nowTemprooms.getDate(), 0, 0, 0, 0);
+            var checkinrooms = $('.dpd1rooms').datepicker({
+                format: fmt,
+                onRender: function(date) {
+                    return date.valueOf() < now.valueOf() ? 'disabled' : '';
+                }
+            }).on('changeDate', function(ev) {
+                // if (ev.date.valueOf() > checkout.date.valueOf()) {
+                var newDaterooms = new Date(ev.date);
+                newDaterooms.setDate(newDaterooms.getDate() + 1);
+                checkoutrooms.setValue(newDaterooms);
+                // }
+                checkinrooms.hide();
+                $('.dpd2rooms')[0].focus();
+            }).data('datepicker');
+            var checkoutrooms = $('.dpd2rooms').datepicker({
+                format: fmt,
+                onRender: function(date) {
+                    return date.valueOf() <= checkinrooms.date.valueOf() ? 'disabled' : '';
+                }
+            }).on('changeDate', function(ev) {
+                var newDaterooms = new Date(ev.date);
+                checkoutrooms.hide();
+
+            }).data('datepicker');
+
+            /* Expedia datepicker */
+            var nowTemp2 = new Date,
+                now2 = new Date(nowTemp2.getFullYear(), nowTemp2.getMonth(), nowTemp2.getDate(), 0, 0, 0, 0),
+                checkin2 = $(".dpean1").datepicker({
+                    format: "mm/dd/yyyy",
+                    onRender: function(e) {
+                        return e.valueOf() < now2.valueOf() ? "disabled" : ""
+                    }
+                }).on("changeDate", function(e) {
+                    // if(e.date.valueOf()>checkout2.date.valueOf()){
+                    var a = new Date(e.date);
+                    a.setDate(a.getDate() + 1);
+                    a.setDate(a.getDate() + 1), checkout2.setValue(a)
+                        //}
+                    checkin2.hide(), $(".dpean2")[0].focus()
+                }).data("datepicker"),
+                checkout2 = $(".dpean2").datepicker({
+                    format: "mm/dd/yyyy",
+                    onRender: function(e) {
+                        return e.valueOf() <= checkin2.date.valueOf() ? "disabled" : ""
+                    }
+                }).on("changeDate", function(ev) {
+                    var b = new Date(ev.date);
+                    checkout2.hide()
+                }).data("datepicker");
+            /* End Expedia Datepicker*/
+
+            /* Dohop datepicker */
+            /* End Dohop Datepicker*/
+
+            // Tours checkin - disabling Single date
+            var nowTemp4 = new Date();
+            var now4 = new Date(nowTemp4.getFullYear(), nowTemp4.getMonth(), nowTemp4.getDate(), 0, 0, 0, 0);
+            var checkin4 = $('.tchkin').datepicker({
+                format: fmt,
+                onRender: function(date) {
+                    return date.valueOf() < now4.valueOf() ? 'disabled' : '';
+                }
+            }).on('changeDate', function(ev) {
+                var tdate = new Date(ev.date);
+                $('.tchkin').datepicker('hide');
+            });
+
+            /* Cartrawler datepicker */
+            var nowTemp6 = new Date,
+                now6 = new Date(nowTemp6.getFullYear(), nowTemp6.getMonth(), nowTemp6.getDate(), 0, 0, 0, 0),
+                checkin6 = $(".dpcd1").datepicker({
+                    format: "mm/dd/yyyy",
+                    onRender: function(e) {
+                        return e.valueOf() < now6.valueOf() ? "disabled" : ""
+                    }
+                }).on("changeDate", function(e) {
+                    //if(e.date.valueOf()>checkout6.date.valueOf()){
+                    var a = new Date(e.date);
+                    a.setDate(a.getDate() + 0);
+                    checkout6.setValue(a)
+                        //}
+                    checkin6.hide(), $(".dpcd2")[0].focus()
+                }).data("datepicker"),
+                checkout6 = $(".dpcd2").datepicker({
+                    format: "mm/dd/yyyy",
+                    onRender: function(e) {
+                        return e.valueOf() < checkin6.date.valueOf() ? "disabled" : ""
+                    }
+                }).on("changeDate", function(ev) {
+                    var cnDate = new Date(ev.date);
+                    checkout6.hide()
+                }).data("datepicker");
+            /* End Cartrawler Datepicker*/
+
+            /* Newsletter subscription */
+            $(".sub_newsletter").on("click", function() {
+                var e = $(".sub_email").val();
+                $.post("http://localhost/faisal/home/subscribe", {
+                    email: e
+                }, function(e) {
+                    $(".subscriberesponse").html(e).fadeIn("slow"), setTimeout(function() {
+                        $(".subscriberesponse").fadeOut("slow")
+                    }, 2000)
+                })
+            });
+
+            /* dropdown on hover */
+            $("ul.nav li.dropdown").hover(function() {
+                $(this).find(".dropdown-menu").stop(!0, !0).delay(200).fadeIn(200)
+            }, function() {
+                $(this).find(".dropdown-menu").stop(!0, !0).delay(200).fadeOut(200)
+            });
+        });
+
+        /* start change currency functionality */
+        function change_currency(c) {
+            $("#loadingbg").css("display", "block"), $.post("http://localhost/faisal/admin/ajaxcalls/changeCurrency", {
+                id: c
+            }, function() {
+                location.reload()
+            })
+        }
+
+        /* map iframe modal */
+        function showMap(a, o) {
+            "modal" == o ? ($("#mapModal").modal("show"), $("#mapModal").on("shown.bs.modal", function() {
+                $("#mapModal .mapContent").html('<iframe src="' + a + '" width="100%" height="450" frameborder="0" style="border:0"></iframe>')
+            })) : $("#" + o).html('<iframe src="' + a + '" width="100%" height="450" frameborder="0" style="border:0"></iframe>')
+        }
+    </script>
+    <script type="text/javascript">
+        /* cartrawler auto suggest */
+        function selectLocationValue(l, h, locname) {
+            $("#" + h).val(locname);
+            if (h == 'ct1') {
+                $("input[name='pickupLocationId']").val(l);
+                $("#ct2").val(locname);
+                $("input[name='returnLocationId']").val(l);
+            } else if (h == "ct2") {
+                $("#returnlocation").val(l);
+            };
+            $("#" + h + "resp").html("")
+        }
+        $(function() {
+            $(".ctlocation").on("keyup", function(l) {
+                var h = $(this).val(),
+                    e = h.length,
+                    i = $(this).prop("id"),
+                    t = l.keyCode || l.which;
+                if ($.trim(e) > 1 && 38 != t && 40 != t) $("#" + i + "resp").html(""), $.post("http://localhost/faisal/cartrawler/getLocations", {
+                    term: h,
+                    inputid: i
+                }, function(l) {
+                    $("#" + i + "resp").html(l)
+                });
+                else if (38 != t && 40 != t) $("#" + i + "resp").html("");
+                else {
+                    var s, g, n = $("#" + i + "resp ul li.highlight");
+                    40 !== t || n.length || $("#" + i + "resp ul li:first").addClass("highlight"), 40 === t && n.length ? (g = n.next("#" + i + "resp ul li"), g.length && (n.removeClass("highlight"), g.addClass("highlight"))) : 38 === t && (s = n.prev("#" + i + "resp ul li"), s.length && (n.removeClass("highlight"), s.addClass("highlight"))), console.log($(".highlight").innerHTML)
+                }
+            })
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Safari 3.0+ "[object HTMLElementConstructor]"
+            var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0 || (function(p) {
+                return p.toString() === "[object SafariRemoteNotification]";
+            })(!window['safari'] || safari.pushNotification);
+
+            if (isSafari == true) {
+                /*$("i").next(".selectx:not(#currency)").css("text-indent", "30px !important").css("line-height", "40px !important");
+                    var img_icon_1 = "<img src='http://localhost/faisal/themes/default/assets/img/child-adult.png' class='new_icon'>";
+                    console.log(img_icon_1);*/
+                /*$(".icon_set_2_icon-105").addClass("safari-icon").removeClass("icon_set_2_icon-105");*/
+                $(".bg-warning").css("padding-bottom", "82px !important");
+            }
+        });
+    </script>
+</body>
+
+<<<<<<< HEAD
+</html>
+=======
+</html>
+>>>>>>> f0f16125687d17250c0f564f88fc1373167f0408

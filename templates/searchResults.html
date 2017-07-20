@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html ng-app="phptravelsApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="php travels is complete booking and reservation system provides complete solution for travel agency">
+    <meta name="keywords" content="php travels script, php hotels booking script, php reservation system">
+    <meta name="author" content="PHPTRAVELS">
+    <title>Search</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='uploads/global/favicon.png') }}">
+    <link href="{{ url_for('static', filename='themes/default/assets/css/bootstrap.css') }}" rel="stylesheet" media="screen">
+    <link href="{{ url_for('static', filename='themes/default/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/starability-all.min.css') }}" rel="stylesheet">
+
+    <!-- facebook -->
+    <meta property="og:title" content="Search" />
+    <meta property="og:site_name" content="PHPTravels" />
+    <meta property="og:description" content="php travels is complete booking and reservation system provides complete solution for travel agency" />
+    <meta property="og:image" content="{{ url_for('static', filename='uploads/global/favicon.png') }}" />
+    <meta property="og:url" content="http://localhost/faisal//" />
+    <meta property="og:publisher" content="https://www.facebook.com/PHPTravels" />
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org/",
+            "@type": "Organization",
+            "name": "PHPTravels",
+            "url": "http://localhost/faisal//",
+            "logo": "http://localhost/faisal/uploads/global/favicon.png",
+            "sameAs": "https://www.facebook.com/PHPTravels",
+            "sameAs": "https://twitter.com/PHPTravels",
+            "sameAs": "https://www.pinterest.com/PHPTravels/",
+            "sameAs": "https://plus.google.com/u/0/PHPTravels/posts",
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+123-456-789",
+                "contactType": "Customer Service"
+            }
+        } {
+            "@context": "http://schema.org",
+            "@type": "WebSite",
+            "name": "PHPTravels",
+            "url": "http://localhost/faisal/"
+        }
+    </script>
+    <!-- Child Theme -->
+    <style>
+        @import "{{ url_for('static', filename='themes/default/assets/css/childstyle.css') }}";
+    </style>
+    <!-- Google Maps -->
+    <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyA0cI0f-PExxoanF3Jf9bT0Sb41Sym4ywk&libraries=places"></script>
+    <script src="{{ url_for('static', filename='themes/default/assets/js/infobox.js') }}"></script>
+    <!-- jQuery -->
+    <script src="{{ url_for('static', filename='themes/default/assets/js/jquery-1.11.2.min.js') }}"></script>
+    <!-- RTL CSS -->
+    <!-- Mobile Redirect -->
+    <!--[if lt IE 7] > <link rel="stylesheet" type="text/css" href="http://localhost/faisal/themes/default/assets/css/font-awesome-ie7.css" media="screen" /> <![endif]-->
+    <!-- Autocomplete CSS files-->
+    <link href="{{ url_for('static', filename='themes/default/assets/js/autocomplete/easy-autocomplete.min.css') }}" rel="stylesheet" type="text/css">
+    <!-- Autocomplete CSS files-->
+    <!-- Autocomplete JS files-->
+    <script src="{{ url_for('static', filename='themes/default/assets/js/autocomplete/jquery.easy-autocomplete.min.js') }}" type="text/javascript"></script>
+
+    <!-- Autocomplete JS files-->
+
+</head>
+
+<body>
+    <div class="clearfix"></div>
+    <div class="navbar navbar-static-top navbar-default ">
+        <div class="container">
+            <div class="navbar">
+                <!-- Navigation-->
+                <div class="navbar-header go-right">
+                    <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
+                    <a href="#" class="navbar-brand"><img src="{{ url_for('static', filename='uploads/global/logo.png') }}" alt="PHPTravels" class="logo" /></a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="<!--hidden-sm--> nav navbar-nav navbar-right currency_btn <!--go-left-->">
+                        <form class="navbar-form navbar-left width_change">
+                            <div class="form-group">
+                                <li class="dropdown  go-left pull-left">
+                                    <form class="dropdown pull-left header-currency go-left">
+                                        <div class="styled-select">
+                                            <select onchange="change_currency(this.value)" class="selectx input-sm" name="currency" id="currency">
+                    <option value="1" selected>USD</option>
+                    <option value="3" >GBP</option>
+                    <option value="9" >SAR</option>
+                    <option value="11" >EUR</option>
+                    <option value="12" >PKR</option>
+                    <option value="13" >KWD</option>
+                    <option value="17" >JPY</option>
+                    <option value="18" >INR</option>
+                    <option value="19" >CNY</option>
+                    <option value="20" >TRY</option>
+                    </select>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </form>
+                                </li>
+                            </div>
+                        </form>
+
+                        <div class="header-brdr pull-left hidden-xs hidden-md go-left"></div>
+                        <li class="<!--pull-right--> width_change">
+                            <a href="javascript:void(0);" data-toggle="dropdown" class="dropdown-toggle"><i class="icon_set_2_icon-105"></i> My Account <b class="lightcaret mt-2"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">  Login</a></li>
+                                <li><a href="#">  Sign Up</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-default navbar-orange hidden-xs">
+        <div class="container">
+            <div class="row">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-left go-right">
+                        <li class="dropdown  go-right">
+                            <a class="dropdown-toggle" href="/"> Home </a>
+                        </li>
+                        <li class="go-right  ">
+                            <a href="http://localhost/faisal/hotel/" class=" " target="_self">
+                                <!--<i class=''></i>-->Hotels </a>
+                        </li>
+                        <li class="go-right  ">
+                            <a href="http://localhost/faisal/contact-us" class=" " target="">
+                                <!--<i class='glyphicon glyphicon-phone-alt'></i>-->Contact Us </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <style>
+        .summary {
+            border-right: solid 2px rgb(0, 93, 247);
+            color: #ffffff;
+            background: #4285f4;
+            padding: 14px;
+            float: left;
+            font-size: 14px;
+        }
+        
+        .sideline {
+            margin-top: 15px;
+            margin-bottom: 15px;
+            padding-left: 15px;
+            display: table-cell;
+            border-left: solid 1px #e7e7e7;
+        }
+        
+        .localarea {
+            margin-top: 15px;
+            margin-bottom: 15px;
+            padding-left: 15px;
+        }
+        
+        .captext {
+            display: block;
+            font-size: 14px;
+            font-weight: 400;
+            color: #23527c;
+            line-height: 1.2em;
+            text-transform: capitalize;
+        }
+        
+        .ellipsis {
+            max-width: 250px;
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+        }
+        
+        .noResults {
+            right: 30px;
+            top: 26px;
+            color: #008cff;
+            font-size: 16px;
+        }
+        
+        .lab {
+            display: none
+        }
+        
+        .xxl {
+            width: 100% !important
+        }
+        
+        .xl {
+            width: 100%
+        }
+        
+        .l {
+            width: 50%
+        }
+        
+        label {
+            font-size: 12px;
+            margin-left: 5px;
+        }
+    </style>
+
+    <div class="container">
+        <div class="row listing-search">
+
+            <div class="col-md-1 col-sm-2 col-xs-4 summary go-right">
+                <small>Search</small> Summary </div>
+
+            <div class="col-md-3 col-sm-10 col-xs-8 localarea go-right">
+                <small class=" go-right">Location</small>
+                <div class="clearfix"></div>
+                <span class="captext ellipsis go-right">{{fullname}}</span>
+            </div>
+
+            <div class="visible-sm">
+                <div class="clearfix"></div>
+            </div>
+            <div class="visible-xs">
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="col-md-2 col-sm-2 col-xs-4 sideline go-right">
+                <small class="go-right">Check in</small>
+                <div class="clearfix"></div>
+                <span class="captext go-right">{{Checkin}}</span>
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-4 sideline go-right">
+                <small class="go-right">Check out</small>
+                <div class="clearfix"></div>
+                <span class="captext go-right">{{Checkout}}</span>
+            </div>
+
+            <div class="col-md-2 col-sm-2 col-xs-4 sideline hidden-md go-right">
+                <small class="go-right">Total Stay</small>
+                <div class="clearfix"></div>
+                <span class="captext go-right">{{days}}</span>
+            </div>
+
+            <div class="visible-xs">
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="col-md-1 col-sm-2 col-xs-4 sideline go-right">
+                <small class="go-right">Adults</small>
+                <div class="clearfix"></div>
+                <span class="captext go-right">{{Adults}}</span>
+            </div>
+
+            <div class="col-md-1 col-sm-2 col-xs-4 sideline go-right">
+                <small class="go-right">Child</small>
+                <div class="clearfix"></div>
+                <span class="captext go-right">{{Childs}}</span>
+            </div>
+
+
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+
+    <!-- CONTENT -->
+    <div style="margin-top:15px" class="collapse" id="collapseMap">
+        <div id="map" class="map"></div>
+        <br>
+    </div>
+    <div class="container pagecontainer offset-0">
+        <div class="clearfix"></div>
+        <!-- Start Ean search form left side -->
+
+        <!-- FILTERS -->
+        <div class="col-md-3 filters offset-0 go-right rtl_width">
+            <a class="btn btn-block btn-default" data-toggle="collapse" href="#collapseMap" aria-expanded="false" aria-controls="collapseMap">View on Map</a>
+            <!-- TOP TIP -->
+
+            <div class="searchbox">
+                <div class="textline">
+                    <span class="searchtext"><span><i class="icon_set_1_icon-42"></i> Quick Search</span></span>
+                </div>
+
+                <div ng-controller="autoSuggestCtrl">
+                    <form autocomplete="off" action="#" method="GET" role="search">
+                        <div class="go-text-right">
+                            <!-- Child Ages Modal -->
+                            <style>
+                                .modal-backdrop {
+                                    z-index: 99;
+                                }
+                            </style>
+                            <script>
+                                $(function() {
+                                    google.maps.event.addDomListener(window, "load", function() {
+                                        new google.maps.places.Autocomplete(document.getElementById("HotelsPlacesEan"))
+                                    });
+                                });
+                                var loading = false; //to prevent duplicate
+                                function loadNewContent() {
+
+                                    // get the current cache location and key..
+                                    var moreResultsAvailable = $("#moreResultsAvailable").val();
+                                    var cacheKey = $("#cacheKey").val();
+                                    var cacheLocation = $("#cacheLocation").val();
+                                    var cachePaging = $("#cachePaging").val();
+                                    var checkin = $(".dpean1").val();
+                                    var checkout = $(".dpean2").val();
+                                    var agesappend = $("#agesappendurl").val();
+                                    var adultsCount = $("#adultsCount").val();
+
+
+                                    $('#loader_new').html("<div id='rotatingDiv'></div>");
+                                    var url_to_new_content = 'http://localhost/faisal/ean/loadMore';
+
+                                    $.ajax({
+                                        type: 'POST',
+                                        data: {
+                                            'moreResultsAvailable': moreResultsAvailable,
+                                            'cacheKey': cacheKey,
+                                            'cacheLocation': cacheLocation,
+                                            'checkin': checkin,
+                                            'checkout': checkout,
+                                            'agesappendurl': agesappend,
+                                            'adultsCount': adultsCount
+                                        },
+                                        url: url_to_new_content,
+                                        success: function(data) {
+
+                                            // document.getElementById('loadNewdata').value = 1;
+
+                                            if (data != "" && data != "404") {
+
+                                                $('#loader_new').html('');
+                                                loading = false;
+
+
+                                                // $("#latest_record_para").html(data);
+
+                                                var newData = data.split("###");
+
+                                                $("#latest_record_para").html(newData[0]);
+
+                                                $("#New_data_load").append(newData[1]);
+
+
+                                            } else {
+                                                $('#loader_new').html('');
+                                                $("#message_noResult").html('');
+
+                                            }
+                                            //console.log(data);
+
+                                        }
+                                    });
+                                }
+
+                                //scroll to PAGE's bottom
+                                var winTop = $(window).scrollTop();
+                                var docHeight = $(document).height();
+                                var winHeight = $(window).height();
+
+
+
+
+                                $(window).scroll(function() {
+
+                                    var moreResultsAvailable = $("#moreResultsAvailable").val();
+                                    var foot = $("#footer").offset().top - 500;
+                                    // console.log($(window).scrollTop()+" == "+foot);
+
+                                    if (moreResultsAvailable != '' && moreResultsAvailable == 1) {
+
+                                        if ($(window).scrollTop() > foot) {
+
+                                            if (!loading) {
+                                                loading = true;
+                                                loadNewContent();
+
+
+
+                                            }
+                                        }
+                                    }
+                                });
+                            </script>
+                            <script type="text/javascript">
+                                $(function() {
+                                    $(".childcount").on("change", function() {
+                                        var count = $(this).val();
+                                        var ages = [];
+                                        if (count > 0) {
+                                            for (i = 1; i <= count; i++) {
+                                                ages.push('0');
+                                            }
+                                            $("#childages").val(ages);
+                                            $(".ageselect").empty();
+                                            addChildsAgeField(count);
+                                            $("#ages").modal('show');
+                                        } else {
+                                            $("#childages").val("");
+                                        }
+                                    })
+                                });
+
+                                function addChildsAgeField(children) {
+                                    var childagestxt = '';
+                                    for (child = 1; child <= children; child++) {
+                                        var StringChildAge = '';
+                                        StringChildAge = '\ <label for="form-input-popover" class="col-sm-4 control-label">' + child + ' Age</label><div class="col-sm-8">\n\ <select class="room-child-age form-control" onchange="updateChildAges();">\n\ <option value="0"> Under 1 </option>\n\ <option value="1">1</option>\n\ <option value="2">2</option>\n\ <option value="3">3</option>\n\ <option value="4">4</option>\n\ <option value="5">5</option>\n\ <option value="6">6</option>\n\ <option value="7">7</option>\n\ <option value="8">8</option>\n\ <option value="9">9</option>\n\ <option value="10">10</option>\n\ <option value="11">11</option>\n\ <option value="12">12</option>\n\ <option value="13">13</option>\n\ <option value="14">14</option>\n\ <option value="15">15</option>\n\ <option value="16">16</option>\n\ <option value="17">17</option>\n\ </select></div>';
+                                        $(".ageselect").append(StringChildAge);
+                                    }
+                                }
+
+                                function updateChildAges() {
+                                    var selectedAges = [];
+                                    $('.room-child-age option:selected').each(function() {
+                                        selectedAges.push($(this).val());
+                                    });
+                                    $("#childages").val(selectedAges);
+                                }
+                            </script>
+                            <!-- End Child Ages Modal -->
+                            <!-- Start EAN search input -->
+                            <div class="col-md-4 form-group go-right col-xs-12 xl">
+                                <div class="row">
+                                    <label class="hidden-xs go-right">Location</label>
+                                    <div class="clearfix"></div>
+                                    <i class="iconspane-lg icon_set_1_icon-41"></i>
+                                    <input required id="citiesInput" name="city" type="text" class="form input-lg RTL" placeholder="Search by Hotel or City Name" value="Alexandria, Egypt" required />
+                                </div>
+                            </div>
+                            <!-- End EAN search input -->
+                            <!-- Start Modal child ages -->
+                            <div style="color:black" class="modal fade" id="ages" tabindex="1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-sm" style="z-index: 9999;">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">Child</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-horizontal ageselect"></div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <br><br>
+                                        <div class="clearfix"></div>
+                                        <div class="modal-footer"> <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button> </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="ages" tabindex="1" role="dialog" aria-hidden="true" style="margin-top:-70px">
+                                <div class="modal-dialog modal-sm" style="z-index: 9999;">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">Child</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group form-horizontal ageselect"> </div>
+                                        </div>
+                                        <div class="modal-footer"> <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button> </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Modal child ages -->
+                        </div>
+                        <div id="dpean1" class="col-md-2 form-group go-right col-xs-6 l focusDateInput">
+                            <div class="row">
+                                <label class="hidden-xs go-right">Check in</label>
+                                <div class="clearfix"></div>
+                                <i class="iconspane-lg icon_set_1_icon-53"></i>
+                                <input type="text" placeholder="Check in" name="checkin" class="form input-lg dpean1" value="07/16/2017" required>
+                            </div>
+                        </div>
+                        <div id="dpd2" class="col-md-2 form-group go-right col-xs-6 l focusDateInput">
+                            <div class="row">
+                                <label class="hidden-xs go-right">Check out</label>
+                                <div class="clearfix"></div>
+                                <i class="iconspane-lg icon_set_1_icon-53"></i>
+                                <input type="text" placeholder="Check out" name="checkout" class="form input-lg dpean2" value="07/17/2017" required>
+                            </div>
+                        </div>
+                        <div class="col-md-1 form-group go-right col-xs-6 col-sm-6 l">
+                            <div class="row">
+                                <label class="hidden-xs go-right">Adults</label>
+                                <div class="clearfix"></div>
+                                <!--<i class="iconspane-lg icon_set_2_icon-105"></i>-->
+                                <select name="adults" id="adults" class="input-lg form selectx">
+                    <option value="1">1</option>
+                    <option value="2" selected>2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1 form-group go-right col-xs-6 col-sm-6 l">
+                            <div class="row">
+                                <label class="hidden-xs go-right">Child</label>
+
+                                <div class="clearfix"></div>
+                                <!--<i class="iconspane-lg icon_set_2_icon-105"></i>-->
+
+                                <select class="form selectx childcount" placeholder="Child" name="child" id="child">
+                                <option value="0" selected > 0</option>
+                                <option value="1"  > 1</option>
+                                <option value="2"  > 2</option>
+                                <option value="3"  > 3</option>
+                                <option value="4"  > 4</option>
+                            </select>
+                            </div>
+                        </div>
+
+
+
+
+                        <input type="hidden" name="childages" id="childages" value="">
+                        <input type="hidden" name="search" value="search">
+                        <div class="col-md-2 col-xs-12 xl">
+                            <div class="row">
+                                <label class="lab hidden-xs hidden-sm">&nbsp;</label>
+                                <div class="clearfix"></div>
+                                <button type="submit" class="btn-warning btn btn-lg btn-block">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <script>
+                    $(function() {
+                        /** Select2 Autocomplete **/
+
+                        $(".locationlistean").select2({
+                            placeholder: "Enter Location",
+                            minimumInputLength: 3,
+                            width: '100%',
+                            maximumSelectionSize: 1,
+                            initSelection: function(element, callback) {
+                                var data = {
+                                    id: "1",
+                                    text: ""
+                                };
+                                callback(data);
+                            },
+                            ajax: {
+                                url: "http://localhost/faisal/home/suggestions/ean",
+                                dataType: 'json',
+                                data: function(term, page) {
+                                    return {
+                                        q: term, // search term
+
+                                    };
+                                },
+                                results: function(data, page) {
+                                    return {
+                                        results: data
+                                    };
+                                }
+                            }
+                        });
+
+                        $(".locationlistean").on("select2-selecting", function(e) {
+                            $(".modType").val(e.object.module);
+                            $(".searching").val(e.object.id);
+                            $("#txtsearch").val(e.object.text);
+                            console.log(e.object);
+                        });
+
+                        /** End Select2 Autocomplete **/
+                    })
+                </script>
+                <div class="clearfix"></div>
+            </div>
+            <form action="http://localhost/faisal/hotel/search" method="GET">
+                <div class="tip-arrow"></div>
+                <!-- Star ratings -->
+                <button type="button" class="collapsebtn go-text-right" data-toggle="collapse" data-target="#collapse1">
+    Star Grade <span class="collapsearrow"></span>
+    </button>
+                <div id="collapse1" class="collapse in">
+                    <div class="hpadding20">
+                        <br>
+                        <div class="rating" style="font-size: 14px;">
+                            <div class="go-right"><input id="1" type="radio" name="stars" class="go-right radio" value="1">&nbsp;&nbsp;<label class="go-left" for="1"><i class="star text-warning fa fa-star voted"></i> <i class="fa fa-star-o"></i>  <i class="fa fa-star-o"></i>  <i class="fa fa-star-o"></i>  <i class="fa fa-star-o"></i>  <i class="fa fa-star-o"></i>  <i class="fa fa-star-o"></i> </label></div>
+                            <div class="clearfix"></div>
+                            <div class="go-right"><input id="2" type="radio" name="stars" class="radio go-right" value="2">&nbsp;&nbsp;<label class="go-left" for="2"> <i class="star text-warning fa fa-star voted"></i>  <i class="star text-warning fa fa-star voted"></i>  <i class="fa fa-star-o"></i>  <i class="fa fa-star-o"></i>  <i class="fa fa-star-o"></i>  <i class="fa fa-star-o"></i>  <i class="fa fa-star-o"></i> </label></div>
+                            <div class="clearfix"></div>
+                            <div class="go-right"><input id="3" type="radio" name="stars" class="radio" value="3">&nbsp;&nbsp;<label class="go-left" for="3"> <i class="star text-warning fa fa-star voted"></i>  <i class="star text-warning fa fa-star voted"></i>  <i class="star text-warning fa fa-star voted"></i>  <i class="fa fa-star-o"></i>  <i class="fa fa-star-o"></i>  <i class="fa fa-star-o"></i>  <i class="fa fa-star-o"></i> </label></div>
+                            <div class="clearfix"></div>
+                            <div class="go-right"><input id="4" type="radio" name="stars" class="radio" value="4">&nbsp;&nbsp;<label class="go-left" for="4"> <i class="star text-warning fa fa-star voted"></i>  <i class="star text-warning fa fa-star voted"></i>  <i class="star text-warning fa fa-star voted"></i>  <i class="star text-warning fa fa-star voted"></i>  <i class="fa fa-star-o"></i>  <i class="fa fa-star-o"></i>  <i class="fa fa-star-o"></i> </label></div>
+                            <div class="clearfix"></div>
+                            <div class="go-right"><input id="5" type="radio" name="stars" class="radio" value="5">&nbsp;&nbsp;<label class="go-left" for="5"> <i class="star text-warning fa fa-star voted"></i>  <i class="star text-warning fa fa-star voted"></i>  <i class="star text-warning fa fa-star voted"></i>  <i class="star text-warning fa fa-star voted"></i>  <i class="star text-warning fa fa-star voted"></i>  <i class="fa fa-star-o"></i>  <i class="fa fa-star-o"></i> </label></div>
+                            <div class="clearfix"></div>
+                            <!-- <div class="go-right"><input id="7" type="radio" name="stars" class="radio" value="7" >&nbsp;&nbsp;<label class="go-left" for="7"> <i class="star text-warning fa fa-star voted"></i>  <i class="star text-warning fa fa-star voted"></i>  <i class="star text-warning fa fa-star voted"></i>  <i class="star text-warning fa fa-star voted"></i>  <i class="star text-warning fa fa-star voted"></i>  <i class="star text-warning fa fa-star voted"></i>  <i class="star text-warning fa fa-star voted"></i> </label></div>-->
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <br>
+                </div>
+                <!-- End of Star ratings -->
+                <!-- Price range -->
+                <button type="button" class="collapsebtn go-text-right" data-toggle="collapse" data-target="#collapse2">
+    Price Range <span class="collapsearrow"></span>
+    </button>
+                <div id="collapse2" class="collapse in">
+
+                    <div class="panel-body text-center">
+                        <input type="text" class="col-md-12" value="" data-slider-min="25" data-slider-max="2000 " data-slider-step="100" data-slider-value="[25,2000]" id="sl2" name="price">
+                    </div>
+
+                </div>
+                <!-- End of Price range -->
+                <!-- Acomodations -->
+                <button type="button" class="collapsebtn go-text-right" data-toggle="collapse" data-target="#collapse3">
+    Property Types <span class="collapsearrow"></span>
+    </button>
+                <div id="collapse3" class="collapse in">
+                    <div class="hpadding20">
+                        <br>
+                        <div class="go-right"><input type="checkbox" name="propertyCategory[]" value="6" id="all" class="checkbox go-right" /><label for="all" class="css-label go-left"> &nbsp;&nbsp;All Inclusive &nbsp;</label></div>
+                        <div class="clearfix"></div>
+                        <div class="go-right"><input type="checkbox" name="propertyCategory[]" value="1" id="hotel" class="checkbox go-right" /><label for="hotel" class="css-label go-left"> &nbsp;&nbsp;Home &nbsp; </label></div>
+                        <div class="clearfix"></div>
+                        <div class="go-right"><input type="checkbox" name="propertyCategory[]" value="2" id="suite" class="checkbox go-right" /><label for="suite" class="css-label go-left"> &nbsp;&nbsp;Suite&nbsp;&nbsp; </label></div>
+                        <div class="clearfix"></div>
+                        <div class="go-right"><input type="checkbox" name="propertyCategory[]" value="3" id="resort" class="checkbox go-right" /><label for="resort" class="css-label go-left"> &nbsp;&nbsp;Resort &nbsp;</label></div>
+                        <div class="clearfix"></div>
+                        <div class="go-right"><input type="checkbox" name="propertyCategory[]" value="4" id="vacation" class="checkbox go-right" /><label for="vacation" class="css-label go-left"> &nbsp;&nbsp;Vacation Rental/Condo &nbsp; </label></div>
+                        <div class="clearfix"></div>
+                        <div class="go-right"><input type="checkbox" name="propertyCategory[]" value="5" id="bed" class="checkbox go-right" /><label for="bed" class="css-label go-left"> &nbsp;&nbsp;Bed & Breakfast &nbsp;</label></div>
+                        <div class="clearfix"></div>
+                        <br>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <!-- End of Acomodations -->
+
+                <!-- Property Amenities -->
+                <button type="button" class="collapsebtn go-text-right" data-toggle="collapse" data-target="#collapse4">
+    Property Amenities <span class="collapsearrow"></span>
+    </button>
+                <div id="collapse4" class="collapse in">
+                    <div class="scroll-400">
+                        <div class="hpadding20">
+                            <br>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <!-- End of Property Amenities -->
+
+                <!-- Room Amenities -->
+                <button type="button" class="collapsebtn go-text-right" data-toggle="collapse" data-target="#collapse5">
+    Room Amenities <span class="collapsearrow"></span>
+    </button>
+                <div id="collapse5" class="collapse in">
+                    <div class="scroll-400">
+                        <div class="hpadding20">
+                            <br>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <!-- End of Room Amenities -->
+
+                <!-- End of Hotel Preferences -->
+                <div class="clearfix"></div>
+                <br/>
+                <input type="hidden" name="city" value="Alexandria, Egypt">
+                <input type="hidden" name="checkIn" value="07/16/2017">
+                <input type="hidden" name="checkOut" value="07/17/2017">
+                <input type="hidden" name="childages" value="">
+                <input type="hidden" name="adults" value="2">
+                <input type="hidden" name="search" value="1">
+                <button style="border-radius:0px;margin-bottom: 0px;" type="submit" class="btn btn-action btn-lg btn-block" id="searchform">Search</button>
+        </div>
+        <!-- END OF FILTERS -->
+        </form>
+
+        <!-- End Ean search form left side -->
+
+
+        <!-- <div class="visible-xs"><br><br></div>-->
+        <!-- LIST CONTENT-->
+        <!--<div class="clearfix"></div> -->
+        <div class="rightcontent col-md-9 pl15pr0">
+            <div class="itemscontainer">
+                <table class="bgwhite table table-striped">
+
+
+                    {% if Hotels %} {% for hotel in Hotels %}
+                    <tr>
+                        <td>
+                            <div class="offset-3 offset-RTL">
+                                <div class="wow fadeIn col-lg-4 col-md-4 col-sm-4 offset-0 go-right rtl_pic">
+                                    <!-- Add to whishlist -->
+                                    <!-- Add to whishlist -->
+                                    <div class="img_list">
+                                        <a href="{{url_for('getDetails', code = code, hotelCode = hotel.code,price=hotel.price)}}">
+                                            <img src="{{ url_for('static', filename='themes/default/assets/img/loading.svg') }}" class="" data-lazy="{{hotel.photos[0]}}" alt="Hilton Alexandria Corniche">
+                                            <div class="short_info"></div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="wow fadeIn col-md-8 col-sm-8 offset-0">
+                                    <div class="itemlabel3">
+                                        <div class="labelright go-left" style="min-width:105px;margin-left:5px;padding-left:14px;">
+                                            <div class="text-success fs18 text-center">
+                                                <b>
+            <small>USD</small> {{hotel.price}}            </b></div>
+                                            <div class="clearfix"></div>
+
+                                            <a href="{{url_for('getDetails', code = code, hotelCode = hotel.code,price=hotel.price )}}">
+                                                <button class=" mt15 btn btn-action btn-block ">Details</button>
+                                            </a>
+                                        </div>
+                                        <div class="labelleft2 rtl_title_home ">
+                                            <h4 class="mtb0 RTL go-text-right ">
+                                                <a href="{{url_for('getDetails', code = code, hotelCode = hotel.code ,price=hotel.price)}}"><b>{{hotel.name}}</b></a>
+                                                <!-- Cars airport pickup -->
+                                                <!-- Cars airport pickup -->
+                                            </h4>
+                                            <a class="go-right " href="javascript:void(0); " onclick="showMap( 'http://localhost/faisal/home/maps/31.26462/29.98754/ean/277957', 'modal'); " title="Alexandria "><i style="margin-left: -3px; " class="icon-location-6
+                                                go-right "></i>{{city}}</a>
+                                            <span class="go-right ">    <small class="go-right"><li class="starability-result" data-rating="{{hotel.stars}}" aria-describedby="result1">
+                                    {{hotel.stars}} stars
+                                </li>
+                                </small></span>
+                                            <p style="margin: 7px 0px 7px 0px; " class="grey RTL ">{{hotel.descriptions}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+
+                    <div class="clearfix "></div>
+
+                    {% endfor %} {% endif %}
+
+
+
+
+
+
+
+
+
+                    <!-- End of offset1-->
+
+                    <!-- start EAN multiple locations found and load more hotels -->
+                    <!--This is for display cache Parameter-->
+                    <!--<div id="latest_record_para ">
+                        <input type="hidden " name="moreResultsAvailable " id="moreResultsAvailable " value="1 " />
+                        <input type="hidden " name="cacheKey " id="cacheKey " value="1947dfa2:15d47157f8f:-1d9a " />
+                        <input type="hidden " name="cacheLocation " id="cacheLocation " value="10.186.168.113:7300 " />
+                        <input type="hidden " name=" " id="agesappendurl " value=" " />
+                        <input type="hidden " name=" " id="adultsCount " value="2 " />
+                    </div>-->
+                    <!--This is for display content-->
+                    <div id="New_data_load "></div>
+                    <!--This is for display Loader Image-->
+                    <div id="loader_new "></div>
+                    <div id="message_noResult "></div>
+                    <!-- END OF LIST CONTENT-->
+                    <!-- End EAN multiple locations found and load more hotels  -->
+            </div>
+            <!-- END OF LIST CONTENT-->
+        </div>
+        <!-- END OF container-->
+    </div>
+    <!-- END OF CONTENT -->
+    <br><br><br>
+    <!-- End container -->
+    <!-- Map -->
+    <!-- Map Modal -->
+    <div class="modal fade " id="mapModal " tabindex="1 " role="dialog " aria-labelledby="myModalLabel " aria-hidden="true ">
+        <div class="modal-dialog modal-lg ">
+            <div class="modal-content ">
+                <div class="mapContent ">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix "></div>
+    <script>
+        $('#collapseMap').on('shown.bs.collapse', function(e) {
+            (function(A) {
+
+                if (!Array.prototype.forEach)
+                    A.forEach = A.forEach || function(action, that) {
+                        for (var i = 0, l = this.length; i < l; i++)
+                            if (i in this)
+                                action.call(that, this[i], i, this);
+                    };
+
+            })(Array.prototype);
+
+            var
+                mapObject,
+                markers = [],
+                markersData = {
+
+                    'map-red': [{
+                            name: 'hotel name',
+                            location_latitude: "31.26462 ",
+                            location_longitude: "29.98754 ",
+                            map_image_url: "https://images.travelnow.com/hotels/1000000/10000/7900/7841/f5b02e4b_b.jpg ",
+                            name_point: "Hilton Alexandria Corniche ",
+                            description_point: "Property Location With a stay at Hilton Alexandria Corniche, you&apos;ll be&#8230; ",
+                            url_point: "http://localhost/faisal/hotel/hotel/277957/0ABAA871-7DFA-2915-D472-157F8F901DA6?adults=2&checkin=07/16/2017&checkout=07/17/2017 "
+                        }, {
+                            name: 'hotel name',
+                            location_latitude: "31.20281 ",
+                            location_longitude: "29.90189 ",
+                            map_image_url: "https://images.travelnow.com/hotels/18000000/17500000/17500000/17499977/8fdeec49_b.jpg ",
+                            name_point: "Philip House Hotel ",
+                            description_point: "Property Location With a stay at Philip House Hotel in Alexandria, you&apos;ll&#8230; ",
+                            url_point: "http://localhost/faisal/hotel/hotel/669068/0ABAA871-7DFA-2915-D472-157F8F901DA6?adults=2&checkin=07/16/2017&checkout=07/17/2017 "
+                        }, {
+                            name: 'hotel name',
+                            location_latitude: "31.05698 ",
+                            location_longitude: "29.7175 ",
+                            map_image_url: "https://images.travelnow.com/hotels/3000000/2520000/2511100/2511070/2511070_82_b.jpg ",
+                            name_point: "Radisson Blu Hotel, Alexandria ",
+                            description_point: "Property Location When you stay at Radisson Blu Hotel, Alexandria in Alexandria,&#8230; ",
+                            url_point: "http://localhost/faisal/hotel/hotel/311363/0ABAA871-7DFA-2915-D472-157F8F901DA6?adults=2&checkin=07/16/2017&checkout=07/17/2017 "
+                        }, {
+                            name: 'hotel name',
+                            location_latitude: "31.28108 ",
+                            location_longitude: "30.01037 ",
+                            map_image_url: "https://images.travelnow.com/hotels/11000000/10560000/10558700/10558637/10558637_5_b.jpg ",
+                            name_point: "Alexander the great apartment hotel ",
+                            description_point: "Property Location With a stay at Alexander the great apartment hotel in Alexandria,&#8230; ",
+                            url_point: "http://localhost/faisal/hotel/hotel/510863/0ABAA871-7DFA-2915-D472-157F8F901DA6?adults=2&checkin=07/16/2017&checkout=07/17/2017 "
+                        }, {
+                            name: 'hotel name',
+                            location_latitude: "31.2705 ",
+                            location_longitude: "29.99402 ",
+                            map_image_url: "https://images.travelnow.com/hotels/19000000/18350000/18347100/18347022/5f46e3e4_b.jpg ",
+                            name_point: "Alexandria Vacations ",
+                            description_point: "Property Location When you stay at Alexandria Vacations in Alexandria, you&apos;ll&#8230; ",
+                            url_point: "http://localhost/faisal/hotel/hotel/692550/0ABAA871-7DFA-2915-D472-157F8F901DA6?adults=2&checkin=07/16/2017&checkout=07/17/2017 "
+                        }, {
+                            name: 'hotel name',
+                            location_latitude: "31.27589 ",
+                            location_longitude: "30.00264 ",
+                            map_image_url: "https://images.travelnow.com/hotels/15000000/14590000/14589400/14589338/14589338_11_b.jpg ",
+                            name_point: "Asafra Hotel Apartments ",
+                            description_point: "Property Location With a stay at Asafra Hotel Apartments in Alexandria, you&apos;ll&#8230; ",
+                            url_point: "http://localhost/faisal/hotel/hotel/574360/0ABAA871-7DFA-2915-D472-157F8F901DA6?adults=2&checkin=07/16/2017&checkout=07/17/2017 "
+                        }, {
+                            name: 'hotel name',
+                            location_latitude: "31.139 ",
+                            location_longitude: "29.78406 ",
+                            map_image_url: "https://images.travelnow.com/hotels/15000000/14590000/14589900/14589848/14589848_18_b.jpg ",
+                            name_point: "Ajami Armed Forces Apartments ",
+                            description_point: "Property Location With a stay at Ajami Armed Forces Apartments in Alexandria,&#8230; ",
+                            url_point: "http://localhost/faisal/hotel/hotel/574488/0ABAA871-7DFA-2915-D472-157F8F901DA6?adults=2&checkin=07/16/2017&checkout=07/17/2017 "
+                        }, {
+                            name: 'hotel name',
+                            location_latitude: "30.92886 ",
+                            location_longitude: "29.55688 ",
+                            map_image_url: "https://images.travelnow.com/hotels/18000000/17030000/17029400/17029320/2a9f3461_b.jpg ",
+                            name_point: "Panacea hotel ",
+                            description_point: "Property Location With a stay at Panacea hotel in Alexandria, you&apos;ll be&#8230; ",
+                            url_point: "http://localhost/faisal/hotel/hotel/650521/0ABAA871-7DFA-2915-D472-157F8F901DA6?adults=2&checkin=07/16/2017&checkout=07/17/2017 "
+                        }, {
+                            name: 'hotel name',
+                            location_latitude: "30.84113 ",
+                            location_longitude: "29.22905 ",
+                            map_image_url: "https://images.travelnow.com/hotels/10000000/9800000/9792100/9792079/9792079_26_b.jpg ",
+                            name_point: "Aida Beach Hotel-El Alamein ",
+                            description_point: "Property Location With a stay at Aida Beach Hotel-El Alamein in El Alamein,&#8230; ",
+                            url_point: "http://localhost/faisal/hotel/hotel/488855/0ABAA871-7DFA-2915-D472-157F8F901DA6?adults=2&checkin=07/16/2017&checkout=07/17/2017 "
+                        }, {
+                            name: 'hotel name',
+                            location_latitude: "30.8142 ",
+                            location_longitude: "29.05788 ",
+                            map_image_url: "https://images.travelnow.com/hotels/7000000/6790000/6784100/6784036/6784036_1_b.jpg ",
+                            name_point: "Marina Village North Coast ",
+                            description_point: "Property Location With a stay at Marina Village North Coast in El Alamein,&#8230; ",
+                            url_point: "http://localhost/faisal/hotel/hotel/443281/0ABAA871-7DFA-2915-D472-157F8F901DA6?adults=2&checkin=07/16/2017&checkout=07/17/2017 "
+                        }, {
+                            name: 'hotel name',
+                            location_latitude: "31.03481 ",
+                            location_longitude: "28.59161 ",
+                            map_image_url: "https://images.travelnow.com/hotels/9000000/8370000/8362100/8362037/7d6b81f1_b.jpg ",
+                            name_point: "Rixos Alamein ",
+                            description_point: "Property Location When you stay at Rixos Alamein in El Alamein, you&apos;ll&#8230; ",
+                            url_point: "http://localhost/faisal/hotel/hotel/461531/0ABAA871-7DFA-2915-D472-157F8F901DA6?adults=2&checkin=07/16/2017&checkout=07/17/2017 "
+                        }, {
+                            name: 'hotel name',
+                            location_latitude: "31.2017 ",
+                            location_longitude: "29.90342 ",
+                            map_image_url: "https://images.travelnow.com/hotels/15000000/14590000/14589400/14589400/14589400_2_b.jpg ",
+                            name_point: "Raml Armed Forces Hotel ",
+                            description_point: "Property Location When you stay at Raml Armed Forces Hotel in Alexandria, you&apos;ll&#8230; ",
+                            url_point: "http://localhost/faisal/hotel/hotel/574293/0ABAA871-7DFA-2915-D472-157F8F901DA6?adults=2&checkin=07/16/2017&checkout=07/17/2017 "
+                        }, {
+                            name: 'hotel name',
+                            location_latitude: "31.28167 ",
+                            location_longitude: "30.01236 ",
+                            map_image_url: "https://images.travelnow.com/hotels/1000000/10000/9600/9523/9523_116_b.jpg ",
+                            name_point: "Sheraton Montazah Hotel ",
+                            description_point: "Property Location With a stay at Sheraton Montazah Hotel in Alexandria, you&apos;ll&#8230; ",
+                            url_point: "http://localhost/faisal/hotel/hotel/105823/0ABAA871-7DFA-2915-D472-157F8F901DA6?adults=2&checkin=07/16/2017&checkout=07/17/2017 "
+                        }, {
+                            name: 'hotel name',
+                            location_latitude: "31.27744 ",
+                            location_longitude: "30.00796 ",
+                            map_image_url: "https://images.travelnow.com/hotels/6000000/5010000/5002500/5002441/5002441_1_b.jpg ",
+                            name_point: "Alexandria Mediterranean Suites ",
+                            description_point: "Property Location With a stay at Alexandria Mediterranean Suites in Alexandria,&#8230; ",
+                            url_point: "http://localhost/faisal/hotel/hotel/404964/0ABAA871-7DFA-2915-D472-157F8F901DA6?adults=2&checkin=07/16/2017&checkout=07/17/2017 "
+                        }, {
+                            name: 'hotel name',
+                            location_latitude: "31.19854 ",
+                            location_longitude: "29.89551 ",
+                            map_image_url: "https://images.travelnow.com/hotels/9000000/8670000/8661700/8661666/b9c1182a_b.jpg ",
+                            name_point: "Cherry Maryski Hotel ",
+                            description_point: "Property Location A stay at Cherry Maryski Hotel places you in the heart of&#8230; ",
+                            url_point: "http://localhost/faisal/hotel/hotel/465700/0ABAA871-7DFA-2915-D472-157F8F901DA6?adults=2&checkin=07/16/2017&checkout=07/17/2017 "
+                        }, {
+                            name: 'hotel name',
+                            location_latitude: "30.93294 ",
+                            location_longitude: "29.47499 ",
+                            map_image_url: "https://images.travelnow.com/hotels/1000000/910000/903600/903565/903565_41_b.jpg ",
+                            name_point: "Iberotel Borg El Arab ",
+                            description_point: "Property Location You&apos;ll be centrally located in Borg el Arab with a stay&#8230; ",
+                            url_point: "http://localhost/faisal/hotel/hotel/139366/0ABAA871-7DFA-2915-D472-157F8F901DA6?adults=2&checkin=07/16/2017&checkout=07/17/2017 "
+                        }, {
+                            name: 'hotel name',
+                            location_latitude: "31.23209 ",
+                            location_longitude: "29.9456 ",
+                            map_image_url: "https://images.travelnow.com/hotels/7000000/6780000/6771300/6771287/6771287_31_b.jpg ",
+                            name_point: "Tolip Alexandria ",
+                            description_point: "Property Location Tolip Alexandria is centrally located in Alexandria, walking&#8230; ",
+                            url_point: "http://localhost/faisal/hotel/hotel/465378/0ABAA871-7DFA-2915-D472-157F8F901DA6?adults=2&checkin=07/16/2017&checkout=07/17/2017 "
+                        }, {
+                            name: 'hotel name',
+                            location_latitude: "30.99918 ",
+                            location_longitude: "29.73435 ",
+                            map_image_url: "https://images.travelnow.com/hotels/17000000/16110000/16106900/16106845/d7b0441c_b.jpg ",
+                            name_point: "Tolip Family Club Borg El Arab ",
+                            description_point: "Property Location When you stay at Tolip Family Club Borg El Arab in Alexandria,&#8230; ",
+                            url_point: "http://localhost/faisal/hotel/hotel/629358/0ABAA871-7DFA-2915-D472-157F8F901DA6?adults=2&checkin=07/16/2017&checkout=07/17/2017 "
+                        }, {
+                            name: 'hotel name',
+                            location_latitude: "31.22704 ",
+                            location_longitude: "29.94624 ",
+                            map_image_url: "https://images.travelnow.com/hotels/2000000/1660000/1652700/1652698/0cde033f_b.jpg ",
+                            name_point: "Four Seasons Hotel Alexandria at San Stefano ",
+                            description_point: "Property Location With a stay at Four Seasons Hotel Alexandria at San Stefano&#8230; ",
+                            url_point: "http://localhost/faisal/hotel/hotel/253544/0ABAA871-7DFA-2915-D472-157F8F901DA6?adults=2&checkin=07/16/2017&checkout=07/17/2017 "
+                        }, {
+                            name: 'hotel name',
+                            location_latitude: "31.2812 ",
+                            location_longitude: "30.02245 ",
+                            map_image_url: "https://images.travelnow.com/hotels/16000000/15150000/15141200/15141117/15141117_4_b.jpg ",
+                            name_point: "Eastern Al Montazah Hotel ",
+                            description_point: "Property Location When you stay at Eastern Al Montazah Hotel in Alexandria,&#8230; ",
+                            url_point: "http://localhost/faisal/hotel/hotel/594018/0ABAA871-7DFA-2915-D472-157F8F901DA6?adults=2&checkin=07/16/2017&checkout=07/17/2017 "
+                        }, {
+                            name: 'hotel name',
+                            location_latitude: "31.22446 ",
+                            location_longitude: "29.93524 ",
+                            map_image_url: "https://images.travelnow.com/hotels/8000000/7360000/7357900/7357841/270f4613_b.jpg ",
+                            name_point: "Royal Crown Alexandria ",
+                            description_point: "Property Location With a stay at Royal Crown Alexandria in Alexandria, you&apos;ll&#8230; ",
+                            url_point: "http://localhost/faisal/hotel/hotel/448362/0ABAA871-7DFA-2915-D472-157F8F901DA6?adults=2&checkin=07/16/2017&checkout=07/17/2017 "
+                        }, {
+                            name: 'hotel name',
+                            location_latitude: "31.2015 ",
+                            location_longitude: "29.89861 ",
+                            map_image_url: "https://images.travelnow.com/hotels/1000000/20000/16300/16283/16283_139_b.jpg ",
+                            name_point: "Steigenberger Cecil Alexandria Hotel ",
+                            description_point: "Property Location With a stay at Steigenberger Cecil Alexandria Hotel, you&apos;ll&#8230; ",
+                            url_point: "http://localhost/faisal/hotel/hotel/119085/0ABAA871-7DFA-2915-D472-157F8F901DA6?adults=2&checkin=07/16/2017&checkout=07/17/2017 "
+                        }, {
+                            name: 'hotel name',
+                            location_latitude: "31.23683 ",
+                            location_longitude: "29.9529 ",
+                            map_image_url: "https://images.travelnow.com/hotels/1000000/10000/8700/8675/94ed8021_b.jpg ",
+                            name_point: "Romance Alexandria Corniche Hotel ",
+                            description_point: "Property Location Located in Alexandria, Romance Alexandria Corniche Hotel&#8230; ",
+                            url_point: "http://localhost/faisal/hotel/hotel/119086/0ABAA871-7DFA-2915-D472-157F8F901DA6?adults=2&checkin=07/16/2017&checkout=07/17/2017 "
+                        }, {
+                            name: 'hotel name',
+                            location_latitude: "31.29109 ",
+                            location_longitude: "30.03447 ",
+                            map_image_url: "https://images.travelnow.com/hotels/15000000/14590000/14589600/14589542/4d882258_b.jpg ",
+                            name_point: "Maamoura Armed Forces Apartments ",
+                            description_point: "Property Location With a stay at Maamoura Armed Forces Apartments in Alexandria,&#8230; ",
+                            url_point: "http://localhost/faisal/hotel/hotel/574328/0ABAA871-7DFA-2915-D472-157F8F901DA6?adults=2&checkin=07/16/2017&checkout=07/17/2017 "
+                        }, {
+                            name: 'hotel name',
+                            location_latitude: "31.19481 ",
+                            location_longitude: "29.89573 ",
+                            map_image_url: "https://images.travelnow.com/hotels/11000000/10220000/10217200/10217183/10217183_42_b.jpg ",
+                            name_point: "Alexander the great hotel-Alexotel ",
+                            description_point: "Property Location Alexander the great hotel-Alexotel is in the heart of Alexandria,&#8230; ",
+                            url_point: "http://localhost/faisal/hotel/hotel/499254/0ABAA871-7DFA-2915-D472-157F8F901DA6?adults=2&checkin=07/16/2017&checkout=07/17/2017 "
+                        },
+
+                    ],
+
+                };
+            var mapOptions = {
+                zoom: 12,
+                center: new google.maps.LatLng(31.19481, 29.89573),
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+
+                mapTypeControl: false,
+                mapTypeControlOptions: {
+                    style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+                    position: google.maps.ControlPosition.LEFT_CENTER
+                },
+                panControl: false,
+                panControlOptions: {
+                    position: google.maps.ControlPosition.TOP_RIGHT
+                },
+                zoomControl: true,
+                zoomControlOptions: {
+                    style: google.maps.ZoomControlStyle.LARGE,
+                    position: google.maps.ControlPosition.TOP_RIGHT
+                },
+                scrollwheel: false,
+                scaleControl: false,
+                scaleControlOptions: {
+                    position: google.maps.ControlPosition.TOP_LEFT
+                },
+                streetViewControl: true,
+                streetViewControlOptions: {
+                    position: google.maps.ControlPosition.LEFT_TOP
+                },
+                styles: [ /*map styles*/ ]
+            };
+            var
+                marker;
+            mapObject = new google.maps.Map(document.getElementById('map'), mapOptions);
+            for (var key in markersData)
+                markersData[key].forEach(function(item) {
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(item.location_latitude, item.location_longitude),
+                        map: mapObject,
+                        icon: 'http://localhost/faisal/assets/img/' + key + '.png',
+                    });
+
+                    if ('undefined' === typeof markers[key])
+                        markers[key] = [];
+                    markers[key].push(marker);
+                    google.maps.event.addListener(marker, 'click', (function() {
+                        closeInfoBox();
+                        getInfoBox(item).open(mapObject, this);
+                        mapObject.setCenter(new google.maps.LatLng(item.location_latitude, item.location_longitude));
+                    }));
+
+                });
+
+            function hideAllMarkers() {
+                for (var key in markers)
+                    markers[key].forEach(function(marker) {
+                        marker.setMap(null);
+                    });
+            };
+
+            function closeInfoBox() {
+                $('div.infoBox').remove();
+            };
+
+            function getInfoBox(item) {
+                return new InfoBox({
+                    content: '<div class="marker_info " id="marker_info ">' +
+                        '<img style="width:280px;height:140px " src=" ' + item.map_image_url + ' " alt=" "/>' +
+                        '<h3>' + item.name_point + '</h3>' +
+                        '<span>' + item.description_point + '</span>' +
+                        '<a href=" ' + item.url_point + ' " class="btn btn-primary ">Details</a>' +
+                        '</div>',
+                    disableAutoPan: true,
+                    maxWidth: 0,
+                    pixelOffset: new google.maps.Size(40, -190),
+                    closeBoxMargin: '0px -20px 2px 2px',
+                    closeBoxURL: "http://localhost/faisal/themes/default/assets/img/close.png ",
+                    isHidden: false,
+                    pane: 'floatPane',
+                    enableEventPropagation: true
+                });
+            };
+        });
+    </script>
+
+
+    <script src="{{ url_for( 'static', filename='themes/default/assets/js/bootstrap.min.js' ) }} "></script>
+    <script src="{{ url_for( 'static', filename='themes/default/assets/js/scripts.js' ) }} "></script>
+
+    <script>
+        var options = {
+            url: function(phrase) {
+                return "http://yasen.hotellook.com/autocomplete?lang=en-US&limit=10&term=" + phrase;
+            },
+            categories: [{
+                listLocation: " cities "
+            }],
+
+            list: {
+                match: {
+                    enabled: false
+                },
+                maxNumberOfElements: 10
+            },
+            getValue: "fullname ",
+        };
+
+        $("#citiesInput ").easyAutocomplete(options);
+    </script>
+
+    <script>
+        var fmt = "dd/mm/yyyy ";
+        var baseURL = "http://localhost/faisal/ ";
+
+        $(function() {
+
+
+            /* Wish list global function */
+            $(".wishlistcheck ").on("click ", function() {
+                    var id = $(this).prop('id');
+                    var module = $(this).data('module');
+                    var userid = " ";
+                    var action = "add ";
+                    var thisdiv = $(this);
+                    if ($(this).hasClass('fav')) {
+                        action = "remove ";
+                    }
+
+
+                    $.post(baseURL + 'account/wishlist/' + action, {
+                        module: module,
+                        itemid: id,
+                        loggedin: userid
+                    }, function(resp) {
+                        var response = $.parseJSON(resp);
+                        if (response.isloggedIn) {
+
+                            if (action == "remove ") {
+                                $(". " + module + "wishsign " + id).html("+ ");
+                                //$(". "+module+"wishtext "+id).html("Add to Wishlist ");
+                                $(". " + module + "wishtext " + id).tooltip('hide').attr('data-original-title', "Add to wishlist ").tooltip('fixTitle').tooltip('show');
+                                $(". " + module + "wishsign " + id).removeClass("fav ");
+                                thisdiv.removeClass('fav');
+
+                            } else {
+
+                                thisdiv.addClass('fav');
+                                $(". " + module + "wishsign " + id).addClass("fav ");
+                                $(". " + module + "wishsign " + id).html("- ");
+                                //$(". "+module+"wishtext "+id).html("Remove From Wishlist ");
+                                $(". " + module + "wishtext " + id).tooltip('hide').attr('data-original-title', "Remove from wishlist ").tooltip('fixTitle').tooltip('show');
+
+                            }
+
+                        } else {
+                            alert("Please Login to add to wishlist. ");
+                        }
+
+                    });
+
+                })
+                /* End Wish list global function */
+
+
+            /* tours ajax categories loader */
+            $('#location').on('change', function() {
+                var location = $(this).val();
+                $.post(baseURL + 'tours/tourajaxcalls/onChangeLocation', {
+                    location: location
+                }, function(resp) {
+                    var response = $.parseJSON(resp);
+                    console.log(response);
+                    if (response.hasResult) {
+                        $("#tourtype ").html(response.optionsList);
+                    } else {
+                        $("#tourtype ").html(response.optionsList);
+                    }
+                    mySelectUpdate();
+                })
+            });
+
+            /* cars ajax types loader */
+
+            /* Datepicker */
+
+            /* disabling dates */
+            var nowTemp = new Date();
+            var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+            var checkin = $('.dpd1').datepicker({
+                format: fmt,
+                onRender: function(date) {
+                    return date.valueOf() < now.valueOf() ? 'disabled' : '';
+                }
+            }).on('changeDate', function(ev) {
+                // if (ev.date.valueOf() > checkout.date.valueOf()) {
+                var newDate = new Date(ev.date);
+                newDate.setDate(newDate.getDate() + 1);
+                checkout.setValue(newDate);
+                // }
+                checkin.hide();
+                $('.dpd2')[0].focus();
+            }).data('datepicker');
+            var checkout = $('.dpd2').datepicker({
+                format: fmt,
+                onRender: function(date) {
+                    return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
+                }
+            }).on('changeDate', function(ev) {
+                var newDate = new Date(ev.date);
+                checkout.hide();
+
+            }).data('datepicker');
+
+            /* disabling dates for rooms search */
+            var nowTemprooms = new Date();
+            var nowrooms = new Date(nowTemprooms.getFullYear(), nowTemprooms.getMonth(), nowTemprooms.getDate(), 0, 0, 0, 0);
+            var checkinrooms = $('.dpd1rooms').datepicker({
+                format: fmt,
+                onRender: function(date) {
+                    return date.valueOf() < now.valueOf() ? 'disabled' : '';
+                }
+            }).on('changeDate', function(ev) {
+                // if (ev.date.valueOf() > checkout.date.valueOf()) {
+                var newDaterooms = new Date(ev.date);
+                newDaterooms.setDate(newDaterooms.getDate() + 1);
+                checkoutrooms.setValue(newDaterooms);
+                // }
+                checkinrooms.hide();
+                $('.dpd2rooms')[0].focus();
+            }).data('datepicker');
+            var checkoutrooms = $('.dpd2rooms').datepicker({
+                format: fmt,
+                onRender: function(date) {
+                    return date.valueOf() <= checkinrooms.date.valueOf() ? 'disabled' : '';
+                }
+            }).on('changeDate', function(ev) {
+                var newDaterooms = new Date(ev.date);
+                checkoutrooms.hide();
+
+            }).data('datepicker');
+
+            /* Expedia datepicker */
+            var nowTemp2 = new Date,
+                now2 = new Date(nowTemp2.getFullYear(), nowTemp2.getMonth(), nowTemp2.getDate(), 0, 0, 0, 0),
+                checkin2 = $(".dpean1 ").datepicker({
+                    format: "mm/dd/yyyy ",
+                    onRender: function(e) {
+                        return e.valueOf() < now2.valueOf() ? "disabled " : " "
+                    }
+                }).on("changeDate ", function(e) {
+                    // if(e.date.valueOf()>checkout2.date.valueOf()){
+                    var a = new Date(e.date);
+                    a.setDate(a.getDate() + 1);
+                    a.setDate(a.getDate() + 1), checkout2.setValue(a)
+                        //}
+                    checkin2.hide(), $(".dpean2 ")[0].focus()
+                }).data("datepicker "),
+                checkout2 = $(".dpean2 ").datepicker({
+                    format: "mm/dd/yyyy ",
+                    onRender: function(e) {
+                        return e.valueOf() <= checkin2.date.valueOf() ? "disabled " : " "
+                    }
+                }).on("changeDate ", function(ev) {
+                    var b = new Date(ev.date);
+                    checkout2.hide()
+                }).data("datepicker ");
+            /* End Expedia Datepicker*/
+
+            /* Dohop datepicker */
+            /* End Dohop Datepicker*/
+
+            // Tours checkin - disabling Single date
+            var nowTemp4 = new Date();
+            var now4 = new Date(nowTemp4.getFullYear(), nowTemp4.getMonth(), nowTemp4.getDate(), 0, 0, 0, 0);
+            var checkin4 = $('.tchkin').datepicker({
+                format: fmt,
+                onRender: function(date) {
+                    return date.valueOf() < now4.valueOf() ? 'disabled' : '';
+                }
+            }).on('changeDate', function(ev) {
+                var tdate = new Date(ev.date);
+                $('.tchkin').datepicker('hide');
+            });
+
+            /* Cartrawler datepicker */
+            var nowTemp6 = new Date,
+                now6 = new Date(nowTemp6.getFullYear(), nowTemp6.getMonth(), nowTemp6.getDate(), 0, 0, 0, 0),
+                checkin6 = $(".dpcd1 ").datepicker({
+                    format: "mm/dd/yyyy ",
+                    onRender: function(e) {
+                        return e.valueOf() < now6.valueOf() ? "disabled " : " "
+                    }
+                }).on("changeDate ", function(e) {
+                    //if(e.date.valueOf()>checkout6.date.valueOf()){
+                    var a = new Date(e.date);
+                    a.setDate(a.getDate() + 0);
+                    checkout6.setValue(a)
+                        //}
+                    checkin6.hide(), $(".dpcd2 ")[0].focus()
+                }).data("datepicker "),
+                checkout6 = $(".dpcd2 ").datepicker({
+                    format: "mm/dd/yyyy ",
+                    onRender: function(e) {
+                        return e.valueOf() < checkin6.date.valueOf() ? "disabled " : " "
+                    }
+                }).on("changeDate ", function(ev) {
+                    var cnDate = new Date(ev.date);
+                    checkout6.hide()
+                }).data("datepicker ");
+            /* End Cartrawler Datepicker*/
+
+            /* Newsletter subscription */
+            $(".sub_newsletter ").on("click ", function() {
+                var e = $(".sub_email ").val();
+                $.post("http://localhost/faisal/home/subscribe ", {
+                    email: e
+                }, function(e) {
+                    $(".subscriberesponse ").html(e).fadeIn("slow "), setTimeout(function() {
+                        $(".subscriberesponse ").fadeOut("slow ")
+                    }, 2000)
+                })
+            });
+
+            /* dropdown on hover */
+            $("ul.nav li.dropdown ").hover(function() {
+                $(this).find(".dropdown-menu ").stop(!0, !0).delay(200).fadeIn(200)
+            }, function() {
+                $(this).find(".dropdown-menu ").stop(!0, !0).delay(200).fadeOut(200)
+            });
+        });
+
+        /* start change currency functionality */
+        function change_currency(c) {
+            $("#loadingbg ").css("display ", "block "), $.post("http://localhost/faisal/admin/ajaxcalls/changeCurrency ", {
+                id: c
+            }, function() {
+                location.reload()
+            })
+        }
+
+        /* map iframe modal */
+        function showMap(a, o) {
+            "modal " == o ? ($("#mapModal ").modal("show "), $("#mapModal ").on("shown.bs.modal ", function() {
+                $("#mapModal .mapContent ").html('<iframe src=" ' + a + ' " width="100% " height="450 " frameborder="0 " style="border:0 "></iframe>')
+            })) : $("# " + o).html('<iframe src=" ' + a + ' " width="100% " height="450 " frameborder="0 " style="border:0 "></iframe>')
+        }
+    </script>
+    <script type="text/javascript ">
+        /* cartrawler auto suggest */
+        function selectLocationValue(l, h, locname) {
+            $("# " + h).val(locname);
+            if (h == 'ct1') {
+                $("input[name='pickupLocationId' ] ").val(l);
+                $("#ct2 ").val(locname);
+                $("input[name='returnLocationId' ] ").val(l);
+            } else if (h == "ct2 ") {
+                $("#returnlocation ").val(l);
+            };
+            $("# " + h + "resp ").html(" ")
+        }
+        $(function() {
+                    $(".ctlocation ").on("keyup ", function(l) {
+                                var h = $(this).val(),
+                                    e = h.length,
+                                    i = $(this).prop("id "),
+                                    t = l.keyCode || l.which;
+                                if ($.trim(e) > 1 && 38 != t && 40 != t) $("# " + i + "resp ").html(" "), $.post("http://localhost/faisal/cartrawler/getLocations ", {
+                                    term: h,
+                                    inputid: i
+                                }, function(l) {
+                                    $("# " + i + "resp ").html(l)
+                                });
+                                else if (38 != t && 40 != t) $("# " + i + "resp ").html(" ");
+                                else {
+                                    var s, g, n = $("# " + i + "resp ul li.highlight ");
+                                    40 !== t || n.length || $("# " + i + "resp ul li:first ").addClass("highlight "), 40 === t && n.length ? (g = n.next("# " + i + "resp ul li "), g.length && (n.removeClass("highlight "), g.addClass("highlight
+                                            "))) : 38 === t && (s = n.prev("#
+                                            " + i + "
+                                            resp ul li "), s.length && (n.removeClass("
+                                            highlight "), s.addClass("
+                                            highlight "))), console.log($(".highlight ").innerHTML)
+                                        }
+                                    })
+                                });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Safari 3.0+ "[object HTMLElementConstructor] "
+            var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0 || (function(p) {
+                return p.toString() === "[object SafariRemoteNotification] ";
+            })(!window['safari'] || safari.pushNotification);
+
+            if (isSafari == true) {
+                /*$("i ").next(".selectx:not(#currency) ").css("text-indent ", "30px !important ").css("line-height ", "40px !important ");
+                    var img_icon_1 = "<img src='http://localhost/faisal/themes/default/assets/img/child-adult.png' class='new_icon'>"; console.log(img_icon_1);*/
+                /*$(".icon_set_2_icon-105").addClass("safari-icon").removeClass("icon_set_2_icon-105");*/
+                $(".bg-warning").css("padding-bottom", "82px !important");
+            }
+        });
+    </script>
+    <div class="footerbg hidden-xs">
+        <div class="container text-center">
+            <a href="javascript:void" class="gotop scroll wow fadeInUp btn btn-default"><i class="icon-up-open-big"></i></a>
+        </div>
+    </div>
+</body>
+
+</html>
