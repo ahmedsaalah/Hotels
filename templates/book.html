@@ -1,0 +1,1255 @@
+
+<!DOCTYPE html>
+<html ng-app="phptravelsApp">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="php travels is complete booking and reservation system provides complete solution for travel agency">
+<meta name="keywords" content="php travels script, php hotels booking script, php reservation system">
+<meta name="author" content="PHPTRAVELS">
+<title>Corso Boutique Hotel</title>
+<link rel="shortcut icon" href="{{ url_for('static', filename='uploads/global/favicon.png') }}">
+<link href="{{ url_for('static', filename='themes/default/assets/css/bootstrap.css') }}" rel="stylesheet" media="screen">
+<link href="{{ url_for('static', filename='themes/default/style.css') }}" rel="stylesheet">
+
+<!-- facebook --> <meta property="og:title" content="Corso Boutique Hotel"/> <meta property="og:site_name" content="PHPTravels"/> <meta property="og:description" content="php travels is complete booking and reservation system provides complete solution for travel agency"/> <meta property="og:image" content="http://localhost/faisal/uploads/global/favicon.png"/>  <meta property="og:url" content="http://localhost/faisal//"/> <meta property="og:publisher" content="https://www.facebook.com/PHPTravels"/> <script type="application/ld+json">{"@context":"http://schema.org/","@type":"Organization","name":"PHPTravels","url":"http://localhost/faisal//","logo":"http://localhost/faisal/uploads/global/favicon.png","sameAs":"https://www.facebook.com/PHPTravels","sameAs":"https://twitter.com/PHPTravels","sameAs":"https://www.pinterest.com/PHPTravels/","sameAs":"https://plus.google.com/u/0/PHPTravels/posts","contactPoint":{"@type":"ContactPoint","telephone":"+123-456-789","contactType":"Customer Service"}}{"@context":"http://schema.org","@type":"WebSite","name":"PHPTravels","url":"http://localhost/faisal/"}  </script>
+<!-- Child Theme --> <style> @import "{{ url_for('static', filename='themes/default/assets/css/childstyle.css') }}"; </style>
+<!-- Google Maps -->  <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyA0cI0f-PExxoanF3Jf9bT0Sb41Sym4ywk&libraries=places"></script> <script src="http://localhost/faisal/themes/default/assets/js/infobox.js"></script><!-- jQuery --> <script src="http://localhost/faisal/themes/default/assets/js/jquery-1.11.2.min.js"></script>
+<!-- RTL CSS --> <!-- Mobile Redirect --> <!--[if lt IE 7] > <link rel="stylesheet" type="text/css" href="http://localhost/faisal/themes/default/assets/css/font-awesome-ie7.css" media="screen" /> <![endif]-->
+<!-- Autocomplete CSS files-->
+<link href="{{ url_for('static', filename='themes/default/assets/js/autocomplete/easy-autocomplete.min.css') }}" rel="stylesheet" type="text/css">
+<!-- Autocomplete CSS files-->
+<!-- Autocomplete JS files-->
+<script src="{{ url_for('static', filename='themes/default/assets/js/autocomplete/jquery.easy-autocomplete.min.js') }}" type="text/javascript" ></script>
+
+<!-- Autocomplete JS files-->
+
+</head>
+<body>
+<div class="clearfix"></div>
+<div class="navbar navbar-static-top navbar-default ">
+  <div class="container">
+    <div class="navbar">
+      <!-- Navigation-->
+      <div class="navbar-header go-right">
+        <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
+        <a href="http://localhost/faisal/" class="navbar-brand"><img src="{{ url_for('static', filename='uploads/global/logo.png') }}" alt="PHPTravels" class="logo"/></a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="<!--hidden-sm--> nav navbar-nav navbar-right currency_btn <!--go-left-->">
+          <form class="navbar-form navbar-left width_change">
+            <div class="form-group">
+              <li class="dropdown  go-left pull-left">
+                          <form class="dropdown pull-left header-currency go-left">
+          <div class="styled-select">
+          <select onchange="change_currency(this.value)" class="selectx input-sm" name="currency" id="currency">
+                    <option value="1" >USD</option>
+                    <option value="3" >GBP</option>
+                    <option value="9" >SAR</option>
+                    <option value="11" >EUR</option>
+                    <option value="12" >PKR</option>
+                    <option value="13" >KWD</option>
+                    <option value="17" >JPY</option>
+                    <option value="18" >INR</option>
+                    <option value="19" >CNY</option>
+                    <option value="20" >TRY</option>
+                    </select>
+          </div>
+          <div class="clearfix"></div>
+          </form>
+                    </li>
+          </div>
+          </form>
+          <li class="pull-left width_change">
+                        <a href="javascript:void(0);" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true"><img src="{{ url_for('static', filename='uploads/images/language/en.png') }}" width="21" height="14" alt="English"> English </a>
+            <ul class="dropdown-menu">
+                            <li><a href="" data-langname="Arabic" id="ar" class="changelang" ><img src="{{ url_for('static', filename='uploads/images/language/ar.png') }}" width="21" height="14" alt="">  Arabic</a></li>
+                            <li><a href="" data-langname="English" id="en" class="changelang" ><img src="{{ url_for('static', filename='uploads/images/language/en.png') }}" width="21" height="14" alt="">  English</a></li>
+                            <li><a href="" data-langname="Spanish" id="es" class="changelang" ><img src="{{ url_for('static', filename='uploads/images/language/es.png') }}" width="21" height="14" alt="">  Spanish</a></li>
+                            <li><a href="" data-langname="French" id="fr" class="changelang" ><img src="{{ url_for('static', filename='uploads/images/language/fr.png') }}" width="21" height="14" alt="">  French</a></li>
+                            <li><a href="" data-langname="Italian" id="it" class="changelang" ><img src="{{ url_for('static', filename='uploads/images/language/it.png') }}" width="21" height="14" alt="">  Italian</a></li>
+                            <li><a href="" data-langname="Hebrew" id="iw" class="changelang" ><img src="{{ url_for('static', filename='uploads/images/language/iw.png') }}" width="21" height="14" alt="">  Hebrew</a></li>
+                            <li><a href="" data-langname="Portuguese" id="pt" class="changelang" ><img src="{{ url_for('static', filename='uploads/images/language/pt.png') }}" width="21" height="14" alt="">  Portuguese</a></li>
+                            <li><a href="" data-langname="Russian" id="ru" class="changelang" ><img src="{{ url_for('static', filename='uploads/images/language/ru.png') }}" width="21" height="14" alt="">  Russian</a></li>
+                            <li><a href="" data-langname="Filipino" id="tl" class="changelang" ><img src="{{ url_for('static', filename='uploads/images/language/tl.png') }}" width="21" height="14" alt="">  Filipino</a></li>
+                            <li><a href="" data-langname="Turkish" id="tr" class="changelang" ><img src="{{ url_for('static', filename='uploads/images/language/tr.png') }}" width="21" height="14" alt="">  Turkish</a></li>
+                            <li><a href="" data-langname="Ukrainian" id="uk" class="changelang" ><img src="{{ url_for('static', filename='uploads/images/language/uk.png') }}" width="21" height="14" alt="">  Ukrainian</a></li>
+                          </ul>
+                                  </li>
+              <div class="header-brdr pull-left hidden-xs hidden-md go-left"></div>
+                    <li class="<!--pull-right--> width_change">
+            <a href="javascript:void(0);" data-toggle="dropdown" class="dropdown-toggle"><i class="icon_set_2_icon-105"></i> My Account <b class="lightcaret mt-2"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="http://localhost/faisal/login">  Login</a></li>
+              <li><a href="http://localhost/faisal/register">  Sign Up</a></li>
+            </ul>
+          </li>
+                  </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="navbar navbar-default navbar-orange hidden-xs">
+  <div class="container">
+  <div class="row">
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-left go-right">
+          <li class="dropdown  go-right">
+           <a class="dropdown-toggle" href="http://localhost/faisal/"> Home </a>
+          </li>
+                    <li class="go-right  ">
+            <a href="http://localhost/faisal/hotel/" class=" "   target="_self" >
+              <!--<i class=''></i>--> Hotels                 </a>
+                      </li>
+                    <li class="go-right  ">
+            <a href="http://localhost/faisal/flight" class=" "   target="" >
+              <!--<i class=''></i>--> Flights                </a>
+                      </li>
+                    <li class="go-right  ">
+            <a href="http://localhost/faisal/tours" class=" "   target="_self" >
+              <!--<i class=''></i>--> Tours                  </a>
+                      </li>
+                    <li class="go-right  ">
+            <a href="http://localhost/faisal/car" class=" "   target="_self" >
+              <!--<i class='fa fa-cab'></i>--> Cars                   </a>
+                      </li>
+                    <li class="go-right  ">
+            <a href="http://localhost/faisal/themes/default/../../offers" class=" "   target="_self" >
+              <!--<i class=''></i>--> Offers              </a>
+                      </li>
+                    <li class="go-right  ">
+            <a href="http://localhost/faisal/blog" class=" "   target="_self" >
+              <!--<i class='fa fa-building'></i>--> Blog                   </a>
+                      </li>
+                    <li class="go-right  ">
+            <a href="http://localhost/faisal/contact-us" class=" "   target="" >
+              <!--<i class='glyphicon glyphicon-phone-alt'></i>--> Contact Us              </a>
+                      </li>
+                  </ul>
+    </div>
+  </div>
+  </div>
+</nav>
+<style>
+  .btn-circle {border-radius: 50%;font-size: 54px;padding: 10px 20px;}
+   td{ border-top: solid 1px rgba(231, 231, 231, 0.4);}
+   td{ border-right: transparent !important;}
+   td{ border-left: transparent !important;}
+   td{ border-bottom: transparent !important;}
+</style>
+<div class="container">
+  <!-- Start Fail Result of Expedia booking for submit -->
+    <!-- End Fail Result of Expedia booking for submit -->
+  <div class="container mt25 offset-0">
+    <div class="loadinvoice">
+      <div class="acc_section">
+        <div class="col-md-8 offset-0 go-right" style="margin-bottom:50px;">
+          <div class="clearfix"></div>
+          <div class="">
+            <div class="result"></div>
+                        <!-- Start Other Modules Booking left section -->
+                        <!-- Start Expedia Booking Form -->
+
+            <div class="panel panel-default">
+              <div class="panel-heading">Personal Information</div>
+              <div class="panel-body">
+
+            <form role="form" action="" method="POST">
+              <div class="step">
+                  <div class="col-md-6  go-right">
+                    <div class="form-group ">
+                      <label  class="required go-right">First Name</label>
+                      <input class="form-control" id="card-holder-firstname" type="text" placeholder="First Name" name="firstName"  value="">
+                    </div>
+                  </div>
+                  <div class="col-md-6  go-left">
+                    <div class="form-group ">
+                      <label  class="required go-right">Last Name</label>
+                      <input class="form-control" id="card-holder-lastname" type="text" placeholder="Last Name" name="lastName"  value="">
+                    </div>
+                  </div>
+                  <div class="col-md-6 go-right">
+                    <div class="form-group ">
+                      <label  class="required  go-right">Email</label>
+                      <input class="form-control" id="card-holder-email" type="text" placeholder="Email" name="email"  value="">
+                    </div>
+                  </div>
+                  <div class="col-md-6 go-right">
+                    <div class="form-group ">
+                      <label  class="required go-right">Mobile Number</label>
+                      <input class="form-control" id="card-holder-phone" type="text" placeholder="Contact Number" name="phone"  value="">
+                    </div>
+                  </div>
+                  <div class="col-md-6  go-right">
+                    <div class="form-group ">
+                      <label  class="required go-right">Country</label>
+                      <select data-placeholder="Select" id="country" name="country" class="form-control">
+                        <option value=""> Select Country </option>
+                                                <option value="AF"  >Afghanistan</option>
+                                                <option value="AL"  >Albania</option>
+                                                <option value="DZ"  >Algeria</option>
+                                                <option value="AS"  >American Samoa</option>
+                                                <option value="AR"  >Argentina</option>
+                                                <option value="AU"  >Australia</option>
+                                                <option value="AZ"  >Azerbaijan</option>
+                                                <option value="BD"  >Bangladesh</option>
+                                                <option value="BY"  >Belarus</option>
+                                                <option value="BE"  >Belgium</option>
+                                                <option value="BZ"  >Belize</option>
+                                                <option value="BM"  >Bermuda</option>
+                                                <option value="BT"  >Bhutan</option>
+                                                <option value="BO"  >Bolivia</option>
+                                                <option value="BA"  >Bosnia and Herzegovina</option>
+                                                <option value="BW"  >Botswana</option>
+                                                <option value="BV"  >Bouvet Island</option>
+                                                <option value="BR"  >Brazil</option>
+                                                <option value="IO"  >British Indian Ocean Territory</option>
+                                                <option value="BN"  >Brunei</option>
+                                                <option value="BG"  >Bulgaria</option>
+                                                <option value="BF"  >Burkina Faso</option>
+                                                <option value="BI"  >Burundi</option>
+                                                <option value="KH"  >Cambodia</option>
+                                                <option value="CM"  >Cameroon</option>
+                                                <option value="CA"  >Canada</option>
+                                                <option value="CV"  >Cape Verde</option>
+                                                <option value="KY"  >Cayman Islands</option>
+                                                <option value="CF"  >Central African Republic</option>
+                                                <option value="TD"  >Chad</option>
+                                                <option value="CL"  >Chile</option>
+                                                <option value="CN"  >China</option>
+                                                <option value="CX"  >Christmas Island</option>
+                                                <option value="CC"  >Cocos (Keeling) Islands</option>
+                                                <option value="CO"  >Colombia</option>
+                                                <option value="KM"  >Comoros</option>
+                                                <option value="CG"  >Congo</option>
+                                                <option value="CR"  >Costa Rica</option>
+                                                <option value="CI"  >Cote d'ivoire (Ivory Coast)</option>
+                                                <option value="HR"  >Croatia</option>
+                                                <option value="CU"  >Cuba</option>
+                                                <option value="CW"  >Curacao</option>
+                                                <option value="CY"  >Cyprus</option>
+                                                <option value="CZ"  >Czech Republic</option>
+                                                <option value="CD"  >Democratic Republic of the Congo</option>
+                                                <option value="EG"  >Egypt</option>
+                                                <option value="ET"  >Ethiopia</option>
+                                                <option value="FK"  >Falkland Islands (Malvinas)</option>
+                                                <option value="FO"  >Faroe Islands</option>
+                                                <option value="FJ"  >Fiji</option>
+                                                <option value="FI"  >Finland</option>
+                                                <option value="FR"  >France</option>
+                                                <option value="GF"  >French Guiana</option>
+                                                <option value="PF"  >French Polynesia</option>
+                                                <option value="TF"  >French Southern Territories</option>
+                                                <option value="GA"  >Gabon</option>
+                                                <option value="GM"  >Gambia</option>
+                                                <option value="GE"  >Georgia</option>
+                                                <option value="DE"  >Germany</option>
+                                                <option value="GH"  >Ghana</option>
+                                                <option value="GI"  >Gibraltar</option>
+                                                <option value="GR"  >Greece</option>
+                                                <option value="GL"  >Greenland</option>
+                                                <option value="GD"  >Grenada</option>
+                                                <option value="GP"  >Guadaloupe</option>
+                                                <option value="GU"  >Guam</option>
+                                                <option value="GT"  >Guatemala</option>
+                                                <option value="GG"  >Guernsey</option>
+                                                <option value="GN"  >Guinea</option>
+                                                <option value="GW"  >Guinea-Bissau</option>
+                                                <option value="GY"  >Guyana</option>
+                                                <option value="HT"  >Haiti</option>
+                                                <option value="HM"  >Heard Island and McDonald Islands</option>
+                                                <option value="HN"  >Honduras</option>
+                                                <option value="HK"  >Hong Kong</option>
+                                                <option value="HU"  >Hungary</option>
+                                                <option value="IS"  >Iceland</option>
+                                                <option value="IN"  >India</option>
+                                                <option value="ID"  >Indonesia</option>
+                                                <option value="IR"  >Iran</option>
+                                                <option value="IQ"  >Iraq</option>
+                                                <option value="IE"  >Ireland</option>
+                                                <option value="IM"  >Isle of Man</option>
+                                                <option value="IL"  >Israel</option>
+                                                <option value="IT"  >Italy</option>
+                                                <option value="JM"  >Jamaica</option>
+                                                <option value="JP"  >Japan</option>
+                                                <option value="JE"  >Jersey</option>
+                                                <option value="JO"  >Jordan</option>
+                                                <option value="KZ"  >Kazakhstan</option>
+                                                <option value="KE"  >Kenya</option>
+                                                <option value="KI"  >Kiribati</option>
+                                                <option value="XK"  >Kosovo</option>
+                                                <option value="KW"  >Kuwait</option>
+                                                <option value="KG"  >Kyrgyzstan</option>
+                                                <option value="LA"  >Laos</option>
+                                                <option value="LV"  >Latvia</option>
+                                                <option value="LB"  >Lebanon</option>
+                                                <option value="LS"  >Lesotho</option>
+                                                <option value="LR"  >Liberia</option>
+                                                <option value="LY"  >Libya</option>
+                                                <option value="LI"  >Liechtenstein</option>
+                                                <option value="LT"  >Lithuania</option>
+                                                <option value="LU"  >Luxembourg</option>
+                                                <option value="MO"  >Macao</option>
+                                                <option value="MK"  >Macedonia</option>
+                                                <option value="MG"  >Madagascar</option>
+                                                <option value="MW"  >Malawi</option>
+                                                <option value="MY"  >Malaysia</option>
+                                                <option value="MV"  >Maldives</option>
+                                                <option value="ML"  >Mali</option>
+                                                <option value="MT"  >Malta</option>
+                                                <option value="MH"  >Marshall Islands</option>
+                                                <option value="MQ"  >Martinique</option>
+                                                <option value="MR"  >Mauritania</option>
+                                                <option value="MU"  >Mauritius</option>
+                                                <option value="YT"  >Mayotte</option>
+                                                <option value="MX"  >Mexico</option>
+                                                <option value="FM"  >Micronesia</option>
+                                                <option value="MD"  >Moldava</option>
+                                                <option value="MC"  >Monaco</option>
+                                                <option value="MN"  >Mongolia</option>
+                                                <option value="ME"  >Montenegro</option>
+                                                <option value="MS"  >Montserrat</option>
+                                                <option value="MA"  >Morocco</option>
+                                                <option value="MZ"  >Mozambique</option>
+                                                <option value="MM"  >Myanmar (Burma)</option>
+                                                <option value="NA"  >Namibia</option>
+                                                <option value="NR"  >Nauru</option>
+                                                <option value="NP"  >Nepal</option>
+                                                <option value="NL"  >Netherlands</option>
+                                                <option value="NC"  >New Caledonia</option>
+                                                <option value="NZ"  >New Zealand</option>
+                                                <option value="NI"  >Nicaragua</option>
+                                                <option value="NE"  >Niger</option>
+                                                <option value="NG"  >Nigeria</option>
+                                                <option value="NU"  >Niue</option>
+                                                <option value="NF"  >Norfolk Island</option>
+                                                <option value="KP"  >North Korea</option>
+                                                <option value="MP"  >Northern Mariana Islands</option>
+                                                <option value="NO"  >Norway</option>
+                                                <option value="OM"  >Oman</option>
+                                                <option value="PK"  >Pakistan</option>
+                                                <option value="PW"  >Palau</option>
+                                                <option value="PS"  >Palestine</option>
+                                                <option value="PA"  >Panama</option>
+                                                <option value="PG"  >Papua New Guinea</option>
+                                                <option value="PY"  >Paraguay</option>
+                                                <option value="PE"  >Peru</option>
+                                                <option value="PH"  >Phillipines</option>
+                                                <option value="PN"  >Pitcairn</option>
+                                                <option value="PL"  >Poland</option>
+                                                <option value="PT"  >Portugal</option>
+                                                <option value="PR"  >Puerto Rico</option>
+                                                <option value="QA"  >Qatar</option>
+                                                <option value="RE"  >Reunion</option>
+                                                <option value="RO"  >Romania</option>
+                                                <option value="RU"  >Russia</option>
+                                                <option value="RW"  >Rwanda</option>
+                                                <option value="BL"  >Saint Barthelemy</option>
+                                                <option value="SH"  >Saint Helena</option>
+                                                <option value="KN"  >Saint Kitts and Nevis</option>
+                                                <option value="LC"  >Saint Lucia</option>
+                                                <option value="MF"  >Saint Martin</option>
+                                                <option value="PM"  >Saint Pierre and Miquelon</option>
+                                                <option value="VC"  >Saint Vincent and the Grenadines</option>
+                                                <option value="WS"  >Samoa</option>
+                                                <option value="SM"  >San Marino</option>
+                                                <option value="ST"  >Sao Tome and Principe</option>
+                                                <option value="SA"  >Saudi Arabia</option>
+                                                <option value="SN"  >Senegal</option>
+                                                <option value="RS"  >Serbia</option>
+                                                <option value="SC"  >Seychelles</option>
+                                                <option value="SL"  >Sierra Leone</option>
+                                                <option value="SG"  >Singapore</option>
+                                                <option value="SX"  >Sint Maarten</option>
+                                                <option value="SK"  >Slovakia</option>
+                                                <option value="SI"  >Slovenia</option>
+                                                <option value="SB"  >Solomon Islands</option>
+                                                <option value="SO"  >Somalia</option>
+                                                <option value="ZA"  >South Africa</option>
+                                                <option value="GS"  >South Georgia and the South Sandwich Islands</option>
+                                                <option value="KR"  >South Korea</option>
+                                                <option value="SS"  >South Sudan</option>
+                                                <option value="ES"  >Spain</option>
+                                                <option value="LK"  >Sri Lanka</option>
+                                                <option value="SD"  >Sudan</option>
+                                                <option value="SR"  >Suriname</option>
+                                                <option value="SJ"  >Svalbard and Jan Mayen</option>
+                                                <option value="SZ"  >Swaziland</option>
+                                                <option value="SE"  >Sweden</option>
+                                                <option value="CH"  >Switzerland</option>
+                                                <option value="SY"  >Syria</option>
+                                                <option value="TW"  >Taiwan</option>
+                                                <option value="TJ"  >Tajikistan</option>
+                                                <option value="TZ"  >Tanzania</option>
+                                                <option value="TH"  >Thailand</option>
+                                                <option value="TL"  >Timor-Leste (East Timor)</option>
+                                                <option value="TG"  >Togo</option>
+                                                <option value="TK"  >Tokelau</option>
+                                                <option value="TO"  >Tonga</option>
+                                                <option value="TT"  >Trinidad and Tobago</option>
+                                                <option value="TN"  >Tunisia</option>
+                                                <option value="TR"  >Turkey</option>
+                                                <option value="TM"  >Turkmenistan</option>
+                                                <option value="TC"  >Turks and Caicos Islands</option>
+                                                <option value="TV"  >Tuvalu</option>
+                                                <option value="UG"  >Uganda</option>
+                                                <option value="UA"  >Ukraine</option>
+                                                <option value="AE"  >United Arab Emirates</option>
+                                                <option value="GB"  >United Kingdom</option>
+                                                <option value="US"  >United States</option>
+                                                <option value="UM"  >United States Minor Outlying Islands</option>
+                                                <option value="UY"  >Uruguay</option>
+                                                <option value="UZ"  >Uzbekistan</option>
+                                                <option value="VU"  >Vanuatu</option>
+                                                <option value="VA"  >Vatican City</option>
+                                                <option value="VE"  >Venezuela</option>
+                                                <option value="VN"  >Vietnam</option>
+                                                <option value="VG"  >Virgin Islands, British</option>
+                                                <option value="VI"  >Virgin Islands, US</option>
+                                                <option value="YE"  >Yemen</option>
+                                                <option value="ZM"  >Zambia</option>
+                                                <option value="ZW"  >Zimbabwe</option>
+                                              </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6  go-left">
+                    <div class="form-group ">
+                      <label  class="required go-right">State</label>
+                      <input id="card-holder-state" class="form-control" type="text" placeholder="State" name="province"  value="">
+                    </div>
+                  </div>
+                  <div class="col-md-6 go-right">
+                    <div class="form-group ">
+                      <label  class="required  go-right">City</label>
+                      <input id="card-holder-city" class="form-control" type="text" placeholder="City" name="city"  value="">
+                    </div>
+                  </div>
+                  <div class="col-md-6 go-left">
+                    <div class="form-group">
+                      <label  class="required go-right">Postal</label>
+                      <input id="card-holder-postalcode" class="form-control" type="text" placeholder="Zip Code" name="postalcode"  value="">
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="col-md-12  go-right">
+                    <div class="form-group ">
+                      <label  class="required go-right">Address</label>
+                      <textarea class="form-control" placeholder="Address" rows="4"  name="address"></textarea>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+              </div>
+              <!--End step -->
+              <script type="text/javascript">
+                $(function(){
+                $('.popz').popover({ trigger: "hover" });
+                });
+              </script>
+              <!-- Complete This booking button only starting -->
+              <div class="panel panel-default btn_section" style="display:none;">
+                <div class="panel-body">
+                  <center>
+                </div>
+              </div>
+              <!-- End Complete This booking button only -->
+              <input type="hidden" name="pay" value="1" />
+              <input type="hidden" name="adults" value="2" />
+              <input type="hidden" name="sessionid" value="0ABAAC51-7163-9915-D472-02DD52901ED" />
+              <input type="hidden" name="hotel" value="540683" />
+              <input type="hidden" name="hotelname" value="Corso Boutique Hotel" />
+              <input type="hidden" name="hotelstars" value="1" />
+              <input type="hidden" name="location" value="Rome" />
+              <input type="hidden" name="thumbnail" value="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/11924579_14_b.jpg" />
+              <input type="hidden" name="roomname" value="" />
+              <input type="hidden" name="roomtotal" value="0" />
+              <input type="hidden" name="checkin" value="07/16/2017" />
+              <input type="hidden" name="checkout" value="07/17/2017" />
+              <input type="hidden" name="roomtype" value="201994384" />
+              <input type="hidden" name="ratecode" value="210175250" />
+              <input type="hidden" name="currency" value="" />
+              <input type="hidden" name="affiliateConfirmationId" value="-271-2" />
+              <input type="hidden" name="total" value="0" />
+              <input type="hidden" name="tax" value="0" />
+              <input type="hidden" name="nights" value="" />
+              <div class="clearfix"></div>
+              <div class="">
+                  <hr>
+                <div class="col-md-6  go-right">
+                  <div class="form-group ">
+                    <label  class="required go-right">Card Type</label>
+                    <select class="form-control" name="cardtype" id="cardtype">
+                      <option value="">Select Card</option>
+                                            <option value="AX"> American Express </option>
+                                            <option value="BC"> BC Card </option>
+                                            <option value="DC"> DINERS CLUB INTERNATIONAL </option>
+                                            <option value="DS"> Discover </option>
+                                            <option value="JC"> JCB </option>
+                                            <option value="CA"> Master Card </option>
+                                            <option value="VI"> Visa </option>
+                                          </select>
+                  </div>
+                </div>
+                <div class="col-md-6  go-left">
+                  <div class="form-group ">
+                    <label  class="required go-right">Card Number</label>
+                    <input type="text" class="form-control" name="cardno" id="card-number" pattern=".{12,}" required title="12 characters minimum" placeholder="Credit Card Number" onkeypress="return isNumeric(event)" value="" >
+                  </div>
+                </div>
+                <div class="col-md-3 go-right">
+                  <div class="form-group ">
+                    <label  class="required  go-right">Expiration Date</label>
+                    <select class="form-control" name="expMonth" id="expiry-month">
+                      <option value="01">Jan (01)</option>
+                      <option value="02">Feb (02)</option>
+                      <option value="03">Mar (03)</option>
+                      <option value="04">Apr (04)</option>
+                      <option value="05">May (05)</option>
+                      <option value="06">June (06)</option>
+                      <option value="07">July (07)</option>
+                      <option value="08">Aug (08)</option>
+                      <option value="09">Sep (09)</option>
+                      <option value="10">Oct (10)</option>
+                      <option value="11">Nov (11)</option>
+                      <option value="12">Dec (12)</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-3 go-left">
+                  <div class="form-group">
+                    <label  class="required go-right">&nbsp;</label>
+                    <select class="form-control" name="expYear" id="expiry-year">
+                                            <option value="2017">2017</option>
+                                            <option value="2018">2018</option>
+                                            <option value="2019">2019</option>
+                                            <option value="2020">2020</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2024">2024</option>
+                                            <option value="2025">2025</option>
+                                            <option value="2026">2026</option>
+                                            <option value="2027">2027</option>
+                                          </select>
+                  </div>
+                </div>
+                <div class="col-md-3 go-left">
+                  <div class="form-group">
+                    <label  class="required go-right">Card CVV</label>
+                    <input type="text" class="form-control" name="cvv" id="cvv" placeholder="Card CVV" value="">
+                  </div>
+                </div>
+                <div class="col-md-3 go-left">
+                  <label  class="required go-right">&nbsp;</label>
+                  <img src="{{ url_for('static', filename='assets/img/cc.png') }}" class="img-responsive" />
+                </div>
+                <!--<div class="clearfix"></div>
+                  <div class="col-md-6 go-right">
+                    <div class="form-group ">
+                      <label  class="required go-right">Mobile Number</label>
+                      <input class="form-control form" type="text" placeholder="Contact Number" name="phone"  value="">
+                    </div>
+                  </div>
+                  <div class="col-md-6 go-right">
+                    <div class="form-group ">
+                      <label  class="required go-right">Address</label>
+                      <input class="form-control form" type="text" placeholder="Address" name="address"  value="">
+                    </div>
+                  </div>-->
+                <div class="clearfix"></div>
+                <hr>
+                <div class="row">
+                  <div class="col-md-12">
+                    <p style="padding:10px;"><input type="checkbox" name="" id="policy" value="1">
+                      By clicking to complete this booking I acknowledge that I have read and accept the Rules & Restrictions.  <br><br>
+                      <a href="http://developer.ean.com/terms/en/" target="blank">Terms and Conditions</a>
+                    </p>
+                    <div class="form-group">
+                      <div class="alert alert-danger submitresult"></div>
+                      <span id="waiting"></span>
+                      <div class="col-md-12"><button type="submit" class="btn btn-success btn-lg btn-block paynowbtn" onclick="return expcheck();" name="guest" >CONFIRM THIS BOOKING</button></div>
+                      <div class="clearfix"></div>
+                      <hr>
+                      <div class="panel-body">
+                        <p style="font-size:12px" class="go-right RTL"> </p>
+                                              </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+            </div>
+            </div>
+            <!-- End Expedia Booking Form -->
+                      </div>
+        </div>
+      </div>
+      <!-- Booking Final Starting -->
+      <div class="col-md-8 offset-0 final_section go-right"  style="display:none;">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="step-pane" id="step4">
+              <div id="rotatingDiv" class="show"></div>
+              <h2 class="text-center">Please Wait...</h2>
+              <p class="text-center">Redirecting to your invoice.</p>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <!-- Booking Final Ending -->
+      <!-- END OF LEFT CONTENT -->
+      <!-- RIGHT CONTENT -->
+      <div class="col-md-4 go-left right-content">
+        <div class="bookingside">
+          <div class="filtertip">
+            <div class="padding20">
+              <h4 class="fs24 text-center"><i class="icon_set_1_icon-87 go-right"></i><span>Booking Summary</span> <span class="countprice"></span></h4>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="hpadding30">
+            <div >
+            <div class="row">
+            <div class="clearfix form-group"></div>
+            <img class="img-responsive" src="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/11924579_14_b.jpg" alt="Corso Boutique Hotel" />
+                  <div style="margin-top:5px" class="size16 dark bold RTL go-right">Corso Boutique Hotel</div>
+                  <div class="clearfix"></div>
+                  <div class="size13 grey RTL go-right"><i class="fa fa-map-marker RTL"></i> Rome</div>
+                  <div class="clearfix"></div>
+                  <div style="margin-bottom:5px" class="go-right RTL"><i class='star text-warning fa fa-star voted'></i><i class='star text-warning fa fa-star-o'></i><i class='star text-warning fa fa-star-o'></i><i class='star text-warning fa fa-star-o'></i><i class='star text-warning fa fa-star-o'></i></div>
+            </div>
+
+              <div class="row">
+
+
+
+
+                <!-- Start Hotels right side section -->
+                                <!-- End Hotels right side section -->
+                <!-- start Tours right side section -->
+                                <!-- End Tours right side section -->
+                <!-- Start Cars right side section -->
+                                <!-- End Cars right side section -->
+                <!-- Start EAN right side section -->
+                                <table class="table table_summary">
+                  <tbody>
+                    <tr>
+                      <td>
+                        <strong> Rooms</strong> : 0                      </td>
+                      <td class="text-right">
+                       <strong> Adults</strong> :                                             </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong> Check in</strong> : 07/16/2017                      </td>
+                      <td class="text-right">
+                        <strong> Check out</strong> : 07/17/2017                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Total Stay                      </td>
+                      <td class="text-right">
+                                              </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>  </strong>
+                      </td>
+                      <td class="text-right">
+                                              </td>
+                    </tr>
+                                       <tr>
+                      <td>
+                        July 16, 2017                      </td>
+                      <td class="text-right">
+                                               </td>
+                    </tr>
+                                                            <tr>
+                      <td>
+                        Tax recovery charges                      </td>
+                      <td class="text-right">
+                         0                      </td>
+                    </tr>
+                                                            <tr>
+                      <td>
+                      </td>
+                      <td >
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="padding30" style="padding-top:0px">
+                  <span class="left size20 dark"><strong>Total Amount</strong> :</span>
+                  <span class="right lred2 bold size18">   0   </span>
+
+                  <br><span class="right" style="font-size: 9px !important; color: #000 !important;"> (Including Taxes and Fees) </span>
+                  <!--<span class="left" style="font-size: 12px">
+                                    </span> -->
+                                     <div class="clearfix"></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="panel-footer row text-danger go-right RTL">
+                  The credit card provided will be charged immediately for the full amount of the reservation.                </div>
+                <div class="panel-footer row" style="background: #E6EDF7;font-size:12px">
+                  <div class="clearfix"></div>
+                  <br>
+                  <h4>Cancellation Policy</h4>
+                  <p class="go-right RTL"></p>
+                </div>
+                <br>
+              </div>
+                            <!-- End EAN Right Side Section -->
+            </div>
+            <div class="row">
+                                          <div class="panel-body">
+                <h4 class="opensans text-center"><i class="icon_set_1_icon-57"></i>Need Assistance?</h4>
+                <p class="opensans size30 lblue xslim text-center">+123-456-789</p>
+              </div>
+                            <br>
+            </div>
+          </div>
+                  </div>
+      </div>
+      <br/>
+    </div>
+    <!-- END OF RIGHT CONTENT -->
+  </div>
+</div>
+</div>
+<!-- END OF CONTENT -->
+<!-- Start JS for Expedia -->
+<script type="text/javascript">
+  $(function(){
+
+        $(".submitresult").hide();
+
+        })
+
+       function expcheck(){
+
+          $(".submitresult").html("").fadeOut("fast");
+
+       var cardno = $("#card-number").val();
+       var cardtype = $("#cardtype").val();
+
+       var email = $("#card-holder-email").val();
+
+       var country = $("#country").val();
+
+       var cvv = $("#cvv").val();
+
+       var city = $("#card-holder-city").val();
+
+       var state = $("#card-holder-state").val();
+
+       var postalcode = $("#card-holder-postalcode").val();
+
+       var firstname = $("#card-holder-firstname").val();
+
+       var lastname = $("#card-holder-lastname").val();
+       var policy = $("#policy").val();
+      var minMonth = new Date().getMonth() + 1;
+
+      var minYear = new Date().getFullYear();
+
+      var month = parseInt($("#expiry-month").val(), 10);
+
+      var year = parseInt($("#expiry-year").val(), 10);
+
+       if(country == "US"){
+
+        if($.trim(postalcode) == ""){
+
+       $(".submitresult").html("Enter Postal Code").fadeIn("slow");
+
+       return false;
+
+       }else if($.trim(state) == ""){
+
+      $(".submitresult").html("Enter State").fadeIn("slow");
+
+       return false;
+
+       }
+
+       }
+
+       if($.trim(firstname) == ""){
+
+       $(".submitresult").html("Enter First Name").fadeIn("slow");
+
+       return false;
+
+       }else if($.trim(lastname) == ""){
+
+      $(".submitresult").html("Enter Last Name").fadeIn("slow");
+
+       return false;
+
+       }else if($.trim(cardno) == ""){
+
+      $(".submitresult").html("Enter Card number").fadeIn("slow");
+
+       return false;
+
+       }else if($.trim(cardtype) == ""){
+
+      $(".submitresult").html("Select Card Type").fadeIn("slow");
+
+       return false;
+
+       }else if(month <= minMonth && year <= minYear){
+
+        $(".submitresult").html("Invalid Expiration Date").fadeIn("slow");
+
+       return false;
+
+
+
+       }else if($.trim(cvv) == ""){
+
+        $(".submitresult").html("Enter Security Code").fadeIn("slow");
+
+       return false;
+
+
+
+       }else if($.trim(country) == ""){
+
+        $(".submitresult").html("Select Country").fadeIn("slow");
+
+       return false;
+
+
+
+       }else if($.trim(city) == ""){
+
+        $(".submitresult").html("Enter City").fadeIn("slow");
+
+       return false;
+
+
+
+       }else if($.trim(email) == ""){
+
+        $(".submitresult").html("Enter Email").fadeIn("slow");
+
+       return false;
+
+
+
+       }else if(!$('#policy').is(':checked')){
+
+        $(".submitresult").html("Please Accept Cancellation Policy").fadeIn("slow");
+
+       return false;
+
+
+
+       }else{
+
+         $(".paynowbtn").hide();
+
+        $(".submitresult").removeClass("alert-danger");
+
+        $(".submitresult").html("<div id='rotatingDiv'></div>").fadeIn("slow");
+
+       }
+
+
+
+
+
+       }
+
+       function isNumeric(evt)
+
+        {
+
+          var e = evt || window.event; // for trans-browser compatibility
+
+          var charCode = e.which || e.keyCode;
+
+          if (charCode > 31 && (charCode < 47 || charCode > 57))
+
+          return false;
+
+          if (e.shiftKey) return false;
+
+          return true;
+
+       }
+
+
+
+
+
+
+</script>
+<!-- End JS for Expedia -->
+<style>
+  #rotatingImg {
+  display: none;
+  }
+  .booking-bg {
+  padding: 10px 0 5px 0;
+  width: 100%;
+  background-image: url("{{ url_for('static', filename='themes/default/assets/images/step-bg.png') }}");
+  background-color: #222;
+  text-align: center;
+  }
+  .bookingFlow__message {
+  color: white;
+  font-size: 18px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+  }
+  .select2-choice {
+  font-size: 13px !important;
+  padding: 0 0 0 10px!important;
+  }
+</style>
+<div class="clearfix"></div>
+<div class="mob-bg">
+    <div class="container">
+        <div class="col-sm-8 col-md-8 mt35 go-right wow fadeIn">
+            <h3 class="go-text-right">Get the mobile app!</h3>
+            <p class="go-text-right">Our app has all your booking needs covered: Secure payment channels, easy 4-step booking process, and sleek user designs. What more could you ask for?</p>
+            <div class="row">
+                                <div class="col-sm-4 col-md-4 col-xs-6 go-right wow"><a href="https://itunes.apple.com/us/app/phptravels/id1018217005?mt=8" target="_blank"><img src="{{ url_for('static', filename='themes/default/assets/img/ios.png') }}" class="img-responsive" alt="ios" /></a></div>
+                                                <div class="col-sm-4 col-md-4 col-xs-6 go-right wow"><a href="https://play.google.com/store/apps/details?id=com.phptravelsnative" target="_blank"><img src="{{ url_for('static', filename='themes/default/assets/img/android.png') }}" class="img-responsive" alt="android" /></a></div>
+                            </div>
+        </div>
+        <div class="col-sm-4 col-md-4 go-left wow fadeIn">
+            <img src="{{ url_for('static', filename='themes/default/assets/img/apps.png') }}" class="img-responsive pull-right go-left" alt="apps" />
+        </div>
+    </div>
+</div>
+<nav class="foot-nav newsletter hidden-xs hidden-sm navbar navbar-inverse navbar-static" style="margin-bottom:0px;">
+    <div class="container">
+        <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav <!--go-right-->">
+                <li><a class="newstext" href="javascript:void(0);">Newsletter</a></li>
+            </ul>
+            <div id="message-newsletter_2"></div>
+            <form role="search" onsubmit="return false;">
+            </form>
+            <div class="col-md-5 relative">
+                <input type="email" class="form-control fccustom2 sub_email" id="exampleInputEmail1" placeholder="Enter your email" required>
+                <button type="submit" class="btn btn-default btncustom sub_newsletter">&nbsp;</button>
+            </div>
+            <ul class="nav navbar-nav">
+                <li>
+                    <a class="newstext" href="javascript:void(0);">
+                        <div class="subscriberesponse"></div>
+                    </a>
+                </li>
+            </ul>
+                        <div style="margin-top:8px;" class="navbar-form navbar-right <!--go-left-->">
+                                <a href="https://www.facebook.com/travelbusiness" target="_blank"><img src="{{ url_for('static', filename='uploads/images/social/slufm6otpasooc.png') }}" class="social-icons-footer" /></a>
+                                <a href="https://twitter.com/phptravels" target="_blank"><img src="{{ url_for('static', filename='uploads/images/social/9ztbr148kh4o8c8.png') }}" class="social-icons-footer" /></a>
+                                <a href="http:///www.youtube.com/phptravels" target="_blank"><img src="{{ url_for('static', filename='uploads/images/social/946746yt.png.png') }}" class="social-icons-footer" /></a>
+                                <a href="https://plus.google.com/+Phptravels/" target="_blank"><img src="{{ url_for('static', filename='uploads/images/social/2wz814aq9mgw04k.png') }}" class="social-icons-footer" /></a>
+                                <a href="http://phptravels.net/sitemap.xml" target="_blank"><img src="{{ url_for('static', filename='uploads/images/social/729370rs.png.png') }}" class="social-icons-footer" /></a>
+                            </div>
+        </div>
+    </div>
+</nav>
+<footer id="footer" class="">
+    <div class="container form-group">
+        <div class="col-md-3 grey go-right col-xs-12">
+            <div class="clearfix"></div>
+            <a href="http://localhost/faisal/"><img src="{{ url_for('static', filename='uploads/global/logo.png') }}" class="foot-brand center-block img-responsive"/></a>
+                        <div class="col-md-12">
+                <div class="row">
+                    <!-- <form action="http://localhost/faisal/supplier-register" type="GET">
+                        <button type="submit" class="btn btn-default btn-block"> Supplier Sign Up</button>
+                        </form>-->
+                </div>
+            </div>
+                    </div>
+                    <div class="wow fadeIn col-sm-4 col-xs-12 col-md-3 go-right" >
+              <h2 class="go-text-right"><strong>Corporate</strong></h2>
+              <ul class="footerlist go-right go-text-right">
+                                <li><a href="http://localhost/faisal/Our-Partners" target="" title="">Our Partners</a></li>
+                                <li><a href="http://localhost/faisal/Price-Guarantee" target="" title="">Price Guarantee</a></li>
+                                <li><a href="http://localhost/faisal/Become-Supplier" target="" title="">Become Supplier</a></li>
+                              </ul>
+            </div>
+                    <div class="wow fadeIn col-sm-4 col-xs-12 col-md-3 go-right" >
+              <h2 class="go-text-right"><strong>Legal</strong></h2>
+              <ul class="footerlist go-right go-text-right">
+                                <li><a href="http://localhost/faisal/Terms-Conditions" target="" title="">Terms & Conditions</a></li>
+                                <li><a href="http://localhost/faisal/Privacy-Policy" target="" title="">Privacy Policy</a></li>
+                                <li><a href="http://localhost/faisal/FAQ-Help" target="" title="">FAQ & Help</a></li>
+                              </ul>
+            </div>
+                    <div class="wow fadeIn col-sm-4 col-xs-12 col-md-3 go-right" >
+              <h2 class="go-text-right"><strong>Support</strong></h2>
+              <ul class="footerlist go-right go-text-right">
+                                <li><a href="http://localhost/faisal/contact-us" target="" title="">Contact Us</a></li>
+                                <li><a href="http://localhost/faisal/About-Us" target="" title="">About Us</a></li>
+                                <li><a href="http://localhost/faisal/FAQ-Help" target="" title="">FAQ & Help</a></li>
+                                <li><a href="http://localhost/faisal/Booking-Tips" target="" title="">Booking Tips</a></li>
+                              </ul>
+            </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="container">
+        <div class="clearfix"></div>
+        <div class="footer-splitter">
+            <h3>Book with confidence</h3>
+        </div>
+        <div class="container panel-body">
+            <div class="col-md-7">
+                <img src="{{ url_for('static', filename='themes/default/assets/img/footer-icons.png') }}" class="img-responsive" alt="" />
+            </div>
+            <div class="col-md-3 text-center">
+                <div class="row">
+                    <br>
+                    Powered and Build by PHPTRAVELS
+                </div>
+            </div>
+            <div class="col-md-2">
+                <a href="http://phptravels.com" target="_blank"><img src="{{ url_for('static', filename='themes/default/assets/img/footer-php.png') }}" class="img-responsive" alt="PHPTRAVELS" /></a>
+            </div>
+        </div>
+        <div class="footer-splitter form-group">
+        </div>
+        <div class="clearfix"></div>
+        <div class="copyright">
+            <div class="text-center">
+                <p class="text-center">&copy; All Rights Reserved by PHPTRAVELS</p>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <!-- tripadvisors block -->
+        <!-- tripadvisors block -->
+    <div class="text-center hidden-xs">
+        <div class="col-md-12">
+            <div class="row"><a class="btn btn-primary" target="_blank" href="http://localhost/faisal/supplier/">Extranet Login</a></div>
+        </div>
+    </div>
+</footer>
+<div class="footerbg hidden-xs">
+    <div class="container text-center">
+        <a href="javascript:void" class="gotop scroll wow fadeInUp btn btn-default"><i class="icon-up-open-big"></i></a>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='themes/default/assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='themes/default/assets/js/scripts.js') }}"></script>
+
+<script>
+var options = {
+  url: function(phrase) {
+   return "http://yasen.hotellook.com/autocomplete?lang=en-US&limit=10&term="+phrase;
+  },
+  categories:[{
+    listLocation: "cities"
+  }],
+
+    list: {
+        match: {
+            enabled: false
+        },
+        maxNumberOfElements: 10
+    },
+    getValue: "fullname",
+};
+
+$("#citiesInput").easyAutocomplete(options);
+
+</script>
+
+<script>
+var fmt = "dd/mm/yyyy";
+var baseURL = "http://localhost/faisal/";
+
+$(function() {
+
+
+/* Wish list global function */
+$(".wishlistcheck").on("click",function(){
+var id = $(this).prop('id');
+var module = $(this).data('module');
+var userid = "";
+var action = "add";
+var thisdiv = $(this);
+if($(this).hasClass('fav')){
+action = "remove";
+}
+
+
+$.post(baseURL+'account/wishlist/'+action,{module: module, itemid: id, loggedin: userid},function(resp){
+var response = $.parseJSON(resp);
+if(response.isloggedIn){
+
+if(action == "remove"){
+$("."+module+"wishsign"+id).html("+");
+//$("."+module+"wishtext"+id).html("Add to Wishlist");
+$("."+module+"wishtext"+id).tooltip('hide').attr('data-original-title', "Add to wishlist").tooltip('fixTitle').tooltip('show');
+$("."+module+"wishsign"+id).removeClass("fav");
+thisdiv.removeClass('fav');
+
+}else{
+
+thisdiv.addClass('fav');
+$("."+module+"wishsign"+id).addClass("fav");
+$("."+module+"wishsign"+id).html("-");
+//$("."+module+"wishtext"+id).html("Remove From Wishlist");
+$("."+module+"wishtext"+id).tooltip('hide').attr('data-original-title', "Remove from wishlist").tooltip('fixTitle').tooltip('show');
+
+}
+
+}else{
+alert("Please Login to add to wishlist.");
+}
+
+});
+
+})
+/* End Wish list global function */
+
+
+/* tours ajax categories loader */
+$('#location').on('change',function(){ var location = $(this).val(); $.post(baseURL+'tours/tourajaxcalls/onChangeLocation',{location: location},function(resp){ var response = $.parseJSON(resp); console.log(response); if(response.hasResult){ $("#tourtype").html(response.optionsList); }else{ $("#tourtype").html(response.optionsList); } mySelectUpdate(); }) });
+
+/* cars ajax types loader */
+
+/* Datepicker */
+
+/* disabling dates */
+var nowTemp = new Date();
+var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+var checkin = $('.dpd1').datepicker({
+format: fmt,
+onRender: function(date) {
+return date.valueOf() < now.valueOf() ? 'disabled' : '';
+}
+}).on('changeDate', function(ev) {
+// if (ev.date.valueOf() > checkout.date.valueOf()) {
+var newDate = new Date(ev.date);
+newDate.setDate(newDate.getDate() + 1);
+checkout.setValue(newDate);
+// }
+checkin.hide();
+$('.dpd2')[0].focus();
+}).data('datepicker');
+var checkout = $('.dpd2').datepicker({
+format: fmt,
+onRender: function(date) {
+return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
+}
+}).on('changeDate', function(ev) {
+var newDate = new Date(ev.date);
+checkout.hide();
+
+}).data('datepicker');
+
+/* disabling dates for rooms search */
+var nowTemprooms = new Date();
+var nowrooms = new Date(nowTemprooms.getFullYear(), nowTemprooms.getMonth(), nowTemprooms.getDate(), 0, 0, 0, 0);
+var checkinrooms = $('.dpd1rooms').datepicker({
+format: fmt,
+onRender: function(date) {
+return date.valueOf() < now.valueOf() ? 'disabled' : '';
+}
+}).on('changeDate', function(ev) {
+// if (ev.date.valueOf() > checkout.date.valueOf()) {
+var newDaterooms = new Date(ev.date);
+newDaterooms.setDate(newDaterooms.getDate() + 1);
+checkoutrooms.setValue(newDaterooms);
+// }
+checkinrooms.hide();
+$('.dpd2rooms')[0].focus();
+}).data('datepicker');
+var checkoutrooms = $('.dpd2rooms').datepicker({
+format: fmt,
+onRender: function(date) {
+return date.valueOf() <= checkinrooms.date.valueOf() ? 'disabled' : '';
+}
+}).on('changeDate', function(ev) {
+var newDaterooms = new Date(ev.date);
+checkoutrooms.hide();
+
+}).data('datepicker');
+
+/* Expedia datepicker */
+var nowTemp2=new Date,now2=new Date(nowTemp2.getFullYear(),nowTemp2.getMonth(),nowTemp2.getDate(),0,0,0,0),checkin2=$(".dpean1").datepicker({format:"mm/dd/yyyy",onRender:function(e){return e.valueOf()<now2.valueOf()?"disabled":""}}).on("changeDate",function(e){
+// if(e.date.valueOf()>checkout2.date.valueOf()){
+var a = new Date(e.date);
+a.setDate(a.getDate() + 1);
+a.setDate(a.getDate()+1),checkout2.setValue(a)
+//}
+checkin2.hide(),$(".dpean2")[0].focus()}).data("datepicker"),checkout2=$(".dpean2").datepicker({format:"mm/dd/yyyy",onRender:function(e){return e.valueOf()<=checkin2.date.valueOf()?"disabled":""}}).on("changeDate",function(ev){
+var b = new Date(ev.date);
+checkout2.hide()}).data("datepicker");
+/* End Expedia Datepicker*/
+
+/* Dohop datepicker */
+/* End Dohop Datepicker*/
+
+// Tours checkin - disabling Single date
+var nowTemp4 = new Date();
+var now4 = new Date(nowTemp4.getFullYear(), nowTemp4.getMonth(), nowTemp4.getDate(), 0, 0, 0, 0);
+var checkin4 = $('.tchkin').datepicker({format: fmt, onRender: function(date) {
+return date.valueOf() < now4.valueOf() ? 'disabled' : ''; } }).on('changeDate', function(ev) {
+var tdate =new Date(ev.date);
+$('.tchkin').datepicker('hide');
+});
+
+/* Cartrawler datepicker */
+var nowTemp6=new Date,now6=new Date(nowTemp6.getFullYear(),nowTemp6.getMonth(),nowTemp6.getDate(),0,0,0,0),checkin6=$(".dpcd1").datepicker({format:"mm/dd/yyyy",onRender:function(e){return e.valueOf()<now6.valueOf()?"disabled":""}}).on("changeDate",function(e){
+//if(e.date.valueOf()>checkout6.date.valueOf()){
+var a=new Date(e.date);
+a.setDate(a.getDate() + 0);
+checkout6.setValue(a)
+//}
+checkin6.hide(),$(".dpcd2")[0].focus()}).data("datepicker"),checkout6=$(".dpcd2").datepicker({format:"mm/dd/yyyy",onRender:function(e){return e.valueOf()< checkin6.date.valueOf()?"disabled":""}}).on("changeDate",function(ev){
+var cnDate = new Date(ev.date);
+checkout6.hide()
+}).data("datepicker");
+/* End Cartrawler Datepicker*/
+
+/* Newsletter subscription */
+$(".sub_newsletter").on("click",function(){var e=$(".sub_email").val();$.post("http://localhost/faisal/home/subscribe",{email:e},function(e){$(".subscriberesponse").html(e).fadeIn("slow"),setTimeout(function(){$(".subscriberesponse").fadeOut("slow")},2000)})});
+
+/* dropdown on hover */
+$("ul.nav li.dropdown").hover(function(){$(this).find(".dropdown-menu").stop(!0,!0).delay(200).fadeIn(200)},function(){$(this).find(".dropdown-menu").stop(!0,!0).delay(200).fadeOut(200)}); });
+
+/* start change currency functionality */
+function change_currency(c){$("#loadingbg").css("display","block"),$.post("http://localhost/faisal/admin/ajaxcalls/changeCurrency",{id:c},function(){location.reload()})}
+
+/* map iframe modal */
+function showMap(a,o){"modal"==o?($("#mapModal").modal("show"),$("#mapModal").on("shown.bs.modal",function(){$("#mapModal .mapContent").html('<iframe src="'+a+'" width="100%" height="450" frameborder="0" style="border:0"></iframe>')})):$("#"+o).html('<iframe src="'+a+'" width="100%" height="450" frameborder="0" style="border:0"></iframe>')}
+</script>
+<script type="text/javascript">
+/* cartrawler auto suggest */
+function selectLocationValue(l,h,locname){  $("#"+h).val(locname);  if(h == 'ct1'){ $("input[name='pickupLocationId']").val(l); $("#ct2").val(locname); $("input[name='returnLocationId']").val(l); }else if(h == "ct2"){ $("#returnlocation").val(l);   }; $("#"+h+"resp").html("") } $(function(){ $(".ctlocation").on("keyup",function(l){ var h=$(this).val(),e=h.length,i=$(this).prop("id"),t=l.keyCode||l.which;if($.trim(e)>1&&38!=t&&40!=t)$("#"+i+"resp").html(""),$.post("http://localhost/faisal/cartrawler/getLocations",{term:h,inputid:i},function(l){$("#"+i+"resp").html(l)});else if(38!=t&&40!=t)$("#"+i+"resp").html("");else{var s,g,n=$("#"+i+"resp ul li.highlight");40!==t||n.length||$("#"+i+"resp ul li:first").addClass("highlight"),40===t&&n.length?(g=n.next("#"+i+"resp ul li"),g.length&&(n.removeClass("highlight"),g.addClass("highlight"))):38===t&&(s=n.prev("#"+i+"resp ul li"),s.length&&(n.removeClass("highlight"),s.addClass("highlight"))),console.log($(".highlight").innerHTML)}})});
+
+</script>
+<script>
+    $(document).ready(function(){
+            // Safari 3.0+ "[object HTMLElementConstructor]"
+            var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0 || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || safari.pushNotification);
+
+            if(isSafari == true){
+                /*$("i").next(".selectx:not(#currency)").css("text-indent", "30px !important").css("line-height", "40px !important");
+                    var img_icon_1 = "<img src='http://localhost/faisal/themes/default/assets/img/child-adult.png' class='new_icon'>";
+                    console.log(img_icon_1);*/
+                    /*$(".icon_set_2_icon-105").addClass("safari-icon").removeClass("icon_set_2_icon-105");*/
+                $(".bg-warning").css("padding-bottom", "82px !important");
+            }
+            });
+</script>
+</body>
+</html>

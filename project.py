@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, jsonify, url_for, flash
-from sqlalchemy import create_engine, asc,desc
-from sqlalchemy.orm import sessionmaker
+#from sqlalchemy import create_engine, asc,desc
+#from sqlalchemy.orm import sessionmaker
 
 from flask import session as login_session
 import random
@@ -11,7 +11,7 @@ from flask import make_response
 import requests
 from pprint import pprint
 from functools import wraps
-import pymysql.cursors
+#import pymysql.cursors
 from hotel import Hotel
 from room import Room
 import requests

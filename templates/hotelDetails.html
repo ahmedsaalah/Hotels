@@ -21,38 +21,16 @@
     <meta property="og:image" content="{{ url_for('static', filename='uploads/global/favicon.png') }}" />
     <meta property="og:url" content="http://localhost/faisal//" />
     <meta property="og:publisher" content="https://www.facebook.com/PHPTravels" />
-    <script type="application/ld+json">
-        {
-            "@context": "http://schema.org/",
-            "@type": "Organization",
-            "name": "PHPTravels",
-            "url": "http://localhost/faisal//",
-            "logo": "http://localhost/faisal/uploads/global/favicon.png",
-            "sameAs": "https://www.facebook.com/PHPTravels",
-            "sameAs": "https://twitter.com/PHPTravels",
-            "sameAs": "https://www.pinterest.com/PHPTravels/",
-            "sameAs": "https://plus.google.com/u/0/PHPTravels/posts",
-            "contactPoint": {
-                "@type": "ContactPoint",
-                "telephone": "+123-456-789",
-                "contactType": "Customer Service"
-            }
-        } {
-            "@context": "http://schema.org",
-            "@type": "WebSite",
-            "name": "PHPTravels",
-            "url": "http://localhost/faisal/"
-        }
-    </script>
+
     <!-- Child Theme -->
     <style>
         @import "{{ url_for('static', filename='themes/default/assets/css/childstyle.css') }}";
     </style>
     <!-- Google Maps -->
     <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyA0cI0f-PExxoanF3Jf9bT0Sb41Sym4ywk&libraries=places"></script>
-    <script src="http://localhost/faisal/themes/default/assets/js/infobox.js"></script>
+    <script src="{{ url_for('static', filename='themes/default/assets/js/infobox.js') }}"></script>
     <!-- jQuery -->
-    <script src="http://localhost/faisal/themes/default/assets/js/jquery-1.11.2.min.js"></script>
+    <script src="{{ url_for('static', filename='themes/default/assets/js/jquery-1.11.2.min.js') }}"></script>
     <!-- RTL CSS -->
     <!-- Mobile Redirect -->
     <!--[if lt IE 7] > <link rel="stylesheet" type="text/css" href="http://localhost/faisal/themes/default/assets/css/font-awesome-ie7.css" media="screen" /> <![endif]-->
@@ -106,40 +84,40 @@
                             </div>
                         </form>
                         <li class="pull-left width_change">
-                            <a href="javascript:void(0);" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true"><img src="http://localhost/faisal/uploads/images/language/en.png" width="21" height="14" alt="English"> English </a>
+                            <a href="javascript:void(0);" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true"><img src="{{ url_for('static', filename='uploads/images/language/en.png') }}" width="21" height="14" alt="English"> English </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="http://localhost/faisal/hotel/hotel/ar/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="Arabic" id="ar" class="changelang"><img src="http://localhost/faisal/uploads/images/language/ar.png" width="21" height="14" alt=""> Arabic</a>
+                                    <a href="http://localhost/faisal/hotel/hotel/ar/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="Arabic" id="ar" class="changelang"><img src="{{ url_for('static', filename='uploads/images/language/ar.png') }}" width="21" height="14" alt=""> Arabic</a>
                                 </li>
                                 <li>
-                                    <a href="http://localhost/faisal/hotel/hotel/en/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="English" id="en" class="changelang"><img src="http://localhost/faisal/uploads/images/language/en.png" width="21" height="14" alt=""> English</a>
+                                    <a href="http://localhost/faisal/hotel/hotel/en/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="English" id="en" class="changelang"><img src="{{ url_for('static', filename='uploads/images/language/en.png') }}" width="21" height="14" alt=""> English</a>
                                 </li>
                                 <li>
-                                    <a href="http://localhost/faisal/hotel/hotel/es/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="Spanish" id="es" class="changelang"><img src="http://localhost/faisal/uploads/images/language/es.png" width="21" height="14" alt=""> Spanish</a>
+                                    <a href="http://localhost/faisal/hotel/hotel/es/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="Spanish" id="es" class="changelang"><img src="{{ url_for('static', filename='uploads/images/language/es.png') }}" width="21" height="14" alt=""> Spanish</a>
                                 </li>
                                 <li>
-                                    <a href="http://localhost/faisal/hotel/hotel/fr/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="French" id="fr" class="changelang"><img src="http://localhost/faisal/uploads/images/language/fr.png" width="21" height="14" alt=""> French</a>
+                                    <a href="http://localhost/faisal/hotel/hotel/fr/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="French" id="fr" class="changelang"><img src="{{ url_for('static', filename='uploads/images/language/fr.png') }}" width="21" height="14" alt=""> French</a>
                                 </li>
                                 <li>
-                                    <a href="http://localhost/faisal/hotel/hotel/it/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="Italian" id="it" class="changelang"><img src="http://localhost/faisal/uploads/images/language/it.png" width="21" height="14" alt=""> Italian</a>
+                                    <a href="http://localhost/faisal/hotel/hotel/it/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="Italian" id="it" class="changelang"><img src="{{ url_for('static', filename='uploads/images/language/it.png') }}" width="21" height="14" alt=""> Italian</a>
                                 </li>
                                 <li>
-                                    <a href="http://localhost/faisal/hotel/hotel/iw/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="Hebrew" id="iw" class="changelang"><img src="http://localhost/faisal/uploads/images/language/iw.png" width="21" height="14" alt=""> Hebrew</a>
+                                    <a href="http://localhost/faisal/hotel/hotel/iw/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="Hebrew" id="iw" class="changelang"><img src="{{ url_for('static', filename='uploads/images/language/iw.png') }}" width="21" height="14" alt=""> Hebrew</a>
                                 </li>
                                 <li>
-                                    <a href="http://localhost/faisal/hotel/hotel/pt/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="Portuguese" id="pt" class="changelang"><img src="http://localhost/faisal/uploads/images/language/pt.png" width="21" height="14" alt=""> Portuguese</a>
+                                    <a href="http://localhost/faisal/hotel/hotel/pt/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="Portuguese" id="pt" class="changelang"><img src="{{ url_for('static', filename='uploads/images/language/pt.png') }}" width="21" height="14" alt=""> Portuguese</a>
                                 </li>
                                 <li>
-                                    <a href="http://localhost/faisal/hotel/hotel/ru/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="Russian" id="ru" class="changelang"><img src="http://localhost/faisal/uploads/images/language/ru.png" width="21" height="14" alt=""> Russian</a>
+                                    <a href="http://localhost/faisal/hotel/hotel/ru/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="Russian" id="ru" class="changelang"><img src="{{ url_for('static', filename='uploads/images/language/ru.png') }}" width="21" height="14" alt=""> Russian</a>
                                 </li>
                                 <li>
-                                    <a href="http://localhost/faisal/hotel/hotel/tl/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="Filipino" id="tl" class="changelang"><img src="http://localhost/faisal/uploads/images/language/tl.png" width="21" height="14" alt=""> Filipino</a>
+                                    <a href="http://localhost/faisal/hotel/hotel/tl/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="Filipino" id="tl" class="changelang"><img src="{{ url_for('static', filename='uploads/images/language/tl.png') }}" width="21" height="14" alt=""> Filipino</a>
                                 </li>
                                 <li>
-                                    <a href="http://localhost/faisal/hotel/hotel/tr/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="Turkish" id="tr" class="changelang"><img src="http://localhost/faisal/uploads/images/language/tr.png" width="21" height="14" alt=""> Turkish</a>
+                                    <a href="http://localhost/faisal/hotel/hotel/tr/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="Turkish" id="tr" class="changelang"><img src="{{ url_for('static', filename='uploads/images/language/tr.png') }}" width="21" height="14" alt=""> Turkish</a>
                                 </li>
                                 <li>
-                                    <a href="http://localhost/faisal/hotel/hotel/uk/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="Ukrainian" id="uk" class="changelang"><img src="http://localhost/faisal/uploads/images/language/uk.png" width="21" height="14" alt=""> Ukrainian</a>
+                                    <a href="http://localhost/faisal/hotel/hotel/uk/540683/0ABAAC51-7163-9915-D472-02DD52901ED?adults=2&checkin=07%2F16%2F2017&checkout=07%2F17%2F2017" data-langname="Ukrainian" id="uk" class="changelang"><img src="{{ url_for('static', filename='uploads/images/language/uk.png') }}" width="21" height="14" alt=""> Ukrainian</a>
                                 </li>
                             </ul>
                         </li>
@@ -1200,10 +1178,20 @@
                         // });
                         function checkBooking(code) {
                             console.log(code)
-                                // var code = $(this).data('bookingnumber');
-                                // $.get("localhost:5000/checkprovision", function(data) {
-                                //     alert("Data Loaded: " + data);
-                                // });
+                            $.ajax({
+                                url: 'http://localhost:5000/checkprovision',
+                               
+                                success: function(data) {
+
+                                   alert(data);
+
+                                },
+                                error: function() {
+                                   
+                                    alert("Sorry :( :(.");
+
+                                }
+                            });
 
 
                         }
