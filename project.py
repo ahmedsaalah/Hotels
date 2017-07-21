@@ -69,6 +69,16 @@ def hotelAvailability(code,hotelCode):
 
 
 
+@app.route('/checkprovision', methods=['GET'])
+def checkprovision():
+    pprint("request.form['code']")
+    return "ahmed"
+
+
+
+
+
+
 @app.route('/details/<string:code>/<string:hotelCode>/<string:price>', methods=['GET'])
 def getDetails(code,hotelCode,price):
     # hkhod el two codes a-tcheck  avaiable b3d kda provision w atla3 hotelobject 

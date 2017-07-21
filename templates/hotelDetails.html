@@ -791,57 +791,63 @@
 
                                     <div class="clearfix"></div>
                                     <div class="book">
-                                        <span style="margin-bottom: 2px; padding: 4px; border-radius: 4px" data-toggle="modal" data-target="#book210175250" class="btn btn-action btn-block">Book Now</span>
+                                        <span style="margin-bottom: 2px; padding: 4px; border-radius: 4px" data-toggle="modal" data-bookingnumber='{{room.code}}' onclick="checkBooking('{{room.code}}')" data-target="#book210175250 " class="btn btn-action btn-block ">Book Now</span>
+
+
                                     </div>
-                                    <div class="clearfix"></div>
+                                    <div class="clearfix "></div>
                                     <small><strong> Price per 1 night(s) including Tax & Fees</strong> </small>
                                     <small><strong>
                    <br> Tax & Service Fee: 32.60      </strong></small>
                                 </div>
-                                <div style="line-height: 13px" class="labelleft2 rtl_title_home go-text-right RTL">
-                                    <h4 class="mtb0 RTL go-text-right"><b>{{room.room_description}}  </b></h4>
-                                    <h5 style="color:#8A8A8A"> {{room.room_category}}</h5>
-                                    <h5 style="color:#8A8A8A"> {{room.room_type}}</h5>
-                                    <hr style="margin-top: 0px; margin-bottom: 5px;">
-                                    <div class="col-md-6 visible-lg visible-md go-right" id="accordion" style="margin-top: 0px;">
-                                        <div class="row">
-                                            <button data-toggle="collapse" data-parent="#accordion" class="hidden-xs btn btn-danger" href="#nonrefund210175250">Non-refundable</button>
-                                            <button data-toggle="collapse" data-parent="#accordion" class="hidden-xs btn btn-info" href="#details210175250">More Details</button>
+                                <div style="line-height: 13px " class="labelleft2 rtl_title_home go-text-right RTL ">
+                                    <h4 class="mtb0 RTL go-text-right "><b>{{room.room_description}}  </b></h4>
+                                    <h5 style="color:#8A8A8A "> {{room.room_category}}</h5>
+                                    <h5 style="color:#8A8A8A "> {{room.room_type}}</h5>
+
+                                    <hr style="margin-top: 0px; margin-bottom: 5px; ">
+                                    <div class="col-md-6 visible-lg visible-md go-right " id="accordion " style="margin-top: 0px; ">
+                                        <div class="row ">
+                                            {% if room.nonrefundable == "False " %}
+                                            <button data-toggle="collapse " data-parent="#accordion " class="hidden-xs btn btn-success " href="#nonrefund210175250 ">refundable</button> {% else %}
+                                            <button data-toggle="collapse " data-parent="#accordion " class="hidden-xs btn btn-danger " href="#nonrefund210175250 ">Non-refundable</button> {% endif %}
+                                            <!--<button data-toggle="collapse " data-parent="#accordion " class="hidden-xs btn btn-info " href="#details210175250 ">More Details</button>-->
                                         </div>
                                     </div>
-                                    <p class="grey RTL"></p>
+                                    <p class="grey RTL "></p>
                                     <br/>
-                                    <ul class="hotelpreferences go-right hidden-xs">
+                                    <ul class="hotelpreferences go-right hidden-xs ">
                                     </ul>
                                 </div>
                             </div>
-                            <div class="clearfix"></div>
+                            <div class="clearfix "></div>
                         </div>
                     </form>
-                    <div class="clearfix"></div>
+                    <div class="clearfix "></div>
                     <!-- refund policy -->
-                    <div id="nonrefund210175250" class="alert alert-danger panel-collapse collapse">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <div class="clearfix"></div>
+                    <div id="nonrefund210175250 " class="alert alert-danger panel-collapse collapse ">
+                        <div class="panel panel-default ">
+                            <div class="panel-body ">
+                                <div class="clearfix "></div>
                                 <p>This rate is non-refundable and cannot be changed or cancelled - if you do choose to change or cancel this booking you will not be refunded any of the payment.</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- refund policy -->
-                    <div id="details210175250" class="alert alert-warning panel-collapse collapse">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <div class="magnific-gallery row">
-                                    <div class="col-md-3">
-                                        <div class="zoom-gallery210175250">
-                                            <a href="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/463ce5c2_z.jpg" data-source="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/463ce5c2_z.jpg" title="Deluxe Suite, 1 King Bed, Jetted Tub">
-                                                <img class="img-responsive" style="max-height:144px" src="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/463ce5c2_z.jpg">
+                    <div id="details210175250 " class="alert alert-warning panel-collapse collapse ">
+                        <div class="panel panel-default ">
+                            <div class="panel-body ">
+                                <div class="magnific-gallery row ">
+                                    <div class="col-md-3 ">
+                                        <div class="zoom-gallery210175250 ">
+                                            <a href="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/463ce5c2_z.jpg " data-source="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/463ce5c2_z.jpg " title="Deluxe
+                                            Suite, 1 King Bed, Jetted Tub ">
+                                                <img class="img-responsive " style="max-height:144px " src="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/463ce5c2_z.jpg ">
                                             </a>
                                         </div>
                                     </div>
-                                    <script type="text/javascript">
+                                    <script type="text/javascript ">
                                         $('.zoom-gallery').magnificPopup({
                                             delegate: 'a',
                                             type: 'image',
@@ -867,14 +873,15 @@
 
                                         });
                                     </script>
-                                    <div class="col-md-3">
-                                        <div class="zoom-gallery210175250">
-                                            <a href="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/8430aea7_z.jpg" data-source="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/8430aea7_z.jpg" title="Deluxe Suite, 1 King Bed, Jetted Tub">
-                                                <img class="img-responsive" style="max-height:144px" src="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/8430aea7_z.jpg">
+                                    <div class="col-md-3 ">
+                                        <div class="zoom-gallery210175250 ">
+                                            <a href="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/8430aea7_z.jpg " data-source="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/8430aea7_z.jpg " title="Deluxe
+                                            Suite, 1 King Bed, Jetted Tub ">
+                                                <img class="img-responsive " style="max-height:144px " src="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/8430aea7_z.jpg ">
                                             </a>
                                         </div>
                                     </div>
-                                    <script type="text/javascript">
+                                    <script type="text/javascript ">
                                         $('.zoom-gallery').magnificPopup({
                                             delegate: 'a',
                                             type: 'image',
@@ -900,14 +907,15 @@
 
                                         });
                                     </script>
-                                    <div class="col-md-3">
-                                        <div class="zoom-gallery210175250">
-                                            <a href="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/ecc3094c_z.jpg" data-source="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/ecc3094c_z.jpg" title="Deluxe Suite, 1 King Bed, Jetted Tub">
-                                                <img class="img-responsive" style="max-height:144px" src="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/ecc3094c_z.jpg">
+                                    <div class="col-md-3 ">
+                                        <div class="zoom-gallery210175250 ">
+                                            <a href="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/ecc3094c_z.jpg " data-source="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/ecc3094c_z.jpg " title="Deluxe
+                                            Suite, 1 King Bed, Jetted Tub ">
+                                                <img class="img-responsive " style="max-height:144px " src="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/ecc3094c_z.jpg ">
                                             </a>
                                         </div>
                                     </div>
-                                    <script type="text/javascript">
+                                    <script type="text/javascript ">
                                         $('.zoom-gallery').magnificPopup({
                                             delegate: 'a',
                                             type: 'image',
@@ -933,14 +941,15 @@
 
                                         });
                                     </script>
-                                    <div class="col-md-3">
-                                        <div class="zoom-gallery210175250">
-                                            <a href="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/a12c7488_z.jpg" data-source="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/a12c7488_z.jpg" title="Deluxe Suite, 1 King Bed, Jetted Tub">
-                                                <img class="img-responsive" style="max-height:144px" src="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/a12c7488_z.jpg">
+                                    <div class="col-md-3 ">
+                                        <div class="zoom-gallery210175250 ">
+                                            <a href="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/a12c7488_z.jpg " data-source="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/a12c7488_z.jpg " title="Deluxe
+                                            Suite, 1 King Bed, Jetted Tub ">
+                                                <img class="img-responsive " style="max-height:144px " src="http://media.expedia.com/hotels/12000000/11930000/11924600/11924579/a12c7488_z.jpg ">
                                             </a>
                                         </div>
                                     </div>
-                                    <script type="text/javascript">
+                                    <script type="text/javascript ">
                                         $('.zoom-gallery').magnificPopup({
                                             delegate: 'a',
                                             type: 'image',
@@ -978,147 +987,147 @@
                                 <p></p>
                                 <hr>
                                 <p><strong>Room Amenities : </strong></p>
-                                <div class="col-md-4">
-                                    <ul class="checklist">
+                                <div class="col-md-4 ">
+                                    <ul class="checklist ">
                                         <li>Air conditioning</li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="checklist">
+                                <div class="col-md-4 ">
+                                    <ul class="checklist ">
                                         <li>Bathrobes</li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="checklist">
+                                <div class="col-md-4 ">
+                                    <ul class="checklist ">
                                         <li>Bidet</li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="checklist">
+                                <div class="col-md-4 ">
+                                    <ul class="checklist ">
                                         <li>Blackout drapes/curtains</li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="checklist">
+                                <div class="col-md-4 ">
+                                    <ul class="checklist ">
                                         <li>Connecting/adjoining rooms available</li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="checklist">
+                                <div class="col-md-4 ">
+                                    <ul class="checklist ">
                                         <li>Daily housekeeping</li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="checklist">
+                                <div class="col-md-4 ">
+                                    <ul class="checklist ">
                                         <li>Desk</li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="checklist">
+                                <div class="col-md-4 ">
+                                    <ul class="checklist ">
                                         <li>Espresso maker</li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="checklist">
+                                <div class="col-md-4 ">
+                                    <ul class="checklist ">
                                         <li>Flat-panel TV</li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="checklist">
+                                <div class="col-md-4 ">
+                                    <ul class="checklist ">
                                         <li>Free WiFi</li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="checklist">
+                                <div class="col-md-4 ">
+                                    <ul class="checklist ">
                                         <li>Free toiletries</li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="checklist">
+                                <div class="col-md-4 ">
+                                    <ul class="checklist ">
                                         <li>Hair dryer</li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="checklist">
+                                <div class="col-md-4 ">
+                                    <ul class="checklist ">
                                         <li>Hypo-allergenic bedding available</li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="checklist">
+                                <div class="col-md-4 ">
+                                    <ul class="checklist ">
                                         <li>In-room climate control (air conditioning)</li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="checklist">
+                                <div class="col-md-4 ">
+                                    <ul class="checklist ">
                                         <li>In-room climate control (heating)</li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="checklist">
+                                <div class="col-md-4 ">
+                                    <ul class="checklist ">
                                         <li>In-room safe</li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="checklist">
+                                <div class="col-md-4 ">
+                                    <ul class="checklist ">
                                         <li>Iron/ironing board (on request)</li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="checklist">
+                                <div class="col-md-4 ">
+                                    <ul class="checklist ">
                                         <li>Minibar</li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="checklist">
+                                <div class="col-md-4 ">
+                                    <ul class="checklist ">
                                         <li>Non-Smoking</li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="checklist">
+                                <div class="col-md-4 ">
+                                    <ul class="checklist ">
                                         <li>Pay movies</li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="checklist">
+                                <div class="col-md-4 ">
+                                    <ul class="checklist ">
                                         <li>Premium TV channels</li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="checklist">
+                                <div class="col-md-4 ">
+                                    <ul class="checklist ">
                                         <li>Premium bedding</li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="checklist">
+                                <div class="col-md-4 ">
+                                    <ul class="checklist ">
                                         <li>Rainfall showerhead</li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="checklist">
+                                <div class="col-md-4 ">
+                                    <ul class="checklist ">
                                         <li>Refrigerator (on request)</li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="checklist">
+                                <div class="col-md-4 ">
+                                    <ul class="checklist ">
                                         <li>Room service (limited hours)</li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="checklist">
+                                <div class="col-md-4 ">
+                                    <ul class="checklist ">
                                         <li>Satellite TV service</li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="checklist">
+                                <div class="col-md-4 ">
+                                    <ul class="checklist ">
                                         <li>Slippers</li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="checklist">
+                                <div class="col-md-4 ">
+                                    <ul class="checklist ">
                                         <li>Soundproofed rooms</li>
                                     </ul>
                                 </div>
-                                <div class="clearfix"></div>
+                                <div class="clearfix "></div>
                                 <br>
                                 <p><b>Know Before You Go</b> <br />
                                     <ul>
@@ -1150,8 +1159,8 @@
                                 service is available on request. Contact the property in advance to make arrangements. </div>
                         </div>
                     </div>
-                    <script type="text/javascript">
-                        $(".zoom-gallery210175250").magnificPopup({
+                    <script type="text/javascript ">
+                        $(".zoom-gallery210175250 ").magnificPopup({
                             delegate: 'a',
                             type: 'image',
                             closeOnContentClick: false,
@@ -1180,89 +1189,106 @@
                         $('.collapse').on('show.bs.collapse', function() {
                             $('.collapse.in').collapse('hide');
                         });
+
+                        // $('#book21017525').click(function() {
+                        //     var code = $(this).data('bookingnumber');
+                        //     console.log("Aaaaaa ")
+                        //     alert(code)
+                        //         //$("#bookingCodeModel ").val(code);
+
+
+                        // });
+                        function checkBooking(code) {
+                            console.log(code)
+                                // var code = $(this).data('bookingnumber');
+                                // $.get("localhost:5000/checkprovision", function(data) {
+                                //     alert("Data Loaded: " + data);
+                                // });
+
+
+                        }
                     </script>
+
                     <!-- Modal -->
-                    <div class="modal fade" id="book210175250" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title">Booking Options</h4>
+                    <div class="modal fade " id="book210175250 " tabindex="-1 " role="dialog " aria-hidden="true ">
+                        <div class="modal-dialog ">
+                            <div class="modal-content ">
+                                <div class="modal-header ">
+                                    <button type="button " class="close " data-dismiss="modal " aria-label="Close "><span aria-hidden="true ">&times;</span></button>
+                                    <h4 class="modal-title ">Booking Options</h4>
                                 </div>
-                                <div class="modal-body">
+                                <div class="modal-body ">
                                     <p>We prefer you to login so that you can view your previous booking history and it helps us to provide you better recommendations</p>
-                                    <img src="{{ url_for('static', filename='assets/img/users.png') }}" class="img-responsive" />
+                                    <img src="{{ url_for( 'static', filename='assets/img/users.png' ) }} " class="img-responsive " />
                                     <hr>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <form id="bookloginform" action="http://localhost/faisal/hotel/reservation" method="GET">
-                                                <input type="hidden" name="adults" value="2" />
-                                                <input type="hidden" name="ages" id="childagesdetails" value="">
-                                                <input type="hidden" name="checkin" value="07/16/2017" />
-                                                <input type="hidden" name="checkout" value="07/17/2017" />
-                                                <input type="hidden" name="roomtype" value="201994384" />
-                                                <input type="hidden" name="ratekey" value="1c0b82bb-0a71-42a3-96bd-f975e6ac0c82-5001" />
-                                                <input type="hidden" name="ratecode" value="210175250" />
-                                                <input type="hidden" name="hotel" value="540683" />
-                                                <input type="hidden" name="sessionid" value="0ABAAC51-7163-9915-D472-02DD52901ED" />
-                                                <button type="submit" class="btn btn-primary btn-block btn-lg">Login</button>
+                                    <div class="row ">
+                                        <div class="col-md-6 ">
+                                            <form id="bookloginform " action="http://localhost/faisal/hotel/reservation " method="GET ">
+                                                <input type="hidden " name="adults " id="bookingCodeModel " />
+                                                <input type="hidden " name="ages " id="childagesdetails " value=" ">
+                                                <input type="hidden " name="checkin " value="07/16/2017 " />
+                                                <input type="hidden " name="checkout " value="07/17/2017 " />
+                                                <input type="hidden " name="roomtype " value="201994384 " />
+                                                <input type="hidden " name="ratekey " value="1c0b82bb-0a71-42a3-96bd-f975e6ac0c82-5001 " />
+                                                <input type="hidden " name="ratecode " value="210175250 " />
+                                                <input type="hidden " name="hotel " value="540683 " />
+                                                <input type="hidden " name="sessionid " value="0ABAAC51-7163-9915-D472-02DD52901ED " />
+                                                <button type="submit " class="btn btn-primary btn-block btn-lg ">Login</button>
                                             </form>
                                         </div>
-                                        <div class="col-md-6">
-                                            <form action="http://localhost/faisal/hotel/reservation" method="GET">
-                                                <input type="hidden" name="adults" value="2" />
-                                                <input type="hidden" name="ages" id="childagesdetails" value="">
-                                                <input type="hidden" name="checkin" value="07/16/2017" />
-                                                <input type="hidden" name="checkout" value="07/17/2017" />
-                                                <input type="hidden" name="roomtype" value="201994384" />
-                                                <input type="hidden" name="ratekey" value="1c0b82bb-0a71-42a3-96bd-f975e6ac0c82-5001" />
-                                                <input type="hidden" name="ratecode" value="210175250" />
-                                                <input type="hidden" name="hotel" value="540683" />
-                                                <input type="hidden" name="sessionid" value="0ABAAC51-7163-9915-D472-02DD52901ED" />
-                                                <input type="hidden" name="user" value="guest" />
-                                                <button type="submit" class="btn btn-success btn-block btn-lg">Book as a Guest</button>
+                                        <div class="col-md-6 ">
+                                            <form action="http://localhost/faisal/hotel/reservation " method="GET ">
+                                                <input type="hidden " name="adults " value="2 " />
+                                                <input type="hidden " name="ages " id="childagesdetails " value=" ">
+                                                <input type="hidden " name="checkin " value="07/16/2017 " />
+                                                <input type="hidden " name="checkout " value="07/17/2017 " />
+                                                <input type="hidden " name="roomtype " value="201994384 " />
+                                                <input type="hidden " name="ratekey " value="1c0b82bb-0a71-42a3-96bd-f975e6ac0c82-5001 " />
+                                                <input type="hidden " name="ratecode " value="210175250 " />
+                                                <input type="hidden " name="hotel " value="540683 " />
+                                                <input type="hidden " name="sessionid " value="0ABAAC51-7163-9915-D472-02DD52901ED " />
+                                                <input type="hidden " name="user " value="guest " />
+                                                <button type="submit " class="btn btn-success btn-block btn-lg ">Book as a Guest</button>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <form action="http://localhost/faisal/hotel/reservation" method="GET">
-                                        <input type="hidden" name="adults" value="2" />
-                                        <!-- <input type="hidden" name="child" value="" /> -->
-                                        <input type="hidden" name="checkin" value="07/16/2017" />
-                                        <input type="hidden" name="checkout" value="07/17/2017" />
-                                        <input type="hidden" name="roomtype" value="201994384" />
-                                        <input type="hidden" name="ratekey" value="1c0b82bb-0a71-42a3-96bd-f975e6ac0c82-5001" />
-                                        <input type="hidden" name="ratecode" value="210175250" />
-                                        <input type="hidden" name="hotel" value="540683" />
-                                        <input type="hidden" name="sessionid" value="0ABAAC51-7163-9915-D472-02DD52901ED" />
-                                        <input type="hidden" name="user" value="register" />
-                                        <button type="submit" class="btn btn-default">Register</button>
+                                <div class="modal-footer ">
+                                    <form action="http://localhost/faisal/hotel/reservation " method="GET ">
+                                        <input type="hidden " name="adults " value="2 " />
+                                        <!-- <input type="hidden " name="child " value=" " /> -->
+                                        <input type="hidden " name="checkin " value="07/16/2017 " />
+                                        <input type="hidden " name="checkout " value="07/17/2017 " />
+                                        <input type="hidden " name="roomtype " value="201994384 " />
+                                        <input type="hidden " name="ratekey " value="1c0b82bb-0a71-42a3-96bd-f975e6ac0c82-5001 " />
+                                        <input type="hidden " name="ratecode " value="210175250 " />
+                                        <input type="hidden " name="hotel " value="540683 " />
+                                        <input type="hidden " name="sessionid " value="0ABAAC51-7163-9915-D472-02DD52901ED " />
+                                        <input type="hidden " name="user " value="register " />
+                                        <button type="submit " class="btn btn-default ">Register</button>
                                     </form>
-                                    <!--            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>-->
+                                    <!--            <button type="button " class="btn btn-danger " data-dismiss="modal ">Cancel</button>-->
                                 </div>
                             </div>
                         </div>
                     </div>
                     {%endfor %}
-                    <!--            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>-->
-
+                    <!--            <button type="button " class="btn btn-danger " data-dismiss="modal ">Cancel</button>-->
+                    <!--
                     <script>
                         jQuery(document).ready(function($) {
-                            $('.showcalendar').on('change', function() {
-                                var roomid = $(this).prop('id');
-                                var monthdata = $(this).val();
-                                $("#roomcalendar" + roomid).html("<br><br><div id='rotatingDiv'></div>");
-                                $.post("http://localhost/faisal/hotels/roomcalendar", {
-                                    roomid: roomid,
-                                    monthyear: monthdata
-                                }, function(theResponse) {
-                                    console.log(theResponse);
-                                    $("#roomcalendar" + roomid).html(theResponse);
-                                });
-                            });
-                        });
-                    </script>
+                                    $('.showcalendar').on('change', function() {
+                                                var roomid = $(this).prop('id');
+                                                var monthdata = $(this).val();
+                                                $("#roomcalendar " + roomid).html("<br><br> <div id = 'rotatingDiv' > < /div>");
+                                                $.post("http:/ / localhost / faisal / hotels / roomcalendar ", {
+                                                            roomid: roomid,
+                                                            monthyear: monthdata
+                                                        }, function(theResponse) {
+                                                            console.log(theResponse);
+                                                            $("#                    roomcalendar " + roomid).html(theResponse); }); });
+                                                            });
+                    </script>-->
                     <script>
                         $('.collapse').on('show.bs.collapse', function() {
                             $('.collapse.in').collapse('hide');
@@ -2073,8 +2099,8 @@
     </script>
 </body>
 
-<<<<<<< HEAD
-</html>
-=======
+<<<<<<< HEAD </html>
+    =======
+
 </html>
 >>>>>>> f0f16125687d17250c0f564f88fc1373167f0408
